@@ -264,6 +264,16 @@ public class DialogOnClickListenerClass implements View.OnClickListener {
                                             ItemClass ic = item[k-1];
                                             item[k-1] = item[k];
                                             item[k] = ic;
+                                        }else if( getDate(item[k].getPrefName()) < getDate(item[k-1].getPrefName()) ) {
+                                            //場所を交換する
+                                            TextView tv = Hijousyoku_tv[k - 1];
+                                            Hijousyoku_tv[k - 1] = Hijousyoku_tv[k];
+                                            Hijousyoku_tv[k] = tv;
+
+                                            //アイテム
+                                            ItemClass ic = item[k-1];
+                                            item[k-1] = item[k];
+                                            item[k] = ic;
                                         }
                                     }
                                 }
@@ -360,7 +370,7 @@ public class DialogOnClickListenerClass implements View.OnClickListener {
         } else if( nokori <= nissu ) {
             //賞味期限が期日に近づいたら表示
             str = HijousyokuName + "の賞味期限が" + nokori + "日前です";
-            if(nokori == 1) {
+            if(nokori == 0) {
                 //賞味期限が当日になったら表示
                 str = HijousyokuName + "の賞味期限が当日です";
             }
