@@ -1,0 +1,38 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:id="@+id/Relative"
+    tools:context="com.example.yamashitamasaki.hello_world.ButtonFragment">
+
+    <Button
+        android:layout_width="82dp"
+        android:layout_height="wrap_content"
+        android:text="設定"
+        android:id="@+id/settingbutton"
+        android:layout_alignParentTop="true"
+        android:layout_toEndOf="@+id/bichiku" />
+
+    <Button
+        android:layout_width="82dp"
+        android:layout_height="wrap_content"
+        android:text="ホーム"
+        android:id="@+id/home"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true" />
+
+    <Button
+        android:layout_width="82dp"
+        android:layout_height="wrap_content"
+        android:text="非常食"
+        android:id="@+id/hijousyoku"
+        android:layout_alignParentTop="true"
+        android:layout_toEndOf="@+id/home" />
+
+    <Button
+        android:layout_width="82dp"
+        android:layout_height="wrap_content"
+        android:text="備蓄品"
+        android:id="@+id/bichiku"
+        android:layout_alignParentTop="true"
+        android:layout_toEndOf="@+id/hijousyoku" />
+
+</RelativeLayout>

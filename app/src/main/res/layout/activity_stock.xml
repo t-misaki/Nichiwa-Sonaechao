@@ -1,0 +1,54 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="jp.co.nichiwa_system.yamashitamasaki.Sonaechao.Stock"
+    android:id="@+id/stock"
+    android:clickable="false"
+    android:focusable="false"
+    android:focusableInTouchMode="false"
+    android:nestedScrollingEnabled="false">
+
+    <fragment
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:name="jp.co.nichiwa_system.yamashitamasaki.Sonaechao.stock_list"
+        class="jp.co.nichiwa_system.yamashitamasaki.Sonaechao.stock_list"
+        android:id="@+id/Stock_list"
+        tools:layout="@layout/fragment_stock_list"
+        android:layout_above="@+id/fragment3"
+        android:layout_below="@+id/fragment5"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true" />
+
+    <fragment
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:name="jp.co.nichiwa_system.yamashitamasaki.Sonaechao.Ad"
+        class="jp.co.nichiwa_system.yamashitamasaki.Sonaechao.Ad"
+        android:id="@+id/fragment_ad"
+        tools:layout="@layout/fragment_ad"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentStart="true" />
+
+    <fragment
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:name="jp.co.nichiwa_system.yamashitamasaki.Sonaechao.ButtonFragment"
+        class="jp.co.nichiwa_system.yamashitamasaki.Sonaechao.ButtonFragment"
+        android:id="@+id/fragment3"
+        tools:layout="@layout/fragment_button"
+        android:layout_above="@+id/fragment_ad"
+        android:layout_centerHorizontal="true" />
+
+    <fragment
+        class="jp.co.nichiwa_system.yamashitamasaki.Sonaechao.TitleLogo"
+        tools:layout="@layout/fragment_title_logo"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:name="jp.co.nichiwa_system.yamashitamasaki.Sonaechao.TitleLogo"
+        android:id="@+id/fragment5"
+        android:layout_alignParentTop="true"
+        android:layout_alignStart="@+id/Stock_list" />
+
+</RelativeLayout>

@@ -1,0 +1,140 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <ImageButton
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:id="@+id/L_graph"
+        android:src="@drawable/l_graph0"
+        android:scaleType="fitXY"
+        android:layout_above="@+id/hijousyoku_nyuuryoku"
+        android:layout_alignStart="@+id/hijousyoku_nyuuryoku" />
+
+    <ImageButton
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:id="@+id/R_graph"
+        android:src="@drawable/r_graph0"
+        android:scaleType="fitXY"
+        android:layout_below="@+id/textView18"
+        android:layout_alignEnd="@+id/fragment" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:gravity="center"
+        android:text="非常食"
+        android:id="@+id/textView17"
+        android:layout_below="@+id/fragment4"
+        android:layout_alignStart="@+id/L_graph"
+        android:layout_marginTop="18dp"
+        android:layout_alignEnd="@+id/L_graph" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:gravity="center"
+        android:text="防災グッズ"
+        android:id="@+id/textView18"
+        android:layout_alignTop="@+id/textView17"
+        android:layout_alignEnd="@+id/R_graph"
+        android:layout_alignStart="@+id/R_graph" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="要チェック"
+        android:id="@+id/textView"
+        android:layout_centerVertical="true"
+        android:layout_alignStart="@+id/fragment"
+        android:layout_alignEnd="@+id/fragment" />
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="最終入力日:"
+        android:id="@+id/hijousyoku_nyuuryoku"
+        android:textSize="10dp"
+        android:layout_alignTop="@+id/bichiku_nyuuryoku"
+        android:layout_alignStart="@+id/hijousyoku_percent" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="最終入力日:"
+        android:id="@+id/bichiku_nyuuryoku"
+        android:textSize="10dp"
+        android:layout_below="@+id/R_graph"
+        android:layout_alignStart="@+id/R_graph" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="000%"
+        android:id="@+id/hijousyoku_percent"
+        android:textIsSelectable="false"
+        android:textSize="10dp"
+        android:layout_below="@+id/hijousyoku_nyuuryoku"
+        android:layout_alignStart="@+id/fragment3" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="000%"
+        android:id="@+id/bichiku_percent"
+        android:textIsSelectable="false"
+        android:textSize="10dp"
+        android:layout_below="@+id/bichiku_nyuuryoku"
+        android:layout_alignStart="@+id/bichiku_nyuuryoku" />
+
+    <fragment
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:name="jp.co.nichiwa_system.yamashitamasaki.Sonaechao.WorthChecking"
+        class="jp.co.nichiwa_system.yamashitamasaki.Sonaechao.WorthChecking"
+        android:id="@+id/fragment"
+        tools:layout="@layout/fragment_worth_checking"
+        android:layout_below="@+id/textView"
+        android:layout_above="@+id/fragment3"
+        android:layout_alignStart="@+id/fragment3"
+        android:layout_alignEnd="@+id/fragment3" />
+
+    <fragment
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:name="jp.co.nichiwa_system.yamashitamasaki.Sonaechao.Ad"
+        class="jp.co.nichiwa_system.yamashitamasaki.Sonaechao.Ad"
+        android:id="@+id/fragment_ad"
+        tools:layout="@layout/fragment_ad"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentStart="true" />
+
+    <fragment
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:name="jp.co.nichiwa_system.yamashitamasaki.Sonaechao.ButtonFragment"
+        class="jp.co.nichiwa_system.yamashitamasaki.Sonaechao.ButtonFragment"
+        android:id="@+id/fragment3"
+        tools:layout="@layout/fragment_button"
+        android:layout_above="@+id/fragment_ad"
+        android:layout_centerHorizontal="true" />
+
+    <fragment
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:name="jp.co.nichiwa_system.yamashitamasaki.Sonaechao.TitleLogo"
+        class="jp.co.nichiwa_system.yamashitamasaki.Sonaechao.TitleLogo"
+        tools:layout="@layout/fragment_title_logo"
+        android:id="@+id/fragment4"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true" />
+
+</RelativeLayout>

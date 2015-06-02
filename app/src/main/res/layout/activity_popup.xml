@@ -1,0 +1,80 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="fill_parent"
+    android:layout_height="fill_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context="com.example.yamashitamasaki.hello_world.popup"
+    >
+
+
+    <EditText
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:ems="10"
+        android:maxLength="2"
+        android:id="@+id/Number"
+        android:layout_alignBottom="@+id/textView26"
+        android:layout_toStartOf="@+id/textView26" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="個"
+        android:id="@+id/textView26"
+        android:layout_marginTop="92dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageView"
+        android:src="@drawable/gas"
+        android:layout_above="@+id/popup_day"
+        android:layout_toEndOf="@+id/textView26" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="大人00人分"
+        android:id="@+id/otona_text"
+        android:layout_above="@+id/kobito_text"
+        android:layout_alignStart="@+id/kobito_text" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="小人00人分"
+        android:id="@+id/kobito_text"
+        android:layout_above="@+id/youji_text"
+        android:layout_alignStart="@+id/youji_text" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="幼児00人分"
+        android:id="@+id/youji_text"
+        android:layout_above="@+id/Number"
+        android:layout_alignStart="@+id/Number" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="0000年00月00日"
+        android:id="@+id/popup_day"
+        android:layout_marginTop="30dp"
+        android:layout_below="@+id/Number"
+        android:layout_centerHorizontal="true" />
+
+    <ImageView
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:id="@+id/imageCalender"
+        android:src="@drawable/calendar"
+        android:layout_alignBottom="@+id/popup_day"
+        android:layout_toEndOf="@+id/popup_day" />
+
+</RelativeLayout>

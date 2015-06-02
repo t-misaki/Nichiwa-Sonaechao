@@ -1,0 +1,170 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:id="@+id/ScrollView2"
+    tools:context="jp.co.nichiwa_system.yamashitamasaki.Sonaechao.Hijousyoku_List"
+    android:background="#FFFFFF">
+
+    <GridLayout
+        android:id="@+id/ListLayout"
+        android:orientation="vertical"
+        android:layout_height="match_parent"
+        android:layout_width="fill_parent"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="食べ物"
+                android:id="@+id/textView25"
+                android:layout_row="0"
+                android:layout_column="0" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="80dp"
+                android:id="@+id/retoruto_gohan"
+                android:src="@drawable/retoruto_gohan"
+                android:scaleType="fitXY"
+                android:layout_row="1"
+                android:layout_column="0" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="80dp"
+                android:id="@+id/kandume"
+                android:src="@drawable/kandume_gohan"
+                android:scaleType="fitXY"
+                android:layout_alignTop="@+id/retoruto_gohan"
+                android:layout_toStartOf="@+id/furizu_dorai"
+                android:layout_row="1"
+                android:layout_column="1" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="80dp"
+                android:id="@+id/kanmen"
+                android:src="@drawable/kanmen"
+                android:layout_alignTop="@+id/kandume"
+                android:layout_toEndOf="@+id/kandume"
+                android:scaleType="fitXY"
+                android:layout_row="1"
+                android:layout_column="2" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="80dp"
+                android:id="@+id/kanpan"
+                android:src="@drawable/kanpan"
+                android:scaleType="fitXY"
+                android:layout_alignTop="@+id/kanmen"
+                android:layout_toEndOf="@+id/kanmen"
+                android:layout_row="1"
+                android:layout_column="3" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="80dp"
+                android:id="@+id/kandume2"
+                android:src="@drawable/kandume"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/retoruto_gohan"
+                android:scaleType="fitXY"
+                android:layout_row="2"
+                android:layout_column="0" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="80dp"
+                android:id="@+id/retoruto"
+                android:src="@drawable/retoruto"
+                android:scaleType="fitXY"
+                android:layout_row="2"
+                android:layout_column="1" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="80dp"
+                android:id="@+id/furizu_dorai"
+                android:layout_alignTop="@+id/retoruto"
+                android:layout_toEndOf="@+id/retoruto"
+                android:src="@drawable/furizu_dorai"
+                android:scaleType="fitXY"
+                android:layout_row="2"
+                android:layout_column="2" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="80dp"
+                android:id="@+id/karori_meito"
+                android:src="@drawable/karori_meito"
+                android:layout_below="@+id/kanpan"
+                android:layout_toEndOf="@+id/furizu_dorai"
+                android:scaleType="fitXY"
+                android:layout_row="2"
+                android:layout_column="3" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="80dp"
+                android:id="@+id/okasi"
+                android:src="@drawable/okasi"
+                android:scaleType="fitXY"
+                android:layout_below="@+id/kandume2"
+                android:layout_alignParentStart="true"
+                android:layout_row="3"
+                android:layout_column="0" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="幼児用"
+                android:id="@+id/textView2"
+                android:layout_row="4"
+                android:layout_column="0" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="80dp"
+                android:id="@+id/rinyu"
+                android:src="@drawable/rinyu"
+                android:scaleType="fitXY"
+                android:layout_below="@+id/kandume2"
+                android:layout_toEndOf="@+id/okasi"
+                android:layout_row="5"
+                android:layout_column="0" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="80dp"
+                android:id="@+id/konamilk"
+                android:src="@drawable/konamilk"
+                android:scaleType="fitXY"
+                android:layout_below="@+id/furizu_dorai"
+                android:layout_alignStart="@+id/furizu_dorai"
+                android:layout_row="5"
+                android:layout_column="1" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="水"
+                android:id="@+id/textView22"
+                android:layout_row="6"
+                android:layout_column="0" />
+
+            <ImageView
+                android:layout_width="85dp"
+                android:layout_height="80dp"
+                android:id="@+id/mizu"
+                android:src="@drawable/mizu"
+                android:scaleType="fitXY"
+                android:layout_below="@+id/textView23"
+                android:layout_alignParentStart="true"
+                android:layout_row="7"
+                android:layout_column="0" />
+    </GridLayout>
+
+</ScrollView>
