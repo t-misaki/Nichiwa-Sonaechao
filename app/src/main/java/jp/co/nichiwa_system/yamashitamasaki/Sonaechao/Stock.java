@@ -52,7 +52,6 @@ public class Stock extends Activity {
                 (ImageView)findViewById(R.id.omutuView),
                 (ImageView)findViewById(R.id.dentiView),
                 (ImageView)findViewById(R.id.nebukuroView),
-                (ImageView)findViewById(R.id.koppuView),
                 (ImageView)findViewById(R.id.utuwaView),
                 (ImageView)findViewById(R.id.taoruView),
         };
@@ -69,7 +68,7 @@ public class Stock extends Activity {
                 new ItemClass("ラップ", "rap_number", R.drawable.rappu, false,"本", this),
                 new ItemClass("軍手", "gunnte_number", R.drawable.gunnte, false,"対", this),
                 new ItemClass("マスク", "mask_number", R.drawable.mask, false,"×１００枚", this),
-                new ItemClass("ビニール袋", "mask_number", R.drawable.hukuro, false,"×１０枚", this),
+                new ItemClass("ビニール袋", "bag_number", R.drawable.hukuro, false,"×１０枚", this),
                 new ItemClass("懐中電灯", "kaityu_number", R.drawable.kaityu, false,"本", this),
                 new ItemClass("缶切り", "kankiri_number", R.drawable.kankiri, false,"個", this),
                 new ItemClass("ラジオ", "radio_number", R.drawable.radio, false,"個", this),
@@ -81,7 +80,6 @@ public class Stock extends Activity {
                 new ItemClass("おむつ", "omutu_number", R.drawable.omutu, false,"枚", this),
                 new ItemClass("電池", "denti_number", R.drawable.denti, true,"×１０本", this),
                 new ItemClass("寝袋", "nebukuro_number", R.drawable.nebukuro, false, this),
-                new ItemClass("コップ", "koppu_number", R.drawable.koppu, false,"個", this),
                 new ItemClass("器", "utuwa_number", R.drawable.utuwa, false,"枚", this),
                 new ItemClass("タオル", "taoru_number", R.drawable.taoru, false,"枚", this),
         };
