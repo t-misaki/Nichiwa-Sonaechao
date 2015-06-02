@@ -33,8 +33,10 @@ public class Stock extends Activity {
                 (ImageView)findViewById(R.id.bombeView),
                 (ImageView)findViewById(R.id.whistleView),
                 (ImageView)findViewById(R.id.shitagiView),
+                (ImageView)findViewById(R.id.kodomoView),
                 (ImageView)findViewById(R.id.tissueView),
                 (ImageView)findViewById(R.id.almiView),
+                (ImageView)findViewById(R.id.rapView),
                 (ImageView)findViewById(R.id.gunnteView),
                 (ImageView)findViewById(R.id.maskView),
                 (ImageView)findViewById(R.id.biniiruView),
@@ -43,11 +45,15 @@ public class Stock extends Activity {
                 (ImageView)findViewById(R.id.radioView),
                 (ImageView)findViewById(R.id.judenkiView),
                 (ImageView)findViewById(R.id.supunView),
+                (ImageView)findViewById(R.id.hasiView),
                 (ImageView)findViewById(R.id.koppuView),
-                (ImageView)findViewById(R.id.kyuugoView),
                 (ImageView)findViewById(R.id.nyujiView),
+                (ImageView)findViewById(R.id.omutuView),
                 (ImageView)findViewById(R.id.dentiView),
                 (ImageView)findViewById(R.id.nebukuroView),
+                (ImageView)findViewById(R.id.koppuView),
+                (ImageView)findViewById(R.id.utuwaView),
+                (ImageView)findViewById(R.id.taoruView),
         };
         //備蓄品の項目を取得する
         ItemClass[] item = {
@@ -55,22 +61,28 @@ public class Stock extends Activity {
                 new ItemClass("マッチ・ライター", "match_number", R.drawable.match, false, this),
                 new ItemClass("ガスボンベ", "bombe_number", R.drawable.bombe, true, this),
                 new ItemClass("笛", "whistle_number", R.drawable.whistle, false, this),
-                new ItemClass("下着", "shitagi_number", R.drawable.shitagi, false, this),
+                new ItemClass("大人下着", "shitagi_number", R.drawable.otona, false, this),
+                new ItemClass("子供下着", "kodomo_number", R.drawable.kodomo, false, this),
                 new ItemClass("ティッシュ", "tissue_number", R.drawable.tissue, false, this),
                 new ItemClass("アルミホイル", "almi_number", R.drawable.almi, false, this),
+                new ItemClass("ラップ", "rap_number", R.drawable.rappu, false, this),
                 new ItemClass("軍手", "gunnte_number", R.drawable.gunnte, false, this),
                 new ItemClass("マスク", "mask_number", R.drawable.mask, false, this),
-                new ItemClass("ビニール袋", "mask_number", R.drawable.biniiru, false, this),
+                new ItemClass("ビニール袋", "mask_number", R.drawable.hukuro, false, this),
                 new ItemClass("懐中電灯", "kaityu_number", R.drawable.kaityu, false, this),
                 new ItemClass("缶切り", "kankiri_number", R.drawable.kankiri, false, this),
                 new ItemClass("ラジオ", "radio_number", R.drawable.radio, false, this),
                 new ItemClass("充電器", "judenki_number", R.drawable.judenti, true, this),
-                new ItemClass("器・スプーン", "supun_number", R.drawable.supun, false, this),
-                new ItemClass("食器・コップ", "koppu_number", R.drawable.koppu, false, this),
-                new ItemClass("救護セット", "kyuugo_number", R.drawable.kyuugo, false, this),
-                new ItemClass("乳児セット", "nyuji_number", R.drawable.nyuji, false, this),
+                new ItemClass("スプーン", "supun_number", R.drawable.spoon, false, this),
+                new ItemClass("箸", "hasi_number", R.drawable.hasi, false, this),
+                new ItemClass("コップ", "koppu_number", R.drawable.koppu, false, this),
+                new ItemClass("哺乳びん", "nyuji_number", R.drawable.bin, false, this),
+                new ItemClass("おむつ", "omutu_number", R.drawable.omutu, false, this),
                 new ItemClass("電池", "denti_number", R.drawable.denti, true, this),
                 new ItemClass("寝袋", "nebukuro_number", R.drawable.nebukuro, true, this),
+                new ItemClass("コップ", "koppu_number", R.drawable.koppu, false, this),
+                new ItemClass("器", "utuwa_number", R.drawable.utuwa, false, this),
+                new ItemClass("タオル", "taoru_number", R.drawable.taoru, false, this),
         };
 
         // 戻る画面
@@ -83,7 +95,7 @@ public class Stock extends Activity {
         DispBtn.setOnClickListener( new OnClickTransListenerClass(".SubActivity",this ) );
 
         //枠線をつける
-        for( int i = 0 ; i < Stock_iv.length ; i++ ) {
+       for( int i = 0 ; i < Stock_iv.length ; i++ ) {
             //ボタンアクションの処理
             Stock_iv[i].setOnClickListener(new DialogOnClickListenerClass(item[i]));
             //期限の切れているものは赤線を敷く
