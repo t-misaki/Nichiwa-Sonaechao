@@ -47,7 +47,7 @@ public class MainActivity extends Activity {
 
     //非常食の項目を取得する
     ItemClass[] item = {
-            new ItemClass("レトルトご飯", "retorutogohan_number", R.drawable.retoruto_gohan, true,"袋", this),
+            new ItemClass("レトルトご飯", "retorutogohan_number", R.drawable.retoruto_gohan, true,"食", this),
             new ItemClass("缶詰（ご飯）", "kandume_number", R.drawable.kandume_gohan, true,"缶", this),
             new ItemClass("乾麺", "kanmen_number", R.drawable.kanmen, true,"袋", this),
             new ItemClass("乾パン", "kanpan_number", R.drawable.kanpan, true,"缶", this),
