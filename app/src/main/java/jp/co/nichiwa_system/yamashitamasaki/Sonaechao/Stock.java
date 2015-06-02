@@ -87,9 +87,9 @@ public class Stock extends Activity {
         };
 
         // 戻る画面
-        Button Home = (Button)findViewById(R.id.home);//「ホーム」ボタン
-        Button DispBtn = (Button)findViewById(R.id.settingbutton);//「設定」ボタン
-        Button hijousyoku = (Button)findViewById(R.id.hijousyoku);//「非常食」ボタン
+        ImageButton Home = (ImageButton)findViewById(R.id.home);//「ホーム」ボタン
+        ImageButton DispBtn = (ImageButton)findViewById(R.id.settingbutton);//「設定」ボタン
+        ImageButton hijousyoku = (ImageButton)findViewById(R.id.hijousyoku);//「非常食」ボタン
 
         Home.setOnClickListener( new OnClickTransListenerClass(this) );
         hijousyoku.setOnClickListener( new OnClickTransListenerClass(".Hijousyoku",this ) );

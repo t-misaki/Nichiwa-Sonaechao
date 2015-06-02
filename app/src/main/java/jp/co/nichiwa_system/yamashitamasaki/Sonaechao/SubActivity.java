@@ -18,6 +18,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
@@ -74,9 +75,9 @@ public class SubActivity extends Activity {
         kijitu_et.setOnClickListener( new OnClick( kijitu_day, R.id.EditText3 ) );  //期日
         settei_et.setOnClickListener( new OnClick( nissuu_day, R.id.EditText4 ) );  //備えちゃお日数
 
-        Button Home = (Button)findViewById(R.id.home);          //「ホーム」ボタン
-        Button Stock = (Button)findViewById(R.id.bichiku);           //「備蓄」ボタン
-        Button hijousyoku = (Button)findViewById(R.id.hijousyoku);  //「非常食」ボタン
+        ImageButton Home = (ImageButton)findViewById(R.id.home);          //「ホーム」ボタン
+        ImageButton Stock = (ImageButton)findViewById(R.id.bichiku);           //「備蓄」ボタン
+        ImageButton hijousyoku = (ImageButton)findViewById(R.id.hijousyoku);  //「非常食」ボタン
 
         //移動
         Home.setOnClickListener( new OnClickListenerClass() );
