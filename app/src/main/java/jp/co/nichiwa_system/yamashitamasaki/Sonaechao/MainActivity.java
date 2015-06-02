@@ -67,10 +67,10 @@ public class MainActivity extends Activity {
         //activity_main.xmlを使う場合これを宣言する
         setContentView(R.layout.activity_main);
 
-        Button DispBtn = (Button)findViewById(R.id.settingbutton);//「設定」ボタン
-        Button Home = (Button)findViewById(R.id.home);//「ホーム」ボタン
-        Button Stock = (Button)findViewById(R.id.bichiku);//「備蓄」ボタン
-        Button hijousyoku = (Button)findViewById(R.id.hijousyoku);//「非常食」ボタン
+        ImageButton DispBtn = (ImageButton)findViewById(R.id.settingbutton);//「設定」ボタン
+        ImageButton Home = (ImageButton)findViewById(R.id.home);//「ホーム」ボタン
+        ImageButton Stock = (ImageButton)findViewById(R.id.bichiku);//「備蓄」ボタン
+        ImageButton hijousyoku = (ImageButton)findViewById(R.id.hijousyoku);//「非常食」ボタン
 
         ImageButton hijousyoku_ib = (ImageButton)findViewById(R.id.L_graph);
         ImageButton bichiku_ib = (ImageButton)findViewById(R.id.R_graph);
