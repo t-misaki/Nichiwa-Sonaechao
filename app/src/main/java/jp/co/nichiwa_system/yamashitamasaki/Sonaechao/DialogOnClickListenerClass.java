@@ -50,19 +50,19 @@ public class DialogOnClickListenerClass implements View.OnClickListener {
     //ItemClassのコンストラクタ
     public DialogOnClickListenerClass(ItemClass item){
         //ずばっと
-        this(item.getName(),item.getPrefName(),item.getDrawable_Location(),item.getCalender_flag(),item.getActivity());
+        this(item.getName(),item.getPrefName(),item.getDrawable_Location(),item.getCalender_flag(),item.getUnit(),item.getActivity());
         this.Number = item.getNumber();
     }
 
     public DialogOnClickListenerClass(String TitleName, String DateName, int img_id, boolean calendarshow, String tani, Activity act){
         //他のものは下記のコンストラクタへ運ぶ
-        this(TitleName,DateName,img_id,calendarshow,act);
+       this(TitleName,DateName,img_id,calendarshow,act);
         //単位を挿入
         this.tani = tani;
     }
 
     //コンストラクタ
-    public DialogOnClickListenerClass(String TitleName, String DateName, int img_id, boolean calendarshow, Activity act) {
+   public DialogOnClickListenerClass(String TitleName, String DateName, int img_id, boolean calendarshow, Activity act) {
         this.TitleName     = TitleName;
         this.DateName      = DateName;
         this.img_id        = img_id;
@@ -90,6 +90,10 @@ public class DialogOnClickListenerClass implements View.OnClickListener {
         ImageView img = (ImageView)viw.findViewById(R.id.imageView);
         //画像を変更
         img.setImageResource(img_id);
+
+               //文字を変える
+       // TextView tv = (TextView) viw.findViewById(R.id.textView26);
+       // tv.setText(tani);
 
         //EditTextを取得する
         final EditText et = (EditText)viw.findViewById(R.id.Number);
@@ -121,9 +125,9 @@ public class DialogOnClickListenerClass implements View.OnClickListener {
             //単位を変える必要がある場合
             if( tani != null ) {
                 //文字を変える
-                TextView tv = (TextView) viw.findViewById(R.id.textView26);
-                tv.setText(tani);
-            }
+            TextView tv = (TextView) viw.findViewById(R.id.textView26);
+            tv.setText(tani);
+        }
 
             //カレンダー画像の取得
             ImageView Clock_iv = (ImageView)viw.findViewById(R.id.imageCalender);
