@@ -112,57 +112,49 @@ public class MainActivity extends Activity {
         goukei[0] = eiyou();
 
         //左グラフの画像
-        if( goukei[0] <= 0 )
+        if( goukei[0] < 10 )
         {
             L_button.setImageResource(R.drawable.l_graph0);
         }
-        else if( 1 <= goukei[0] && goukei[0] < 10 )
+        else if( 10 <= goukei[0] && goukei[0] < 20 )
         {
             L_button.setImageResource(R.drawable.l_graph1);
         }
-        else if( 10 <= goukei[0] && goukei[0] < 20 )
+        else if( 20 <= goukei[0] && goukei[0] < 30 )
         {
             L_button.setImageResource(R.drawable.l_graph2);
         }
-        else if( 20 <= goukei[0] && goukei[0] < 30 )
+        else if( 30 <= goukei[0] && goukei[0] < 40 )
         {
             L_button.setImageResource(R.drawable.l_graph3);
         }
-        else if( 30 <= goukei[0] && goukei[0] < 40 )
+        else if( 40 <= goukei[0] && goukei[0] < 50 )
         {
             L_button.setImageResource(R.drawable.l_graph4);
         }
-        else if( 40 <= goukei[0] && goukei[0] < 50 )
+        else if( 50 <= goukei[0] && goukei[0] < 60 )
         {
             L_button.setImageResource(R.drawable.l_graph5);
         }
-        else if( 50 <= goukei[0] && goukei[0] < 60 )
+        else if( 60 <= goukei[0] && goukei[0] < 70 )
         {
             L_button.setImageResource(R.drawable.l_graph6);
         }
-        else if( 60 <= goukei[0] && goukei[0] < 70 )
+        else if( 70 <= goukei[0] && goukei[0] < 80 )
         {
             L_button.setImageResource(R.drawable.l_graph7);
         }
-        else if( 70 <= goukei[0] && goukei[0] < 80 )
+        else if( 80 <= goukei[0] && goukei[0] < 90 )
         {
             L_button.setImageResource(R.drawable.l_graph8);
         }
-        else if( 80 <= goukei[0] && goukei[0] < 90 )
+        else if( 90 <= goukei[0] && goukei[0] < 100 )
         {
             L_button.setImageResource(R.drawable.l_graph9);
         }
-        else if( 90 <= goukei[0] && goukei[0] < 100 )
+        else if( 100 >= goukei[0])
         {
             L_button.setImageResource(R.drawable.l_graph10);
-        }
-        else if( 100 <= goukei[0] && goukei[0] < 110 )
-        {
-            L_button.setImageResource(R.drawable.l_graph11);
-        }
-        else if( 110 <= goukei[0] )
-        {
-            L_button.setImageResource(R.drawable.l_graph12);
         }
 
         //グラフのパーセント値を表示する
@@ -172,7 +164,7 @@ public class MainActivity extends Activity {
         goukei[1] = 71;
 
         //右グラフの画像
-        if( goukei[1] < 0 )
+        if( goukei[1] <= 0 )
         {
             R_button.setImageResource(R.drawable.r_graph0);
         }
@@ -492,45 +484,58 @@ public class MainActivity extends Activity {
         int setDays = pref.getInt("sitei_day",3);
 
         //各合計
-        int Hijousyoku_sum = reto_g + kan + kanmen + kanpan + kan2 + reto + furizu + karori + okasi + rinyu + konamilk;
+        int Hijousyoku_sum = reto_g + kan + kanmen + kanpan + kan2 + reto + furizu + karori + okasi;
+        int Hijoushoku_baby = rinyu + konamilk;
 
         double food_a, food_c, food_b;
         //大人小人幼児の必要数格納用
         double MAX;
         //水の備蓄の％格納用
         double s_w = 0;
-        //非常食の備蓄の％格納用
+        //食べ物の備蓄の％格納用
         double p;
         //非常食（大人用）の栄養価合計値
-        double v;
+        double okAll;
+        double bAll;
+        double tAll;
+        double div = 2.0;
 
         //栄養価の計算。乾パンとカロリーメイトを抜いたものは栄養価１．乾パン、カロリーメイトは３。
-        v = ((Hijousyoku_sum - kanpan - karori) * 1) + (kanpan + karori) * 3;
-        //大人の必要数計算
-        food_a = v;
-        if (food_a >= 3 * adult_n) {
-            food_a = 3 * adult_n;
-        }//←この３は必要数。大人なら３日で９．７日で２１。
-        // v = 栄養量の合計値 - 大人が消費した栄養量
-        v = v - food_a;
-        //小人の必要数計算
-        food_c = v;
-        if (food_c >= 2 * child_n) {
-            food_c = 2 * child_n;
-        }
-        //幼児の必要数計算
-        //幼児の栄養価の計算。離乳食１、粉ミルク３．
-        food_b = rinyu + konamilk * 3;
-        if (food_b >= 3 * baby_n) {
-            food_b = 3 * baby_n;
+        //  大小限定の栄養価総計。over kids All
+        okAll = ((Hijousyoku_sum - kanpan - karori) * 1) + (kanpan + karori) * 3;
+
+        //  幼児限定の栄養価総計。baby All
+        bAll  = ( konamilk * 3 ) + rinyu;
+
+        //  大小の割合。
+        double rateOK = okAll / ((( adult_n * 3 ) + ( child_n * 2 )) * setDays );
+
+        if(rateOK >= 1.0){
+            rateOK = 1.0;
         }
 
-        //大人、小人、幼児の必要数を計算。
-        //　備えちゃお日数が抜けていたので追加。
-        MAX = ((adult_n * 3) + (child_n * 2) + (baby_n * 3)) * setDays;
+        double rateB  = bAll / (( baby_n * 3 ) * setDays );
 
-        //備蓄は何％あるか計算。最大50％
-        p = ((food_a + food_b + food_c) / MAX) * 50;
+        if(rateB >= 1.0){
+            rateB = 1.0;
+        }
+
+        if(!( adult_n > 0 || child_n > 0 )){
+            rateOK = 0.0;
+            div -= 1.0;
+        }
+        if(!(baby_n > 0)){
+            rateB = 0.0;
+            div -= 1.0;
+        }
+
+        tAll = rateOK + rateB;
+
+        if(!(div == 0.0)){
+            p = ( tAll / div ) * 50.0;
+        }else{
+            p = 0.0;
+        }
 
         //水の必要数の計算
         //　水の部分が計算が異なっていたので修正。修正者：岡田
