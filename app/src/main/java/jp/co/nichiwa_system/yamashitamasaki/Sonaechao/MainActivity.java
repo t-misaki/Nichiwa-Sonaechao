@@ -112,7 +112,7 @@ public class MainActivity extends Activity {
         goukei[0] = eiyou();
 
         //左グラフの画像
-        if( goukei[0] < 0 )
+        if( goukei[0] <= 0 )
         {
             L_button.setImageResource(R.drawable.l_graph0);
         }
@@ -483,81 +483,16 @@ public class MainActivity extends Activity {
         int karori = pref.getInt("karori_meito_number", 0);
         int okasi = pref.getInt("okasi_number", 0);
 
-
-        //現在保存されている非常食の数
-        int[] Hijou_present = {
-                kan,
-                reto,
-                kanmen,
-                kanpan,
-                kan2,
-                furizu,
-                (int)mizu,
-                rinyu,
-                konamilk,
-                karori,
-                okasi
-        };
-
-
         //人数
         int adult_n = pref.getInt("otona_people", 0);
         int child_n = pref.getInt("kobito_people", 0);
         int baby_n = pref.getInt("youji_people", 0);
 
-
-        String today_last = pref.getString("today", "まだ入力されていません。");
-        String today_last_s = pref.getString("today_s", "まだ入力されていません。");
-
-        //  日数 ×( 人数合計 ×（　1コの栄養量×量　） ) = パーセンテージ
-        //　日数
-        int nissu = pref.getInt("sitei_day",3);
-
-        //非常食1個のおおよその栄養量
-        //ゼロの場合は栄養なし
-        int[][] Hijou_eiyou = {
-                { 1, 1, 0 }, //缶詰ゴハン
-                { 1, 1, 0 }, //乾麺
-                { 3, 3, 0 }, //カンパン
-                { 1, 1, 0 }, //レトルトご飯
-                { 1, 1, 0 }, //フリーズドライ
-                { 1, 1, 0 }, //レトルト食品
-                { 1, 1, 0 }, //缶詰め（肉・魚）
-                { 3, 3, 0 }, //カロリーメイト（一箱で3栄養）
-                { 1, 1, 0 }, //お菓子類（1で1箱・1袋）
-                { 0, 0, 1 }, //離乳食（1で80g）
-                { 0, 0, 3 }, //粉ミルク（ 3で1000ml Lサイズのペットボトルに相当 ）
-                { 1, 1, 1 }  //水（1ℓで1栄養　1本に1ℓ ふつうのペットボトル相当）
-        };
-
-        //1日生きるために最低限必要な量
-        int[][] Hijou_num = {
-                { 1, 1, 0 }, //缶詰ゴハン
-                { 1, 1, 0 }, //乾麺
-                { 1, 1, 0 }, //カンパン
-                { 1, 1, 0 }, //レトルトご飯
-                { 1, 1, 0 }, //フリーズドライ
-                { 1, 1, 0 }, //レトルト食品
-                { 1, 1, 0 }, //缶詰め（肉・魚）
-                { 1, 1, 0 }, //カロリーメイト（一箱で3栄養）
-                { 1, 1, 0 }, //お菓子類（1で1箱・1袋）
-                { 0, 0, 1 }, //粉ミルク（ 1000mlで3栄養 Lサイズのペットボトルに相当 ）
-                { 3, 2, 2 }  //水（1ℓで1栄養　ふつうのペットボトル相当）
-        };
-
-        //非常食の種類
-        int Hijou_type = Hijou_num.length;
-        //人の種類
-        int Human_type = 3;
+        //  設定人数。訂正者：岡田
+        int setDays = pref.getInt("sitei_day",3);
 
         //各合計
-        //int sum = g + m + b + h + s + t + a + gun;
-        int Hijousyoku_sum = reto_g + kan + kan + kanpan + kan2 + reto + furizu + karori + okasi + rinyu + konamilk;
-        //String str = "備蓄品:"+String.valueOf(sum);
-        String Hijousyoku_str2 = "非常食:" + String.valueOf(Hijousyoku_sum);
-        //int hoge = setting.getInt("setting_sp",0);
-
-        double mizu_a, mizu_c, mizu_b;
+        int Hijousyoku_sum = reto_g + kan + kanmen + kanpan + kan2 + reto + furizu + karori + okasi + rinyu + konamilk;
 
         double food_a, food_c, food_b;
         //大人小人幼児の必要数格納用
@@ -568,46 +503,6 @@ public class MainActivity extends Activity {
         double p;
         //非常食（大人用）の栄養価合計値
         double v;
-
-
-        /*
-        //水を除く栄養量
-        int Hijou_All_Eiyou = 0;
-
-        for( int j = 0 ; j < Hijou_type-1 ; j++ ) {
-            for( int k = 0 ; k < Hijou_num[j].length ; k++ ) {
-                Hijou_All_Eiyou = Hijou_num[j][k] * Hijou_eiyou[j][k];
-            }
-        }
-        // 人数×全体の栄養量
-        Hijou_All_Eiyou *= ( adult_n + child_n + baby_n );
-
-        // 日数×一日に最低必要な栄養量
-        // これが最低限必要な栄養量である
-        Hijou_All_Eiyou *= nissu;
-
-        //  日数 ×( 人数合計 ×（　1コの栄養量×量　） ) = パーセント
-
-        int imamotterueiyouryou = 0;
-        //現在持っているやつ
-        for( int j = 0 ; j < Hijou_type-1 ; j++ ) {
-            //おおよその栄養量
-            int num =  Hijou_eiyou[j][0] + Hijou_eiyou[j][1] + Hijou_eiyou[j][2];
-            imamotterueiyouryou = Hijou_present[j] * num;
-        }
-
-        // 人数×現在所持している量から割り出された栄養量
-        imamotterueiyouryou *= ( adult_n + child_n + baby_n );
-
-        imamotterueiyouryou *= nissu;
-
-        // （持っている栄養量÷必要最低限の栄養量） ÷ 2
-        double percent = ( imamotterueiyouryou / Hijou_All_Eiyou );
-
-        int aaaa =  (int)(percent*100);
-
-        return aaaa;*/
-
 
         //栄養価の計算。乾パンとカロリーメイトを抜いたものは栄養価１．乾パン、カロリーメイトは３。
         v = ((Hijousyoku_sum - kanpan - karori) * 1) + (kanpan + karori) * 3;
@@ -629,31 +524,25 @@ public class MainActivity extends Activity {
         if (food_b >= 3 * baby_n) {
             food_b = 3 * baby_n;
         }
+
         //大人、小人、幼児の必要数を計算。
-        MAX = (adult_n * 3) + (child_n * 2) + (baby_n * 3);
+        //　備えちゃお日数が抜けていたので追加。
+        MAX = ((adult_n * 3) + (child_n * 2) + (baby_n * 3)) * setDays;
+
         //備蓄は何％あるか計算。最大50％
         p = ((food_a + food_b + food_c) / MAX) * 50;
 
         //水の必要数の計算
-        //大人の必要数
-        mizu_a = mizu * 3;
-        if (mizu_a > 3 * adult_n) {
-            mizu_a = 3 * adult_n;
-        }
-        mizu = mizu * 3 - mizu_a;
-        //小人の必要数
-        mizu_c = mizu * 2;
-        if (mizu_c > 2 * child_n) {
-            mizu_c = 2 * child_n;
-        }
-        mizu = mizu * 2 - mizu_c;
-        //幼児の必要数
-        mizu_b = mizu * 2;
-        if (mizu_b > 2 * baby_n) {
-            mizu_b = 2 * baby_n;
-        }
+        //　水の部分が計算が異なっていたので修正。修正者：岡田
+        double   adult_w = adult_n * 3;
+        double   child_w = child_n * 2;
+        double   baby_w  = baby_n  * 2;
+
+        //  水の必要値の算出。備えちゃお日数も追加。
+        double   total_w = (adult_w + child_w + baby_w) * setDays;
+
         //備蓄は何％あるか計算。最大50％
-        s_w = ((mizu_a + mizu_c + mizu_b) / MAX) * 50;
+        s_w = ( mizu / total_w ) * 50;
         //非常食と水の備蓄を合計。最大100％
         s_w = s_w + p;
 
