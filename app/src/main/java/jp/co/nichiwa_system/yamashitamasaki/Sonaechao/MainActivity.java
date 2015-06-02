@@ -360,12 +360,19 @@ public class MainActivity extends Activity {
         //備蓄品の最終入力日
         pref = getSharedPreferences("Stock_pref",MODE_PRIVATE);
         cl.set( pref.getInt("year", 2000), pref.getInt("month", 1), pref.getInt("day", 1) );
-        b_tv.setText( "最終入力日:" + cl.get(Calendar.YEAR) + "年" + (cl.get(Calendar.MONTH)+1) + "月" + cl.get(Calendar.DAY_OF_MONTH) + "日" );
-
+        if( pref.getInt("year", 2000) == 2000 && pref.getInt("month", 1) == 1 && pref.getInt("day", 1) == 1) {
+            b_tv.setText("備蓄品はまだ入力されていません");
+        } else {
+            b_tv.setText("最終入力日:" + cl.get(Calendar.YEAR) + "年" + (cl.get(Calendar.MONTH) + 1) + "月" + cl.get(Calendar.DAY_OF_MONTH) + "日");
+        }
         //非常食の最終入力日
         pref = getSharedPreferences("Hijousyoku_pref",MODE_PRIVATE);
         cl.set( pref.getInt("year", 2000), pref.getInt("month", 1), pref.getInt("day", 1) );
-        h_tv.setText("最終入力日:" + cl.get(Calendar.YEAR) + "年" + (cl.get(Calendar.MONTH) + 1) + "月" + cl.get(Calendar.DAY_OF_MONTH) + "日");
+        if( pref.getInt("year", 2000) == 2000 && pref.getInt("month", 1) == 1 && pref.getInt("day", 1) == 1) {
+            h_tv.setText("非常食はまだ入力されていません");
+        } else {
+            h_tv.setText("最終入力日:" + cl.get(Calendar.YEAR) + "年" + (cl.get(Calendar.MONTH) + 1) + "月" + cl.get(Calendar.DAY_OF_MONTH) + "日");
+        }
 
     }
 

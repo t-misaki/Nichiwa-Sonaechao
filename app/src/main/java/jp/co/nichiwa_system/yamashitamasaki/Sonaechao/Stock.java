@@ -79,7 +79,7 @@ public class Stock extends Activity {
                 new ItemClass("哺乳びん", "nyuji_number", R.drawable.bin, false,"本", this),
                 new ItemClass("おむつ", "omutu_number", R.drawable.omutu, false,"枚", this),
                 new ItemClass("電池", "denti_number", R.drawable.denti, true,"×１０本", this),
-                new ItemClass("寝袋", "nebukuro_number", R.drawable.nebukuro, false, this),
+                new ItemClass("寝袋", "nebukuro_number", R.drawable.nebukuro, false,"枚", this),
                 new ItemClass("器", "utuwa_number", R.drawable.utuwa, false,"枚", this),
                 new ItemClass("タオル", "taoru_number", R.drawable.taoru, false,"枚", this),
         };
