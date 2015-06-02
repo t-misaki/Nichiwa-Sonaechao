@@ -10,6 +10,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 
 import com.google.android.gms.ads.AdRequest;
@@ -29,9 +30,9 @@ public class Hijousyoku extends Activity {
         setContentView(R.layout.activity_hijousyoku);
 
         // それぞれのボタンの情報を取得
-        Button Home = (Button)findViewById(R.id.home);                  //「ホーム」ボタン
-        Button DispBtn = (Button)findViewById(R.id.settingbutton);    //「設定」ボタン
-        Button Stock = (Button)findViewById(R.id.bichiku);             //「備蓄」ボタン
+        ImageButton Home = (ImageButton)findViewById(R.id.home);                  //「ホーム」ボタン
+        ImageButton DispBtn = (ImageButton)findViewById(R.id.settingbutton);    //「設定」ボタン
+        ImageButton Stock = (ImageButton)findViewById(R.id.bichiku);             //「備蓄」ボタン
 
         ImageView[] Hijousyoku_iv = new ImageView[12];
 
