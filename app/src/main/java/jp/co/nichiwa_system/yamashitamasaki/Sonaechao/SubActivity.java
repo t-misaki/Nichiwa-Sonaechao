@@ -85,10 +85,9 @@ public class SubActivity extends Activity {
         hijousyoku.setOnClickListener( new OnClickListenerClass(".Hijousyoku", this) );
 
         //広告の設定
-        /*
         AdView adview = (AdView)findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();
-        adview.loadAd(adRequest);*/
+        adview.loadAd(adRequest);
     }
 
     //画面をタッチしたときの処理
