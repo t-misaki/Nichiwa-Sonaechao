@@ -381,7 +381,7 @@ public class MainActivity extends Activity {
         int nokori = (int)getDate(prefName);
         //期日を取得する
         int nissu =  ( getSharedPreferences("Preferences",MODE_PRIVATE) ).getInt("kiniti_day",0);
-        if( nokori <= 0 ) {
+        if( nokori < 0 ) {
             //賞味期限が切れたら表示
             str = HijousyokuName + "の賞味期限が切れました";
         } else if( nokori <= nissu ) {
