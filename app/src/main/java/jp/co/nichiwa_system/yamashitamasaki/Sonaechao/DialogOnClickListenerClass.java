@@ -92,8 +92,8 @@ public class DialogOnClickListenerClass implements View.OnClickListener {
         img.setImageResource(img_id);
 
                //文字を変える
-       // TextView tv = (TextView) viw.findViewById(R.id.textView26);
-       // tv.setText(tani);
+       TextView tv = (TextView) viw.findViewById(R.id.textView26);
+       tv.setText(tani);
 
         //EditTextを取得する
         final EditText et = (EditText)viw.findViewById(R.id.Number);
@@ -123,11 +123,11 @@ public class DialogOnClickListenerClass implements View.OnClickListener {
          if( calendarshow )
         {
             //単位を変える必要がある場合
-            if( tani != null ) {
+         /*   if( tani != null ) {
                 //文字を変える
             TextView tv = (TextView) viw.findViewById(R.id.textView26);
             tv.setText(tani);
-        }
+        }*/
 
             //カレンダー画像の取得
             ImageView Clock_iv = (ImageView)viw.findViewById(R.id.imageCalender);
