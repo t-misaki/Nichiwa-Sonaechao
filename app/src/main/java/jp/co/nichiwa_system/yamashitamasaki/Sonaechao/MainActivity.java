@@ -543,6 +543,12 @@ public class MainActivity extends Activity {
 
         //備蓄は何％あるか計算。最大50％
         s_w = ( mizu / total_w ) * 50;
+
+        //  水の最大値は50％までの設定
+        if( s_w >= 50 ){
+            s_w = 50;
+        }
+
         //非常食と水の備蓄を合計。最大100％
         s_w = s_w + p;
 
