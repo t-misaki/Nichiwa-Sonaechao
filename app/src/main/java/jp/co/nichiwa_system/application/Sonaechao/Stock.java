@@ -83,6 +83,11 @@ public class Stock extends Activity {
                 new ItemClass("器（プラスチック）", "utuwa_number", R.drawable.utuwa, false,"枚", this),
                 new ItemClass("タオル", "taoru_number", R.drawable.taoru, false,"枚", this),
         };
+        //番号の振り分け + 非常食の分もプラスしています。
+        for( int i = 0 ; i < Stock_iv.length ; i++ ) {
+            item[i].setNumber(i+12);
+        }
+
 
         // 戻る画面
         ImageButton Home = (ImageButton)findViewById(R.id.home);//「ホーム」ボタン
