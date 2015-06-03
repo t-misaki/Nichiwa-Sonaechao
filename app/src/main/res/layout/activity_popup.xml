@@ -42,7 +42,7 @@
         android:text="大人00人分"
         android:id="@+id/otona_text"
         android:layout_above="@+id/kobito_text"
-        android:layout_alignStart="@+id/limitmessage" />
+        android:layout_alignStart="@+id/kobito_text" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -50,7 +50,7 @@
         android:text="小人00人分"
         android:id="@+id/kobito_text"
         android:layout_above="@+id/youji_text"
-        android:layout_alignStart="@+id/otona_text" />
+        android:layout_alignStart="@+id/youji_text" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -58,7 +58,7 @@
         android:text="幼児00人分"
         android:id="@+id/youji_text"
         android:layout_above="@+id/Number"
-        android:layout_alignStart="@+id/kobito_text" />
+        android:layout_alignStart="@+id/Number" />
 
     <TextView
         android:layout_width="wrap_content"
