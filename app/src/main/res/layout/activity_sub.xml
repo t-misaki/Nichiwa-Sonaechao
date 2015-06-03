@@ -236,4 +236,13 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentBottom="true" />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Small Text"
+        android:id="@+id/version"
+        android:layout_above="@+id/EditText5"
+        android:layout_alignStart="@+id/EditText4" />
+
 </RelativeLayout>

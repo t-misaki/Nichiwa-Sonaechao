@@ -9,6 +9,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -24,6 +26,7 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.content.DialogInterface;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
@@ -41,7 +44,18 @@ public class SubActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sub);
 
-        //キーボードの状態を取得
+        PackageInfo packageInfo = null;
+        TextView tv = (TextView)findViewById(R.id.version);
+        try {
+            packageInfo = getPackageManager().getPackageInfo("jp.co.nichiwa_system.yamashitamasaki.Sonaechao", PackageManager.GET_META_DATA);
+        } catch (PackageManager.NameNotFoundException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        tv.setText("versionCode : "+packageInfo.versionCode+" / "+"versionName : "+packageInfo.versionName);
+
+
+                //キーボードの状態を取得
         inputMethodManager = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
         //レイアウトの取得
         R_layout = (RelativeLayout)findViewById(R.id.sub_Layout);
