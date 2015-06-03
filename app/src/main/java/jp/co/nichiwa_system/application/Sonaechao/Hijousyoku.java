@@ -62,8 +62,8 @@ public class Hijousyoku extends Activity {
         item[7] = new ItemClass("水", "mizu_number", R.drawable.mizu, true, "ℓ",this);
         item[8] = new ItemClass("カロリーメイト", "karori_meito_number", R.drawable.karori_meito, true, "箱", this);
         item[9] = new ItemClass("お菓子", "okasi_number", R.drawable.okasi, true, "箱・袋", this);
-        item[10] = new ItemClass("離乳食", "rinyu_number", R.drawable.rinyu, true, this );
-        item[11] = new ItemClass("粉ミルク", "konamilk_number", R.drawable.konamilk, true, this);
+        item[10] = new ItemClass("離乳食", "rinyu_number", R.drawable.rinyu, true, "食", this );
+        item[11] = new ItemClass("粉ミルク", "konamilk_number", R.drawable.konamilk, true, "缶", this);
 
         //番号の振り分け
         for( int i = 0 ; i < 12 ; i++ ) {
