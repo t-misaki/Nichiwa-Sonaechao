@@ -1,14 +1,15 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.application.hello_world.WorthChecking">
+    tools:context="com.example.application.hello_world.WorthChecking"
+    android:background="#ffcdffb3">
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/scrollView"
         android:layout_gravity="left|top"
-        android:background="@drawable/style">
+        android:background="#ffcdffb3">
 
         <TableLayout
             android:id="@+id/CheckLayout"
