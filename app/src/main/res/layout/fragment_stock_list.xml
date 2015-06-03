@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent" android:id="@+id/Stock_list"
     tools:context="jp.co.nichiwa_system.application.Sonaechao.stock_list"
-    android:background="#ff65ff35">
+    android:background="#ffcdffb3">
 
     <GridLayout
         android:id="@+id/ListLayout2"
