@@ -1,4 +1,4 @@
-package jp.co.nichiwa_system.yamashitamasaki.Sonaechao;
+package jp.co.nichiwa_system.application.Sonaechao;
 
 import android.app.Activity;
 import android.content.DialogInterface;
@@ -23,7 +23,7 @@ class OnClickTransListenerClass implements View.OnClickListener {
     //コンストラクタ（引数あり）
     public OnClickTransListenerClass( String name, Activity act ) {
         intent = new Intent();
-        intent.setClassName("jp.co.nichiwa_system.yamashitamasaki.Sonaechao", "jp.co.nichiwa_system.yamashitamasaki.Sonaechao" + name);
+        intent.setClassName("jp.co.nichiwa_system.application.Sonaechao", "jp.co.nichiwa_system.application.Sonaechao" + name);
         //アクティビティを保存しない(維持しない)
         intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
         this.act = act; //アクティビティデータの挿入

@@ -1,4 +1,4 @@
-package jp.co.nichiwa_system.yamashitamasaki.Sonaechao;
+package jp.co.nichiwa_system.application.Sonaechao;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -31,7 +31,7 @@ import android.widget.TextView;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 
-import jp.co.nichiwa_system.yamashitamasaki.Sonaechao.R;
+import jp.co.nichiwa_system.application.Sonaechao.R;
 
 
 public class SubActivity extends Activity {
@@ -47,7 +47,7 @@ public class SubActivity extends Activity {
         PackageInfo packageInfo = null;
         TextView tv = (TextView)findViewById(R.id.version);
         try {
-            packageInfo = getPackageManager().getPackageInfo("jp.co.nichiwa_system.yamashitamasaki.Sonaechao", PackageManager.GET_META_DATA);
+            packageInfo = getPackageManager().getPackageInfo("jp.co.nichiwa_system.application.Sonaechao", PackageManager.GET_META_DATA);
         } catch (PackageManager.NameNotFoundException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();

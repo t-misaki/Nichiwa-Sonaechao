@@ -97,8 +97,8 @@
     <fragment
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:name="jp.co.nichiwa_system.yamashitamasaki.Sonaechao.WorthChecking"
-        class="jp.co.nichiwa_system.yamashitamasaki.Sonaechao.WorthChecking"
+        android:name="jp.co.nichiwa_system.application.Sonaechao.WorthChecking"
+        class="jp.co.nichiwa_system.application.Sonaechao.WorthChecking"
         android:id="@+id/fragment"
         tools:layout="@layout/fragment_worth_checking"
         android:layout_below="@+id/textView"
@@ -109,8 +109,8 @@
     <fragment
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:name="jp.co.nichiwa_system.yamashitamasaki.Sonaechao.Ad"
-        class="jp.co.nichiwa_system.yamashitamasaki.Sonaechao.Ad"
+        android:name="jp.co.nichiwa_system.application.Sonaechao.Ad"
+        class="jp.co.nichiwa_system.application.Sonaechao.Ad"
         android:id="@+id/fragment_ad"
         tools:layout="@layout/fragment_ad"
         android:layout_alignParentBottom="true"
@@ -120,8 +120,8 @@
     <fragment
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:name="jp.co.nichiwa_system.yamashitamasaki.Sonaechao.ButtonFragment"
-        class="jp.co.nichiwa_system.yamashitamasaki.Sonaechao.ButtonFragment"
+        android:name="jp.co.nichiwa_system.application.Sonaechao.ButtonFragment"
+        class="jp.co.nichiwa_system.application.Sonaechao.ButtonFragment"
         android:id="@+id/fragment3"
         tools:layout="@layout/fragment_button"
         android:layout_above="@+id/fragment_ad"
@@ -130,8 +130,8 @@
     <fragment
         android:layout_width="wrap_content"
         android:layout_height="50dp"
-        android:name="jp.co.nichiwa_system.yamashitamasaki.Sonaechao.TitleLogo"
-        class="jp.co.nichiwa_system.yamashitamasaki.Sonaechao.TitleLogo"
+        android:name="jp.co.nichiwa_system.application.Sonaechao.TitleLogo"
+        class="jp.co.nichiwa_system.application.Sonaechao.TitleLogo"
         tools:layout="@layout/fragment_title_logo"
         android:id="@+id/fragment4"
         android:layout_alignParentTop="true"

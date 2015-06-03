@@ -1,4 +1,4 @@
-package jp.co.nichiwa_system.yamashitamasaki.Sonaechao;
+package jp.co.nichiwa_system.application.Sonaechao;
 
 import android.app.Activity;
 import android.net.Uri;
@@ -9,9 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 
-import jp.co.nichiwa_system.yamashitamasaki.Sonaechao.R;
-
-public class Ad extends Fragment {
+public class Hijousyoku_List extends Fragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -23,7 +21,7 @@ public class Ad extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_ad, container, false);
+        return inflater.inflate(R.layout.fragment_hijousyoku__list, container, false);
     }
 
 }

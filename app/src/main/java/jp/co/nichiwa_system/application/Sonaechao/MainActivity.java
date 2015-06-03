@@ -1,4 +1,4 @@
-package jp.co.nichiwa_system.yamashitamasaki.Sonaechao;
+package jp.co.nichiwa_system.application.Sonaechao;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -170,7 +170,7 @@ public class MainActivity extends Activity {
         }
 
         //グラフのパーセント値を表示する
-        ((TextView)findViewById(R.id.hijousyoku_percent)).setText("非常食" + String.valueOf(goukei[0]) + "%");
+        ((TextView)findViewById(R.id.hijousyoku_percent)).setText("非常食：" + String.valueOf(goukei[0]) + "%");
 
         //防犯グッズの値
         goukei[1] = RateStock();
@@ -223,7 +223,7 @@ public class MainActivity extends Activity {
         }
 
         //グラフのパーセント値を表示する(10%ずつ)
-        ((TextView) findViewById(R.id.bichiku_percent)).setText("備蓄品" + String.valueOf(goukei[1]) + "%");
+        ((TextView) findViewById(R.id.bichiku_percent)).setText("備蓄品：" + String.valueOf(goukei[1]) + "%");
 
         //ダイアログの生成
         DialogClass keikoku;
@@ -237,7 +237,7 @@ public class MainActivity extends Activity {
                 public void onClick(DialogInterface dialog, int which) {
                     Intent intent = new Intent();
                     intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
-                    intent.setClassName("jp.co.nichiwa_system.yamashitamasaki.Sonaechao", "jp.co.nichiwa_system.yamashitamasaki.Sonaechao.Hijousyoku");
+                    intent.setClassName("jp.co.nichiwa_system.application.Sonaechao", "jp.co.nichiwa_system.application.Sonaechao.Hijousyoku");
                     startActivity(intent);
                 }
             });
@@ -254,7 +254,7 @@ public class MainActivity extends Activity {
                 public void onClick(DialogInterface dialog, int which) {
                     Intent intent = new Intent();
                     intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
-                    intent.setClassName("jp.co.nichiwa_system.yamashitamasaki.Sonaechao", "jp.co.nichiwa_system.yamashitamasaki.Sonaechao.Stock");
+                    intent.setClassName("jp.co.nichiwa_system.application.Sonaechao", "jp.co.nichiwa_system.application.Sonaechao.Stock");
                     startActivity(intent);
 
                 }
@@ -268,7 +268,7 @@ public class MainActivity extends Activity {
         {
             //ダイアログの表示
             DialogClass dc = new DialogClass("警告！","　初期設定を行ってください",this);
-            dc.setPositiveButton("設定へ移動", new ListenerClass("jp.co.nichiwa_system.yamashitamasaki.Sonaechao", "jp.co.nichiwa_system.yamashitamasaki.Sonaechao.SubActivity", MainActivity.this) );
+            dc.setPositiveButton("設定へ移動", new ListenerClass("jp.co.nichiwa_system.application.Sonaechao", "jp.co.nichiwa_system.application.Sonaechao.SubActivity", MainActivity.this) );
 //            dc.setNegativeButton("後で",null);
             dc.Diarog_show();
         }
@@ -284,7 +284,9 @@ public class MainActivity extends Activity {
             Hijousyoku_tv[i] = new TextView(this);
             //警告文を取得する
             Hijousyoku_tv[i].setTextSize(18.0f);
-            Hijousyoku_tv[i].setText(get_Number_of_days_Warning(item[i].getPrefName(), item[i].getName()));
+            if ( pref.getInt(item[i].getPrefName(), 0) > 0 ) {
+                Hijousyoku_tv[i].setText(get_Number_of_days_Warning(item[i].getPrefName(), item[i].getName()));
+            }
             //警告文を挿入する
             if( Hijousyoku_tv[i].getText().length() > 0 ) {
 
