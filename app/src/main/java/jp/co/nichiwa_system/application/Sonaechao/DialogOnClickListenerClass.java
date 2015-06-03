@@ -155,6 +155,14 @@ public class DialogOnClickListenerClass implements View.OnClickListener {
                 }
             });
 
+            // 消費期限の説明
+            TextView limitmessage = (TextView)viw.findViewById(R.id.limitmessage);
+            limitmessage.setText("消費期限：");
+
+            // カレンダーボタンの説明
+            TextView calmessage = (TextView)viw.findViewById(R.id.calmessage);
+            calmessage.setText("※カレンダーボタンを押し日付を設定して下さい");
+
         }else{
             //必要なければ非表示にする
             ImageView Clock_iv = (ImageView)viw.findViewById(R.id.imageCalender);
