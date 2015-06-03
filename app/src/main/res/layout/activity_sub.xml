@@ -14,10 +14,9 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="大人"
         android:id="@+id/textView3"
-        android:layout_marginBottom="37dp"
-        android:layout_above="@+id/EditText3"
-        android:layout_alignParentStart="true"
-        android:layout_marginStart="14dp" />
+        android:layout_marginTop="31dp"
+        android:layout_below="@+id/textView20"
+        android:layout_alignStart="@+id/fragment3" />
 
     <EditText
         android:layout_width="35dp"
@@ -46,8 +45,9 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="小人"
         android:id="@+id/textView5"
-        android:layout_above="@+id/textView15"
-        android:layout_alignEnd="@+id/textView10" />
+        android:layout_below="@+id/textView14"
+        android:layout_alignStart="@+id/textView14"
+        android:layout_marginTop="32dp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -137,8 +137,8 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="幼児"
         android:id="@+id/textView11"
-        android:layout_alignBottom="@+id/EditText5"
-        android:layout_toStartOf="@+id/EditText" />
+        android:layout_alignTop="@+id/textView8"
+        android:layout_toEndOf="@+id/textView7" />
 
     <EditText
         android:layout_width="35dp"
@@ -149,10 +149,9 @@
         android:id="@+id/EditText5"
         android:focusable="false"
         android:focusableInTouchMode="true"
-        android:layout_above="@+id/EditText"
-        android:layout_toEndOf="@+id/textView11"
-        android:layout_marginBottom="40dp"
-        android:text="0" />
+        android:text="0"
+        android:layout_above="@+id/textView13"
+        android:layout_toEndOf="@+id/textView13" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -166,7 +165,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="※2才以下"
+        android:text="※2才未満"
         android:id="@+id/textView13"
         android:layout_below="@+id/textView11"
         android:layout_alignStart="@+id/textView11" />
@@ -184,8 +183,8 @@
         android:layout_height="wrap_content"
         android:text="※2才～小学生"
         android:id="@+id/textView15"
-        android:layout_alignBottom="@+id/textView14"
-        android:layout_alignStart="@+id/textView5" />
+        android:layout_alignTop="@+id/textView13"
+        android:layout_alignEnd="@+id/EditText3" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -210,8 +209,8 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="設定"
         android:id="@+id/textView20"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true" />
+        android:layout_below="@+id/fragment4"
+        android:layout_alignStart="@+id/textView3" />
 
     <fragment
         android:layout_width="wrap_content"
@@ -230,11 +229,8 @@
         class="jp.co.nichiwa_system.yamashitamasaki.Sonaechao.Ad"
         android:id="@+id/fragment_ad"
         tools:layout="@layout/fragment_ad"
-        android:layout_alignParentTop="false"
-        android:layout_toEndOf="@+id/EditText3"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentBottom="true" />
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -242,7 +238,18 @@
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="Small Text"
         android:id="@+id/version"
-        android:layout_above="@+id/EditText5"
-        android:layout_alignStart="@+id/EditText4" />
+        android:layout_above="@+id/textView4"
+        android:layout_alignEnd="@+id/EditText5" />
+
+    <fragment
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:name="jp.co.nichiwa_system.yamashitamasaki.Sonaechao.TitleLogo"
+        class="jp.co.nichiwa_system.yamashitamasaki.Sonaechao.TitleLogo"
+        tools:layout="@layout/fragment_title_logo"
+        android:id="@+id/fragment4"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true" />
+
 
 </RelativeLayout>
