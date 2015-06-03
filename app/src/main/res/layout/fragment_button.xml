@@ -27,8 +27,8 @@
         android:text="非常食"
         android:src="@drawable/food"
         android:id="@+id/hijousyoku"
-        android:layout_alignParentTop="true"
-        android:layout_toEndOf="@+id/home" />
+        android:layout_toEndOf="@+id/home"
+        android:layout_alignParentTop="true" />
 
     <ImageButton
         android:layout_width="82dp"
