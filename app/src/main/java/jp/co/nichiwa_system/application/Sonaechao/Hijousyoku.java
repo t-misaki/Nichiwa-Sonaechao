@@ -33,6 +33,9 @@ public class Hijousyoku extends Activity {
         ImageButton Home = (ImageButton)findViewById(R.id.home);                  //「ホーム」ボタン
         ImageButton DispBtn = (ImageButton)findViewById(R.id.settingbutton);    //「設定」ボタン
         ImageButton Stock = (ImageButton)findViewById(R.id.bichiku);             //「備蓄」ボタン
+        ImageButton food = (ImageButton)findViewById(R.id.hijousyoku);
+
+        food.setBackgroundResource(R.drawable.style2);
 
         ImageView[] Hijousyoku_iv = new ImageView[12];
 
