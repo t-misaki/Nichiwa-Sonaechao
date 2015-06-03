@@ -161,7 +161,7 @@ public class DialogOnClickListenerClass implements View.OnClickListener {
 
             // カレンダーボタンの説明
             TextView calmessage = (TextView)viw.findViewById(R.id.calmessage);
-            calmessage.setText("※カレンダーボタンを押し日付を設定して下さい");
+            calmessage.setText("※カレンダーを押すと日付が設定できます");
 
         }else{
             //必要なければ非表示にする
