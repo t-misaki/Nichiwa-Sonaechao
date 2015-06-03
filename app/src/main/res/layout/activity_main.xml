@@ -38,7 +38,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:gravity="center"
-        android:text="防災グッズ"
+        android:text="備蓄品"
         android:id="@+id/textView18"
         android:layout_alignTop="@+id/textView17"
         android:layout_alignEnd="@+id/R_graph"
