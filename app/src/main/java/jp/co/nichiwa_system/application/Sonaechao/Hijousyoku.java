@@ -52,16 +52,16 @@ public class Hijousyoku extends Activity {
 
         //非常食の項目を取得する
         ItemClass[] item = new ItemClass[12];
-        item[0] = new ItemClass("レトルトごはん", "retorutogohan_number", R.drawable.retoruto_gohan, true,"食", this);
-        item[1] = new ItemClass("缶詰（ごはん）", "kandume_number", R.drawable.kandume_gohan, true,"缶", this);
+        item[0] = new ItemClass("レトルトご飯", "retorutogohan_number", R.drawable.retoruto_gohan, true,"食", this);
+        item[1] = new ItemClass("缶詰（ご飯）", "kandume_number", R.drawable.kandume_gohan, true,"缶", this);
         item[2] = new ItemClass("乾麺", "kanmen_number", R.drawable.kanmen, true,"袋", this);
         item[3] = new ItemClass("乾パン", "kanpan_number", R.drawable.kanpan, true,"缶", this);
         item[4] = new ItemClass("缶詰（肉・魚）", "kandume2_number", R.drawable.kandume, true, "缶", this);
         item[5] = new ItemClass("レトルト食品", "retoruto_number", R.drawable.retoruto, true, "袋", this);
-        item[6] = new ItemClass("フリーズドライ", "furizu_dorai_number", R.drawable.furizu_dorai, true, "塊", this);
+        item[6] = new ItemClass("フリーズドライ", "furizu_dorai_number", R.drawable.furizu_dorai, true, "食", this);
         item[7] = new ItemClass("水", "mizu_number", R.drawable.mizu, true, "ℓ",this);
         item[8] = new ItemClass("カロリーメイト", "karori_meito_number", R.drawable.karori_meito, true, "箱", this);
-        item[9] = new ItemClass("お菓子", "okasi_number", R.drawable.okasi, true, "箱・袋", this);
+        item[9] = new ItemClass("菓子類", "okasi_number", R.drawable.okasi, true, "箱・袋", this);
         item[10] = new ItemClass("離乳食", "rinyu_number", R.drawable.rinyu, true, "食", this );
         item[11] = new ItemClass("粉ミルク", "konamilk_number", R.drawable.konamilk, true, "缶", this);
 
