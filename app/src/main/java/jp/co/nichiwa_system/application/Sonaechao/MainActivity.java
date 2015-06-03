@@ -57,8 +57,8 @@ public class MainActivity extends Activity {
             new ItemClass("水", "mizu_number", R.drawable.mizu, true, "ℓ",this),
             new ItemClass("カロリーメイト", "karori_meito_number", R.drawable.karori_meito, true, "箱", this),
             new ItemClass("お菓子", "okasi_number", R.drawable.okasi, true, "箱・袋", this),
-            new ItemClass("離乳食", "rinyu_number", R.drawable.rinyu, true, this ),
-            new ItemClass("粉ミルク", "konamilk_number", R.drawable.konamilk, true, this)
+            new ItemClass("離乳食", "rinyu_number", R.drawable.rinyu, true, "食", this ),
+            new ItemClass("粉ミルク", "konamilk_number", R.drawable.konamilk, true,"缶", this)
     };
 
     @Override
