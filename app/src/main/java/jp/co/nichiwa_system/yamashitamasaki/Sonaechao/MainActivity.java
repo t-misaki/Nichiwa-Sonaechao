@@ -105,11 +105,23 @@ public class MainActivity extends Activity {
         ImageButton R_button = (ImageButton)findViewById(R.id.R_graph);
         ImageButton L_button = (ImageButton)findViewById(R.id.L_graph);
 
-        //二つの合計
+        //  非常食、備蓄品、それぞれのパーセント配列
         int[] goukei = new int[2];
+        //  非常食、備蓄品、それぞれの合計値配列
+        int[] volume = new int[2];
+
+        //要チェック
+        //プレファレンスを生成して、設定画面のデータを取得する
+        //pref = getSharedPreferences("Preferences",MODE_PRIVATE);
+        int gou = pref.getInt("youji_people",0) +
+                pref.getInt("kobito_people",0) +
+                pref.getInt("otona_people",0) +
+                pref.getInt("kiniti_day",0) +
+                pref.getInt("sitei_day",0);
 
         //非常食の割合を取得
         goukei[0] = eiyou();
+        volume[0] = VolumeFoods();
 
         //左グラフの画像
         if( goukei[0] < 10 )
@@ -158,75 +170,68 @@ public class MainActivity extends Activity {
         }
 
         //グラフのパーセント値を表示する
-        ((TextView)findViewById(R.id.hijousyoku_percent)).setText(String.valueOf(goukei[0]) + "%");
+        ((TextView)findViewById(R.id.hijousyoku_percent)).setText("非常食" + String.valueOf(goukei[0]) + "%");
 
         //防犯グッズの値
         goukei[1] = RateStock();
+        volume[1] = VolumeStock();
 
         //右グラフの画像
-        if( goukei[1] <= 0 )
+        if( goukei[1] < 10 )
         {
             R_button.setImageResource(R.drawable.r_graph0);
         }
-        else if( 1 <= goukei[1] && goukei[1] < 10 )
+        else if( 10 <= goukei[1] && goukei[1] < 20 )
         {
             R_button.setImageResource(R.drawable.r_graph1);
         }
-        else if( 10 <= goukei[1] && goukei[1] < 20 )
+        else if( 20 <= goukei[1] && goukei[1] < 30 )
         {
             R_button.setImageResource(R.drawable.r_graph2);
         }
-        else if( 20 <= goukei[1] && goukei[1] < 30 )
+        else if( 30 <= goukei[1] && goukei[1] < 40 )
         {
             R_button.setImageResource(R.drawable.r_graph3);
         }
-        else if( 30 <= goukei[1] && goukei[1] < 40 )
+        else if( 40 <= goukei[1] && goukei[1] < 50 )
         {
             R_button.setImageResource(R.drawable.r_graph4);
         }
-        else if( 40 <= goukei[1] && goukei[1] < 50 )
+        else if( 50 <= goukei[1] && goukei[1] < 60 )
         {
             R_button.setImageResource(R.drawable.r_graph5);
         }
-        else if( 50 <= goukei[1] && goukei[1] < 60 )
+        else if( 60 <= goukei[1] && goukei[1] < 70 )
         {
             R_button.setImageResource(R.drawable.r_graph6);
         }
-        else if( 60 <= goukei[1] && goukei[1] < 70 )
+        else if( 70 <= goukei[1] && goukei[1] < 80 )
         {
             R_button.setImageResource(R.drawable.r_graph7);
         }
-        else if( 70 <= goukei[1] && goukei[1] < 80 )
+        else if( 80 <= goukei[1] && goukei[1] < 90 )
         {
             R_button.setImageResource(R.drawable.r_graph8);
         }
-        else if( 80 <= goukei[1] && goukei[1] < 90 )
+        else if( 90 <= goukei[1] && goukei[1] < 100 )
         {
             R_button.setImageResource(R.drawable.r_graph9);
         }
-        else if( 90 <= goukei[1] && goukei[1] < 100 )
+        else if( goukei[1] >= 100 )
         {
             R_button.setImageResource(R.drawable.r_graph10);
         }
-        else if( 100 <= goukei[1] && goukei[1] < 110 )
-        {
-            R_button.setImageResource(R.drawable.r_graph11);
-        }
-        else if( 110 <= goukei[1] )
-        {
-            R_button.setImageResource(R.drawable.r_graph12);
-        }
 
         //グラフのパーセント値を表示する(10%ずつ)
-        ((TextView) findViewById(R.id.bichiku_percent)).setText(String.valueOf(goukei[1]) + "%");
+        ((TextView) findViewById(R.id.bichiku_percent)).setText("備蓄品" + String.valueOf(goukei[1]) + "%");
 
         //ダイアログの生成
         DialogClass keikoku;
 
-        //備蓄品の割合が50%未満の場合、警告を出す
-        if( goukei[0] < 50 )
+        //備蓄品の割合が60%未満且つ、非常食が0ではない且つ、設定人数が0の場合、警告を出す。
+        if( goukei[0] < 60 && !( volume[0] <= 0) && gou > 0)
         {
-            keikoku = new DialogClass("警告","備蓄品が50%未満です",this);
+            keikoku = new DialogClass("警告","非常食が60%未満です",this);
             keikoku.setPositiveButton("確認する", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
@@ -240,16 +245,16 @@ public class MainActivity extends Activity {
             keikoku.Diarog_show();
         }
 
-        //非常食の割合が50%未満の場合、警告を出す
-        if( goukei[1] < 50 )
+        //非常食の割合が60%未満且つ、備蓄品が0ではない且つ、設定人数が0の場合、警告を出す
+        if( goukei[1] < 60 && !( volume[1] <= 0 ) && gou > 0)
         {
-            keikoku = new DialogClass("警告","非常食が50%未満です",this);
+            keikoku = new DialogClass("警告","備蓄品が60%未満です",this);
             keikoku.setPositiveButton("確認する", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     Intent intent = new Intent();
                     intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
-                    intent.setClassName("jp.co.nichiwa_system.yamashitamasaki.Sonaechao", "jp.co.nichiwa_system.yamashitamasaki.Sonaechao.Hijousyoku");
+                    intent.setClassName("jp.co.nichiwa_system.yamashitamasaki.Sonaechao", "jp.co.nichiwa_system.yamashitamasaki.Sonaechao.Stock");
                     startActivity(intent);
 
                 }
@@ -257,15 +262,6 @@ public class MainActivity extends Activity {
             keikoku.setNegativeButton("後で",null);
             keikoku.Diarog_show();
         }
-        //要チェック
-        //プレファレンスを生成して、設定画面のデータを取得する
-        //pref = getSharedPreferences("Preferences",MODE_PRIVATE);
-        int gou = pref.getInt("youji_people",0) +
-                pref.getInt("kobito_people",0) +
-                pref.getInt("otona_people",0) +
-                pref.getInt("kiniti_day",0) +
-                pref.getInt("sitei_day",0);
-
 
         //設定画面の合計値(gou)が0ならば警告ダイアログをだす
         if( gou <= 0 )
@@ -490,14 +486,9 @@ public class MainActivity extends Activity {
         //  設定人数。訂正者：岡田
         int setDays = pref.getInt("sitei_day",3);
 
-        //各合計
+        //各合計（大小のみ）
         int Hijousyoku_sum = reto_g + kan + kanmen + kanpan + kan2 + reto + furizu + karori + okasi;
-        int Hijoushoku_baby = rinyu + konamilk;
 
-        double food_a, food_c, food_b;
-        //大人小人幼児の必要数格納用
-        double MAX;
-        //水の備蓄の％格納用
         double s_w = 0;
         //食べ物の備蓄の％格納用
         double p;
@@ -568,11 +559,12 @@ public class MainActivity extends Activity {
 
     }
 /***************************************************************************************************
-//  処理内容：
-//  概要  　：
-//  作成日　：
-//  担当者　：
-//  備考　　：
+//  処理内容：備蓄品のパーセントの算出
+//  概要  　：備蓄品の各パーセントを求めだし、それらを足し合わせたものをreturnしている。
+//  作成日　：2015年6月2日
+//  担当者　：岡田 洋介
+//  備考　　：幼児がいる場合は、必需品5割、便利品4割、幼児品1割。
+//          ：幼児がいない場合は、必需品6割、便利品4割。となる。（それぞれの最大値です）
 ***************************************************************************************************/
     public int RateStock()
     {
@@ -858,5 +850,85 @@ public class MainActivity extends Activity {
         return rateFinal;
     }
 
+/***************************************************************************************************
+//  処理内容：非常食の合計値を求めている処理
+//  概要  　：returnは警告ダイアログの条件式の一つとして使用される。
+//  作成日　：2015年6月3日
+//  担当者　：岡田 洋介
+//  備考　　：特になし。
+***************************************************************************************************/
+    public int VolumeFoods()
+    {
+        int total;
 
+        //  プレファレンスの呼び出し。
+        SharedPreferences pref = getSharedPreferences("Preferences", MODE_PRIVATE);
+
+        int reto_g = pref.getInt("retorutogohan_number", 0);
+        int kan = pref.getInt("kandume_number", 0);
+        int kanmen = pref.getInt("kanmen_number", 0);
+        int kanpan = pref.getInt("kanpan_number", 0);
+        int kan2 = pref.getInt("kandume2_number", 0);
+        int reto = pref.getInt("retoruto_number", 0);
+        int furizu = pref.getInt("furizu_dorai_number", 0);
+        int mizu = pref.getInt("mizu_number", 0);
+        int rinyu = pref.getInt("rinyu_number", 0);
+        int konamilk = pref.getInt("konamilk_number", 0);
+        int karori = pref.getInt("karori_meito_number", 0);
+        int okasi = pref.getInt("okasi_number", 0);
+
+        total = reto_g + kan + kanmen + kanpan + kan2 + reto + furizu + mizu + rinyu + konamilk
+                + karori + okasi;
+
+        return total;
+    }
+
+/***************************************************************************************************
+//  処理内容：備蓄品の合計値を求めている処理
+//  概要  　：returnは警告ダイアログの条件式の一つとして使用される。
+//  作成日　：2015年6月3日
+//  担当者　：岡田 洋介
+//  備考　　：特になし。
+***************************************************************************************************/
+    public int VolumeStock()
+    {
+        int total;
+
+        //  プレファレンスの呼び出し
+        SharedPreferences pref = getSharedPreferences("Preferences", MODE_PRIVATE);
+
+        //  各備蓄品のデータ（個数）の呼び出し。
+        int gas = pref.getInt("gas_number", 0);
+        int matti = pref.getInt("match_number", 0);
+        int bombe = pref.getInt("bombe_number", 0);
+        int fue = pref.getInt("whistle_number", 0);
+        int aSitagi = pref.getInt("shitagi_number", 0);
+        int kSitagi = pref.getInt("kodomo_number", 0);
+        int tissue = pref.getInt("tissue_number", 0);
+        int almi = pref.getInt("almi_number", 0);
+        int rap = pref.getInt("rap_number", 0);
+        int gunnte = pref.getInt("gunnte_number", 0);
+        int mask = pref.getInt("mask_number", 0);
+        int bag = pref.getInt("bag_number", 0);
+        int kaichu = pref.getInt("kaityu_number", 0);
+        int kankiri = pref.getInt("kankiri_number", 0);
+        int radio = pref.getInt("radio_number", 0);
+        int judenki = pref.getInt("judenki_number", 0);
+        int spoon = pref.getInt("supun_number", 0);
+        int hasi = pref.getInt("hasi_number", 0);
+        int koppu = pref.getInt("koppu_number", 0);
+        int bin = pref.getInt("nyuji_number", 0);
+        int omutu = pref.getInt("omutu_number", 0);
+        int denti = pref.getInt("denti_number", 0);
+        int nebukuro = pref.getInt("nebukuro_number", 0);
+        int utuwa = pref.getInt("utuwa_number", 0);
+        int towel = pref.getInt("taoru_number", 0);
+
+        //  各備蓄品を足し合わせた合計値
+        total = gas + matti + bombe + fue + aSitagi + kSitagi + tissue + almi + rap + gunnte + mask
+                + bag + kaichu + kankiri + radio + judenki + spoon + hasi + koppu + bin + omutu
+                + denti + nebukuro + utuwa + towel;
+
+        return total;
+    }
 }
