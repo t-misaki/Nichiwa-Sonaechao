@@ -131,7 +131,7 @@ public class SubActivity extends Activity {
 
         @Override
         public void onClick(View v) {
-            alert.setTitle("値を選択してください");
+            //alert.setTitle("値を選択してください");
             //アイテムの表示
             alert.setItems(item, new DialogInterface.OnClickListener() {
                 @Override
