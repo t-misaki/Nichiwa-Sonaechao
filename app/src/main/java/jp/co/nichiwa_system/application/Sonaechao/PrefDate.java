@@ -1,4 +1,4 @@
-package jp.co.nichiwa_system.yamashitamasaki.Sonaechao;
+package jp.co.nichiwa_system.application.Sonaechao;
 
 import android.app.Activity;
 import android.content.SharedPreferences;

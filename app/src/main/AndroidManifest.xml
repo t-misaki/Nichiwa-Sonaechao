@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     android:versionCode="3"
     android:versionName="1.0.1"
-    package="jp.co.nichiwa_system.yamashitamasaki.Sonaechao"
+    package="jp.co.nichiwa_system.application.Sonaechao"
    >
 
     <application

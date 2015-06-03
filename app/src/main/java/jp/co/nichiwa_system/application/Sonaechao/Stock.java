@@ -1,4 +1,4 @@
-package jp.co.nichiwa_system.yamashitamasaki.Sonaechao;
+package jp.co.nichiwa_system.application.Sonaechao;
 
 import android.app.Activity;
 import android.app.Fragment;
@@ -17,7 +17,7 @@ import java.lang.reflect.GenericArrayType;
 import java.util.Calendar;
 import java.util.Date;
 
-import jp.co.nichiwa_system.yamashitamasaki.Sonaechao.R;
+import jp.co.nichiwa_system.application.Sonaechao.R;
 
 
 public class Stock extends Activity {

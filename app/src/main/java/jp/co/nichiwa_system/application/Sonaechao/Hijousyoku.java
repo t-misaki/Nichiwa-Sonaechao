@@ -1,4 +1,4 @@
-package jp.co.nichiwa_system.yamashitamasaki.Sonaechao;
+package jp.co.nichiwa_system.application.Sonaechao;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -19,7 +19,7 @@ import com.google.android.gms.ads.AdView;
 import java.util.Calendar;
 import java.util.Date;
 
-import jp.co.nichiwa_system.yamashitamasaki.Sonaechao.R;
+import jp.co.nichiwa_system.application.Sonaechao.R;
 
 
 public class Hijousyoku extends Activity {

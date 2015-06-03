@@ -4,7 +4,7 @@ android {
     compileSdkVersion 21
     buildToolsVersion "21.1.2"
     defaultConfig {
-        applicationId "jp.co.nichiwa_system.yamashitamasaki.Sonaechao"
+        applicationId "jp.co.nichiwa_system.application.Sonaechao"
         minSdkVersion 17
         targetSdkVersion 21
         versionCode 2

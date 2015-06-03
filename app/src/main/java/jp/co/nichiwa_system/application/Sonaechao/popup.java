@@ -1,11 +1,11 @@
-package jp.co.nichiwa_system.yamashitamasaki.Sonaechao;
+package jp.co.nichiwa_system.application.Sonaechao;
 
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import jp.co.nichiwa_system.yamashitamasaki.Sonaechao.R;
+import jp.co.nichiwa_system.application.Sonaechao.R;
 
 
 public class popup extends Activity {
