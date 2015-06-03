@@ -42,7 +42,7 @@
         android:text="大人00人分"
         android:id="@+id/otona_text"
         android:layout_above="@+id/kobito_text"
-        android:layout_alignStart="@+id/kobito_text" />
+        android:layout_alignStart="@+id/limitmessage" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -50,7 +50,7 @@
         android:text="小人00人分"
         android:id="@+id/kobito_text"
         android:layout_above="@+id/youji_text"
-        android:layout_alignStart="@+id/youji_text" />
+        android:layout_alignStart="@+id/otona_text" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -58,7 +58,7 @@
         android:text="幼児00人分"
         android:id="@+id/youji_text"
         android:layout_above="@+id/Number"
-        android:layout_alignStart="@+id/Number" />
+        android:layout_alignStart="@+id/kobito_text" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -80,8 +80,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="※カレンダーボタンを押し日付を設定して下さい"
-        android:id="@+id/textView20"
+        android:id="@+id/calmessage"
         android:layout_below="@+id/imageCalender"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="31dp" />
@@ -89,8 +88,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="消費期限："
-        android:id="@+id/textView27"
+        android:id="@+id/limitmessage"
         android:layout_alignTop="@+id/popup_day"
         android:layout_toStartOf="@+id/popup_day" />
 
