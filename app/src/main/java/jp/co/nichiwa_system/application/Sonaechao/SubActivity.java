@@ -92,11 +92,13 @@ public class SubActivity extends Activity {
         ImageButton Home = (ImageButton)findViewById(R.id.home);          //「ホーム」ボタン
         ImageButton Stock = (ImageButton)findViewById(R.id.bichiku);           //「備蓄」ボタン
         ImageButton hijousyoku = (ImageButton)findViewById(R.id.hijousyoku);  //「非常食」ボタン
+        ImageButton set = (ImageButton)findViewById(R.id.settingbutton);
 
         //移動
         Home.setOnClickListener( new OnClickListenerClass() );
         Stock.setOnClickListener( new OnClickListenerClass(".Stock", this) );
         hijousyoku.setOnClickListener( new OnClickListenerClass(".Hijousyoku", this) );
+        set.setBackgroundResource(R.drawable.style2);
 
         //広告の設定
         AdView adview = (AdView)findViewById(R.id.adView);
