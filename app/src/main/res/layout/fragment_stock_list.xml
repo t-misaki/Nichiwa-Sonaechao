@@ -63,8 +63,8 @@
             android:scaleType="fitXY"
             android:layout_below="@+id/gasView"
             android:layout_toEndOf="@+id/gasView"
-            android:layout_row="1"
-            android:layout_column="3" />
+            android:layout_row="2"
+            android:layout_column="0" />
 
         <ImageView
             android:layout_width="wrap_content"
@@ -76,7 +76,7 @@
             android:layout_below="@+id/gasView"
             android:layout_alignParentStart="true"
             android:layout_row="2"
-            android:layout_column="0" />
+            android:layout_column="1" />
 
         <ImageView
             android:layout_width="wrap_content"
@@ -88,7 +88,7 @@
             android:layout_below="@+id/gasView"
             android:layout_alignParentStart="true"
             android:layout_row="2"
-            android:layout_column="1" />
+            android:layout_column="2" />
 
         <ImageView
             android:layout_width="wrap_content"
@@ -99,18 +99,7 @@
             android:scaleType="fitXY"
             android:layout_below="@+id/matchView"
             android:layout_toEndOf="@+id/matchView"
-            android:layout_row="2"
-            android:layout_column="2" />
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="80dp"
-            android:id="@+id/radioView"
-            android:layout_below="@+id/maskView"
-            android:layout_alignParentStart="true"
-            android:src="@drawable/radio"
-            android:scaleType="fitXY"
-            android:layout_row="6"
+            android:layout_row="3"
             android:layout_column="0" />
 
         <ImageView
@@ -122,28 +111,6 @@
             android:scaleType="fitXY"
             android:layout_below="@+id/matchView"
             android:layout_toEndOf="@+id/matchView"
-            android:layout_row="2"
-            android:layout_column="3" />
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="80dp"
-            android:id="@+id/utuwaView"
-            android:layout_below="@+id/kankiriView"
-            android:layout_toEndOf="@+id/supunView"
-            android:src="@drawable/utuwa"
-            android:scaleType="fitXY"
-            android:layout_row="3"
-            android:layout_column="0" />
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="80dp"
-            android:id="@+id/koppuView"
-            android:layout_below="@+id/kankiriView"
-            android:layout_toEndOf="@+id/supunView"
-            android:src="@drawable/koppu"
-            android:scaleType="fitXY"
             android:layout_row="3"
             android:layout_column="1" />
 
@@ -159,18 +126,6 @@
             android:layout_alignParentEnd="false"
             android:layout_row="3"
             android:layout_column="2" />
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="80dp"
-            android:id="@+id/kaityuView"
-            android:src="@drawable/kaityu"
-            android:nestedScrollingEnabled="false"
-            android:scaleType="fitXY"
-            android:layout_below="@+id/tissueView"
-            android:layout_toEndOf="@+id/matchView"
-            android:layout_row="3"
-            android:layout_column="3" />
 
         <ImageView
             android:layout_width="wrap_content"
@@ -207,25 +162,57 @@
             android:layout_row="4"
             android:layout_column="2" />
 
-        <TextView
+        <ImageView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="便利品"
-            android:id="@+id/textView23"
+            android:layout_height="80dp"
+            android:id="@+id/koppuView"
+            android:layout_below="@+id/kankiriView"
+            android:layout_toEndOf="@+id/supunView"
+            android:src="@drawable/koppu"
+            android:scaleType="fitXY"
             android:layout_row="5"
             android:layout_column="0" />
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="80dp"
-            android:id="@+id/maskView"
-            android:src="@drawable/mask"
-            android:layout_below="@+id/shitagiView"
-            android:layout_alignParentStart="true"
+            android:id="@+id/utuwaView"
+            android:layout_below="@+id/kankiriView"
+            android:layout_toEndOf="@+id/supunView"
+            android:src="@drawable/utuwa"
+            android:scaleType="fitXY"
+            android:layout_row="5"
+            android:layout_column="1" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="80dp"
+            android:id="@+id/kaityuView"
+            android:src="@drawable/kaityu"
             android:nestedScrollingEnabled="false"
             android:scaleType="fitXY"
-            android:layout_alignParentEnd="false"
+            android:layout_below="@+id/tissueView"
+            android:layout_toEndOf="@+id/matchView"
+            android:layout_row="5"
+            android:layout_column="2" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="便利品"
+            android:id="@+id/textView23"
+            android:layout_row="6"
+            android:layout_column="0" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="80dp"
+            android:id="@+id/radioView"
+            android:layout_below="@+id/maskView"
+            android:layout_alignParentStart="true"
+            android:src="@drawable/radio"
+            android:scaleType="fitXY"
             android:layout_row="7"
             android:layout_column="0" />
 
@@ -237,7 +224,7 @@
             android:layout_below="@+id/maskView"
             android:layout_alignStart="@+id/biniiruView"
             android:scaleType="fitXY"
-            android:layout_row="6"
+            android:layout_row="7"
             android:layout_column="1" />
 
         <ImageView
@@ -255,7 +242,7 @@
             android:nestedScrollingEnabled="false"
             android:layout_above="@+id/almiView"
             android:layout_alignStart="@+id/kankiriView"
-            android:layout_row="6"
+            android:layout_row="7"
             android:layout_column="2" />
 
         <ImageView
@@ -268,8 +255,40 @@
             android:scaleType="fitXY"
             android:nestedScrollingEnabled="false"
             android:layout_alignParentEnd="false"
-            android:layout_row="6"
-            android:layout_column="3" />
+            android:layout_row="8"
+            android:layout_column="0" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="80dp"
+            android:id="@+id/matchView"
+            android:src="@drawable/match"
+            android:nestedScrollingEnabled="false"
+            android:scaleType="fitXY"
+            android:layout_row="8"
+            android:layout_column="1"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="80dp"
+            android:id="@+id/nebukuroView"
+            android:layout_row="8"
+            android:layout_column="2"
+            android:src="@drawable/nebukuro"
+            android:scaleType="fitXY" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="80dp"
+            android:id="@+id/maskView"
+            android:src="@drawable/mask"
+            android:layout_below="@+id/shitagiView"
+            android:layout_alignParentStart="true"
+            android:nestedScrollingEnabled="false"
+            android:scaleType="fitXY"
+            android:layout_alignParentEnd="false"
+            android:layout_row="9"
+            android:layout_column="0" />
 
         <ImageView
             android:layout_width="wrap_content"
@@ -281,27 +300,8 @@
             android:nestedScrollingEnabled="false"
             android:scaleType="fitXY"
             android:layout_alignParentEnd="false"
-            android:layout_row="7"
+            android:layout_row="9"
             android:layout_column="1" />
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="80dp"
-            android:id="@+id/matchView"
-            android:src="@drawable/match"
-            android:nestedScrollingEnabled="false"
-            android:scaleType="fitXY"
-            android:layout_row="7"
-            android:layout_column="2"/>
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="80dp"
-            android:id="@+id/nebukuroView"
-            android:layout_row="7"
-            android:layout_column="3"
-            android:src="@drawable/nebukuro"
-            android:scaleType="fitXY" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -309,7 +309,7 @@
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="幼児用"
             android:id="@+id/textView24"
-            android:layout_row="9"
+            android:layout_row="10"
             android:layout_column="0" />
 
 
@@ -321,7 +321,7 @@
             android:scaleType="fitXY"
             android:layout_below="@+id/radioView"
             android:layout_alignStart="@+id/judenkiView"
-            android:layout_row="10"
+            android:layout_row="11"
             android:layout_column="0" />
 
         <ImageView
@@ -332,7 +332,7 @@
             android:scaleType="fitXY"
             android:layout_below="@+id/radioView"
             android:layout_alignStart="@+id/judenkiView"
-            android:layout_row="10"
+            android:layout_row="11"
             android:layout_column="1" />
 
     </GridLayout>
