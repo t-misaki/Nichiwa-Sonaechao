@@ -65,16 +65,33 @@
         android:layout_height="wrap_content"
         android:text="0000年00月00日"
         android:id="@+id/popup_day"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="31dp"
         android:layout_below="@+id/Number"
-        android:layout_centerHorizontal="true" />
+        android:layout_toStartOf="@+id/imageCalender" />
 
     <ImageView
-        android:layout_width="20dp"
-        android:layout_height="20dp"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
         android:id="@+id/imageCalender"
         android:src="@drawable/calendar"
         android:layout_alignBottom="@+id/popup_day"
-        android:layout_toEndOf="@+id/popup_day" />
+        android:layout_alignEnd="@+id/imageView" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="※カレンダーボタンを押し日付を設定して下さい"
+        android:id="@+id/textView20"
+        android:layout_below="@+id/imageCalender"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="31dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="消費期限："
+        android:id="@+id/textView27"
+        android:layout_alignTop="@+id/popup_day"
+        android:layout_toStartOf="@+id/popup_day" />
 
 </RelativeLayout>
