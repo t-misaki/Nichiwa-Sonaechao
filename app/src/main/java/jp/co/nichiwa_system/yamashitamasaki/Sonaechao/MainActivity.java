@@ -231,7 +231,7 @@ public class MainActivity extends Activity {
         //備蓄品の割合が60%未満且つ、非常食が0ではない且つ、設定人数が0の場合、警告を出す。
         if( goukei[0] < 60 && !( volume[0] <= 0) && gou > 0)
         {
-            keikoku = new DialogClass("警告","非常食が60%未満です",this);
+            keikoku = new DialogClass("警告","　非常食が60%未満です",this);
             keikoku.setPositiveButton("確認する", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
@@ -248,7 +248,7 @@ public class MainActivity extends Activity {
         //非常食の割合が60%未満且つ、備蓄品が0ではない且つ、設定人数が0の場合、警告を出す
         if( goukei[1] < 60 && !( volume[1] <= 0 ) && gou > 0)
         {
-            keikoku = new DialogClass("警告","備蓄品が60%未満です",this);
+            keikoku = new DialogClass("警告","　備蓄品が60%未満です",this);
             keikoku.setPositiveButton("確認する", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
@@ -267,9 +267,9 @@ public class MainActivity extends Activity {
         if( gou <= 0 )
         {
             //ダイアログの表示
-            DialogClass dc = new DialogClass("警告！","設定画面から値を入力してください",this);
+            DialogClass dc = new DialogClass("警告！","　初期設定を行ってください",this);
             dc.setPositiveButton("設定へ移動", new ListenerClass("jp.co.nichiwa_system.yamashitamasaki.Sonaechao", "jp.co.nichiwa_system.yamashitamasaki.Sonaechao.SubActivity", MainActivity.this) );
-            dc.setNegativeButton("後で",null);
+//            dc.setNegativeButton("後で",null);
             dc.Diarog_show();
         }
 
@@ -283,6 +283,7 @@ public class MainActivity extends Activity {
         for( int i = 0 ; i < MAX_HIJOUSYOKU ; i++ ) {
             Hijousyoku_tv[i] = new TextView(this);
             //警告文を取得する
+            Hijousyoku_tv[i].setTextSize(18.0f);
             Hijousyoku_tv[i].setText(get_Number_of_days_Warning(item[i].getPrefName(), item[i].getName()));
             //警告文を挿入する
             if( Hijousyoku_tv[i].getText().length() > 0 ) {
@@ -380,10 +381,11 @@ public class MainActivity extends Activity {
     public String get_Number_of_days_Warning( String prefName, String HijousyokuName )
     {
         String str = "";
+
         //残り日数を取得する
         int nokori = (int)getDate(prefName);
         //期日を取得する
-        int nissu =  ( getSharedPreferences("Preferences",MODE_PRIVATE) ).getInt("kiniti_day",0);
+        int nissu =  ( getSharedPreferences("Preferences",MODE_PRIVATE) ).getInt("kiniti_day",14);
         if( nokori < 0 ) {
             //賞味期限が切れたら表示
             str = HijousyokuName + "の賞味期限が切れました";
