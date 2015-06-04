@@ -93,10 +93,12 @@ public class Stock extends Activity {
         ImageButton Home = (ImageButton)findViewById(R.id.home);//「ホーム」ボタン
         ImageButton DispBtn = (ImageButton)findViewById(R.id.settingbutton);//「設定」ボタン
         ImageButton hijousyoku = (ImageButton)findViewById(R.id.hijousyoku);//「非常食」ボタン
+        ImageButton stock =(ImageButton)findViewById(R.id.bichiku);
 
         Home.setOnClickListener( new OnClickTransListenerClass(this) );
         hijousyoku.setOnClickListener( new OnClickTransListenerClass(".Hijousyoku",this ) );
         DispBtn.setOnClickListener( new OnClickTransListenerClass(".SubActivity",this ) );
+        stock.setBackgroundResource(R.drawable.style2);
 
         //枠線をつける
        for( int i = 0 ; i < Stock_iv.length ; i++ ) {
