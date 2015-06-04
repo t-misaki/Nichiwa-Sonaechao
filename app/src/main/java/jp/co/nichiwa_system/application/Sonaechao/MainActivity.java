@@ -64,6 +64,20 @@ public class MainActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // 初期設定（設定画面から起動する）
+        SharedPreferences firstpref = getSharedPreferences("Preference", MODE_PRIVATE);
+        if ( firstpref.getInt("first_key", 0) == 0 ) {
+            Intent intent = new Intent();
+            intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+            intent.setClassName("jp.co.nichiwa_system.application.Sonaechao", "jp.co.nichiwa_system.application.Sonaechao.SubActivity");
+            startActivity(intent);
+
+            SharedPreferences.Editor e = firstpref.edit();
+            e.putInt("first_key", 1);
+            e.commit();
+        }
+
         //activity_main.xmlを使う場合これを宣言する
         setContentView(R.layout.activity_main);
 
