@@ -299,13 +299,13 @@ public class MainActivity extends Activity {
                 Hijousyoku_tv[i].setTextColor(Color.RED);
             }
         }
-
+/*
         //幼児用のみテキストを変更
         Hijousyoku_tv[10].setText( get_Child_Warning( item[10].getPrefName(),item[10].getName() ) );
         Hijousyoku_tv[11].setText( get_Child_Warning( item[11].getPrefName(),item[11].getName() ) );
         Hijousyoku_tv[10].setCompoundDrawablesWithIntrinsicBounds(item[10].getIcon(), 0, 0, 0);
         Hijousyoku_tv[11].setCompoundDrawablesWithIntrinsicBounds(item[11].getIcon(), 0, 0, 0);
-
+*/
 
 
         for( int i = 0 ; i < MAX_HIJOUSYOKU ; i++ ) {
@@ -314,28 +314,8 @@ public class MainActivity extends Activity {
                 for( int k = MAX_HIJOUSYOKU-1 ; k > i ; k-- ) {
                     //同じく特に警告のないものは飛ばす
                     if (Hijousyoku_tv[k].getText().length() > 0) {
-                        //乳児用の食料である
-                        if(item[k].getName() == "離乳食" || item[k].getName() == "粉ミルク") {
-                            //場所を交換する
-                            TextView tv = Hijousyoku_tv[k - 1];
-                            Hijousyoku_tv[k - 1] = Hijousyoku_tv[k];
-                            Hijousyoku_tv[k] = tv;
 
-                            //アイテム
-                            ItemClass ic = item[k-1];
-                            item[k-1] = item[k];
-                            item[k] = ic;
-                        }else if (item[k].getIcon() == R.drawable.batsu || Hijousyoku_tv[k-1].getText().length() < 0) { //×ボタン または 上の段が空白 である
-                            //場所を交換する
-                            TextView tv = Hijousyoku_tv[k - 1];
-                            Hijousyoku_tv[k - 1] = Hijousyoku_tv[k];
-                            Hijousyoku_tv[k] = tv;
-
-                            //アイテム
-                            ItemClass ic = item[k-1];
-                            item[k-1] = item[k];
-                            item[k] = ic;
-                        }else if( getDate(item[k].getPrefName()) < getDate(item[k-1].getPrefName()) ) {
+                        if( getDate(item[k].getPrefName()) < getDate(item[k-1].getPrefName()) ) {
                             //場所を交換する
                             TextView tv = Hijousyoku_tv[k - 1];
                             Hijousyoku_tv[k - 1] = Hijousyoku_tv[k];
@@ -388,16 +368,16 @@ public class MainActivity extends Activity {
         int nokori = (int)getDate(prefName);
         //期日を取得する
         int nissu =  ( getSharedPreferences("Preferences",MODE_PRIVATE) ).getInt("kiniti_day",14);
-        if( nokori < 0 ) {
+
+        if(nokori == 0) {
+            //賞味期限が当日になったら表示
+            str = HijousyokuName + "の賞味期限が当日です";
+        } else if( nokori < 0 ) {
             //賞味期限が切れたら表示
             str = HijousyokuName + "の賞味期限が切れました";
         } else if( nokori <= nissu ) {
             //賞味期限が期日に近づいたら表示
             str = HijousyokuName + "の賞味期限が" + nokori + "日前です";
-            if(nokori == 0) {
-                //賞味期限が当日になったら表示
-                str = HijousyokuName + "の賞味期限が当日です";
-            }
         }
 
         return str;
