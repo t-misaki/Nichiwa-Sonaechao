@@ -1,8 +1,10 @@
 package jp.co.nichiwa_system.application.Sonaechao;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.Button;
@@ -26,6 +28,28 @@ public class Stock extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_stock);
+
+        SharedPreferences pre = getSharedPreferences("Preference",MODE_PRIVATE);
+        if(pre.getInt("fast_start_stock",0)==0){
+            /***処理***/
+            AlertDialog.Builder fast = new AlertDialog.Builder(this);
+            fast.setTitle("備蓄品画面の説明！");
+            fast.setMessage("ここでは備蓄品のストックを設定できます！\n" +
+                            "備蓄したいものをタップして災害に備えちゃお！");
+            fast.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                   dialog.dismiss();
+                }
+            });
+
+
+            fast.show();
+
+            SharedPreferences.Editor e = pre.edit();
+            e.putInt("fast_start_stock", 1);
+            e.commit();
+        }
 
         //各イメージビューの取得
         ImageView[] Stock_iv = {
