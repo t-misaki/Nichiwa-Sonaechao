@@ -14,9 +14,9 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="大人"
         android:id="@+id/textView3"
-        android:layout_marginTop="31dp"
-        android:layout_alignStart="@+id/fragment3"
-        android:layout_below="@+id/fragment4" />
+        android:layout_marginTop="33dp"
+        android:layout_below="@+id/fragment4"
+        android:layout_alignParentStart="true" />
 
     <EditText
         android:layout_width="35dp"
@@ -45,9 +45,9 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="小人"
         android:id="@+id/textView5"
+        android:layout_marginTop="33dp"
         android:layout_below="@+id/textView14"
-        android:layout_alignStart="@+id/textView14"
-        android:layout_marginTop="32dp" />
+        android:layout_alignParentStart="true" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -151,7 +151,7 @@
         android:focusableInTouchMode="true"
         android:text="0"
         android:layout_above="@+id/textView13"
-        android:layout_toEndOf="@+id/textView13" />
+        android:layout_toEndOf="@+id/textView11" />
 
     <TextView
         android:layout_width="wrap_content"
