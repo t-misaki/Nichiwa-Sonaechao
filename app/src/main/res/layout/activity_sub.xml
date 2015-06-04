@@ -53,10 +53,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="期日"
+        android:text="お知らせ期日"
         android:id="@+id/textView6"
         android:layout_centerVertical="true"
-        android:layout_toStartOf="@+id/EditText" />
+        android:layout_alignParentStart="true" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -97,9 +97,9 @@
         android:id="@+id/EditText3"
         android:focusable="false"
         android:focusableInTouchMode="true"
+        android:text="14"
         android:layout_above="@+id/textView16"
-        android:layout_toEndOf="@+id/textView6"
-        android:text="14" />
+        android:layout_toEndOf="@+id/textView6" />
 
     <EditText
         android:layout_width="35dp"
@@ -189,7 +189,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="※期限到達の何日前に警告を出すのかを設定します"
+        android:text="※消費期限到達の何日前に"
         android:id="@+id/textView16"
         android:layout_below="@+id/textView6"
         android:layout_alignStart="@+id/textView6" />
@@ -241,6 +241,14 @@
         android:id="@+id/fragment4"
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="　警告を出すのかを設定します"
+        android:id="@+id/textView20"
+        android:layout_below="@+id/textView16"
+        android:layout_alignStart="@+id/textView16" />
 
 
 </RelativeLayout>
