@@ -98,7 +98,7 @@ public class DialogOnClickListenerClass implements View.OnClickListener {
 
     //クリックを押したときの処理
     @Override
-    public void onClick(View v) {
+   public void onClick(View v) {
 
         /*************************************************************************
          * 宣言部
@@ -232,18 +232,18 @@ public class DialogOnClickListenerClass implements View.OnClickListener {
                     {
                         //非常食の項目を取得する
                         ItemClass[] item  = {
-                                new ItemClass("レトルトごはん", "retorutogohan_number", R.drawable.retoruto_gohan, true,"袋", act),
-                                new ItemClass("缶詰（ごはん）", "kandume_number", R.drawable.kandume_gohan, true,"缶", act),
+                                new ItemClass("レトルトご飯", "retorutogohan_number", R.drawable.retoruto_gohan, true,"食", act),
+                                new ItemClass("缶詰（ご飯）", "kandume_number", R.drawable.kandume_gohan, true,"缶", act),
                                 new ItemClass("乾麺", "kanmen_number", R.drawable.kanmen, true,"袋", act),
                                 new ItemClass("カンパン", "kanpan_number", R.drawable.kanpan, true,"缶", act),
                                 new ItemClass("缶詰（肉・魚）", "kandume2_number", R.drawable.kandume, true, "缶", act),
                                 new ItemClass("レトルト食品", "retoruto_number", R.drawable.retoruto, true, "袋", act),
-                                new ItemClass("フリーズドライ", "furizu_dorai_number", R.drawable.furizu_dorai, true, "塊", act),
+                                new ItemClass("フリーズドライ", "furizu_dorai_number", R.drawable.furizu_dorai, true, "食", act),
                                 new ItemClass("水", "mizu_number", R.drawable.mizu, true, "ℓ",act),
                                 new ItemClass("カロリーメイト", "karori_meito_number", R.drawable.karori_meito, true, "箱", act),
                                 new ItemClass("お菓子", "okasi_number", R.drawable.okasi, true, "箱・袋", act),
-                                new ItemClass("離乳食", "rinyu_number", R.drawable.rinyu, true, act ),
-                                new ItemClass("粉ミルク", "konamilk_number", R.drawable.konamilk, true, act)
+                                new ItemClass("離乳食", "rinyu_number", R.drawable.rinyu, true,"食", act ),
+                                new ItemClass("粉ミルク", "konamilk_number", R.drawable.konamilk, true,"缶", act)
                         };
 
                         //要チェックに使用するTextViewを使用する
@@ -255,7 +255,10 @@ public class DialogOnClickListenerClass implements View.OnClickListener {
                         for( int i = 0 ; i < 12 ; i++ ) {
                             Hijousyoku_tv[i] = new TextView(act);
                             //警告文を取得する
-                            Hijousyoku_tv[i].setText(get_Number_of_days_Warning(item[i].getPrefName(), item[i].getName()));
+//                            Hijousyoku_tv[i].setTextSize(18.0f);
+//                            if(loadInt2(item[i].getPrefName()) > 0) {
+                                Hijousyoku_tv[i].setText(get_Number_of_days_Warning(item[i].getPrefName(), item[i].getName()));
+//                            }
                             //警告文を挿入する
                             if( Hijousyoku_tv[i].getText().length() > 0 ) {
 
@@ -268,13 +271,13 @@ public class DialogOnClickListenerClass implements View.OnClickListener {
                                 Hijousyoku_tv[i].setTextColor(Color.RED);
                             }
                         }
-
+/*
                         //幼児用のみテキストを変更
                         Hijousyoku_tv[10].setText( get_Child_Warning( item[10].getPrefName(),item[10].getName() ) );
                         Hijousyoku_tv[11].setText( get_Child_Warning( item[11].getPrefName(),item[11].getName() ) );
                         Hijousyoku_tv[10].setCompoundDrawablesWithIntrinsicBounds(item[10].getIcon(), 0, 0, 0);
                         Hijousyoku_tv[11].setCompoundDrawablesWithIntrinsicBounds(item[11].getIcon(), 0, 0, 0);
-
+*/
                         for( int i = 0 ; i < 12 ; i++ ) {
                             //特に警告のないものは飛ばす
                             if (Hijousyoku_tv[i].getText().length() > 0) {
@@ -339,6 +342,16 @@ public class DialogOnClickListenerClass implements View.OnClickListener {
         String str = String.valueOf(i);
 
         return str;
+    }
+
+    //値データを取得する関数
+    public int loadInt2( String name )
+    {
+        //プリファレンスの生成
+        SharedPreferences pref =
+                act.getSharedPreferences("Preferences",act.MODE_PRIVATE);
+        int i =  pref.getInt(name,0);
+        return i;
     }
 
     //値データをプレファレンスで保存する関数 (エディットテキスト、名前)
