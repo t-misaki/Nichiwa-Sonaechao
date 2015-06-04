@@ -44,6 +44,28 @@ public class SubActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sub);
 
+        SharedPreferences pre = getSharedPreferences("Preference",MODE_PRIVATE);
+        if(pre.getInt("fast_start_sub",0)==0){
+            /***処理***/
+            AlertDialog.Builder fast = new AlertDialog.Builder(this);
+            fast.setTitle("設定画面の説明！");
+            fast.setMessage("ここでは大人、小人、幼児等の設定できます！\n" +
+                    "人数やお知らせ期日、備えちゃお日数を設定して災害に備えちゃお！");
+            fast.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                }
+            });
+
+
+            fast.show();
+
+            SharedPreferences.Editor e = pre.edit();
+            e.putInt("fast_start_sub", 1);
+            e.commit();
+        }
+
         PackageInfo packageInfo = null;
         TextView tv = (TextView)findViewById(R.id.version);
         try {
