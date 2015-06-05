@@ -89,6 +89,9 @@ public class MainActivity extends Activity {
         ImageButton hijousyoku_ib = (ImageButton)findViewById(R.id.L_graph);
         ImageButton bichiku_ib = (ImageButton)findViewById(R.id.R_graph);
 
+        Home.setBackgroundResource(R.drawable.style2);
+
+
         //非常食へ
         hijousyoku.setOnClickListener(new OnClickTransListenerClass(".Hijousyoku", this));
         hijousyoku_ib.setOnClickListener(new OnClickTransListenerClass(".Hijousyoku",this));
@@ -281,7 +284,7 @@ public class MainActivity extends Activity {
         if( gou <= 0 )
         {
             //ダイアログの表示
-            DialogClass dc = new DialogClass("警告！","　初期設定を行ってください",this);
+            DialogClass dc = new DialogClass("人数の合計が0です！","　人数の設定を行ってください！",this);
             dc.setPositiveButton("設定へ移動", new ListenerClass("jp.co.nichiwa_system.application.Sonaechao", "jp.co.nichiwa_system.application.Sonaechao.SubActivity", MainActivity.this) );
 //            dc.setNegativeButton("後で",null);
             dc.Diarog_show();
