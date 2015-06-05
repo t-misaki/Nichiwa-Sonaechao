@@ -285,7 +285,7 @@ public class DialogOnClickListenerClass implements View.OnClickListener {
                                     //同じく特に警告のないものは飛ばす
                                     if (Hijousyoku_tv[k].getText().length() > 0) {
                                         //乳児用の食料である
-                                        if(item[k].getName() == "離乳食" || item[k].getName() == "粉ミルク") {
+                                       if(item[k].getName() == "離乳食" || item[k].getName() == "粉ミルク") {
                                             //場所を交換する
                                             TextView tv = Hijousyoku_tv[k - 1];
                                             Hijousyoku_tv[k - 1] = Hijousyoku_tv[k];
