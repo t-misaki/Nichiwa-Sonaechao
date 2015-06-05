@@ -255,10 +255,10 @@ public class DialogOnClickListenerClass implements View.OnClickListener {
                         for( int i = 0 ; i < 12 ; i++ ) {
                             Hijousyoku_tv[i] = new TextView(act);
                             //警告文を取得する
-//                            Hijousyoku_tv[i].setTextSize(18.0f);
-//                            if(loadInt2(item[i].getPrefName()) > 0) {
+                            Hijousyoku_tv[i].setTextSize(18.0f);
+                            if(loadInt2(item[i].getPrefName()) > 0) {
                                 Hijousyoku_tv[i].setText(get_Number_of_days_Warning(item[i].getPrefName(), item[i].getName()));
-//                            }
+                            }
                             //警告文を挿入する
                             if( Hijousyoku_tv[i].getText().length() > 0 ) {
 
@@ -284,8 +284,20 @@ public class DialogOnClickListenerClass implements View.OnClickListener {
                                 for( int k = 12-1 ; k > i ; k-- ) {
                                     //同じく特に警告のないものは飛ばす
                                     if (Hijousyoku_tv[k].getText().length() > 0) {
-                                        //乳児用の食料である
-                                       if(item[k].getName() == "離乳食" || item[k].getName() == "粉ミルク") {
+                                        if (getDate(item[k].getPrefName()) < getDate(item[k - 1].getPrefName())) {
+                                            //場所を交換する
+                                            TextView tv = Hijousyoku_tv[k - 1];
+                                            Hijousyoku_tv[k - 1] = Hijousyoku_tv[k];
+                                            Hijousyoku_tv[k] = tv;
+
+                                            //アイテム
+                                            ItemClass ic = item[k - 1];
+                                            item[k - 1] = item[k];
+                                            item[k] = ic;
+                                        }
+
+                                        // 離乳食である
+                                        if(item[k].getName() == "離乳食") {
                                             //場所を交換する
                                             TextView tv = Hijousyoku_tv[k - 1];
                                             Hijousyoku_tv[k - 1] = Hijousyoku_tv[k];
@@ -295,7 +307,10 @@ public class DialogOnClickListenerClass implements View.OnClickListener {
                                             ItemClass ic = item[k-1];
                                             item[k-1] = item[k];
                                             item[k] = ic;
-                                        }else if (item[k].getIcon() == R.drawable.batsu || Hijousyoku_tv[k-1].getText().length() < 0) { //×ボタン または 空白 である
+                                        }
+
+                                        // 粉ミルクである
+                                        if (item[k].getName() == "粉ミルク") {
                                             //場所を交換する
                                             TextView tv = Hijousyoku_tv[k - 1];
                                             Hijousyoku_tv[k - 1] = Hijousyoku_tv[k];
@@ -305,15 +320,17 @@ public class DialogOnClickListenerClass implements View.OnClickListener {
                                             ItemClass ic = item[k-1];
                                             item[k-1] = item[k];
                                             item[k] = ic;
-                                        }else if( getDate(item[k].getPrefName()) < getDate(item[k-1].getPrefName()) ) {
+                                        }
+
+                                        if (item[k].getIcon() == R.drawable.batsu) { //×ボタンである
                                             //場所を交換する
                                             TextView tv = Hijousyoku_tv[k - 1];
                                             Hijousyoku_tv[k - 1] = Hijousyoku_tv[k];
                                             Hijousyoku_tv[k] = tv;
 
                                             //アイテム
-                                            ItemClass ic = item[k-1];
-                                            item[k-1] = item[k];
+                                            ItemClass ic = item[k - 1];
+                                            item[k - 1] = item[k];
                                             item[k] = ic;
                                         }
                                     }
