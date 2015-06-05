@@ -268,7 +268,12 @@ public class DialogOnClickListenerClass implements View.OnClickListener {
                                 //アイコンの設定
                                 get_Icon_Warning(item[i].getPrefName(), item[i]);
                                 Hijousyoku_tv[i].setCompoundDrawablesWithIntrinsicBounds(item[i].getIcon(), 0, 0, 0);
-                                Hijousyoku_tv[i].setTextColor(Color.RED);
+                                if(item[i].getIcon()==R.drawable.batsu) {
+                                    Hijousyoku_tv[i].setTextColor(Color.RED);
+                                }
+                                if(item[i].getIcon()==R.drawable.bikkuri) {
+                                    Hijousyoku_tv[i].setTextColor(Color.BLUE);
+                                }
                             }
                         }
 /*
