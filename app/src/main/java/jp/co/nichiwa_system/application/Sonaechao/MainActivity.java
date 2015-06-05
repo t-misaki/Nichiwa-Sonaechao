@@ -331,8 +331,20 @@ public class MainActivity extends Activity {
                 for( int k = MAX_HIJOUSYOKU-1 ; k > i ; k-- ) {
                     //同じく特に警告のないものは飛ばす
                     if (Hijousyoku_tv[k].getText().length() > 0) {
+                        if (getDate(item[k].getPrefName()) < getDate(item[k - 1].getPrefName())) {
+                            //場所を交換する
+                            TextView tv = Hijousyoku_tv[k - 1];
+                            Hijousyoku_tv[k - 1] = Hijousyoku_tv[k];
+                            Hijousyoku_tv[k] = tv;
 
-                        if( getDate(item[k].getPrefName()) < getDate(item[k-1].getPrefName()) ) {
+                            //アイテム
+                            ItemClass ic = item[k - 1];
+                            item[k - 1] = item[k];
+                            item[k] = ic;
+                        }
+
+                        // 離乳食である
+                        if(item[k].getName() == "離乳食") {
                             //場所を交換する
                             TextView tv = Hijousyoku_tv[k - 1];
                             Hijousyoku_tv[k - 1] = Hijousyoku_tv[k];
@@ -341,6 +353,31 @@ public class MainActivity extends Activity {
                             //アイテム
                             ItemClass ic = item[k-1];
                             item[k-1] = item[k];
+                            item[k] = ic;
+                        }
+
+                        // 粉ミルクである
+                        if (item[k].getName() == "粉ミルク") {
+                            //場所を交換する
+                            TextView tv = Hijousyoku_tv[k - 1];
+                            Hijousyoku_tv[k - 1] = Hijousyoku_tv[k];
+                            Hijousyoku_tv[k] = tv;
+
+                            //アイテム
+                            ItemClass ic = item[k-1];
+                            item[k-1] = item[k];
+                            item[k] = ic;
+                        }
+
+                        if (item[k].getIcon() == R.drawable.batsu) { //×ボタンである
+                            //場所を交換する
+                            TextView tv = Hijousyoku_tv[k - 1];
+                            Hijousyoku_tv[k - 1] = Hijousyoku_tv[k];
+                            Hijousyoku_tv[k] = tv;
+
+                            //アイテム
+                            ItemClass ic = item[k - 1];
+                            item[k - 1] = item[k];
                             item[k] = ic;
                         }
                     }
