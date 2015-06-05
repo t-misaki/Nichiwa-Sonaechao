@@ -313,7 +313,12 @@ public class MainActivity extends Activity {
                 //アイコンの設定
                 get_Icon_Warning(item[i].getPrefName(), item[i]);
                 Hijousyoku_tv[i].setCompoundDrawablesWithIntrinsicBounds(item[i].getIcon(), 0, 0, 0);
-                Hijousyoku_tv[i].setTextColor(Color.RED);
+                if(item[i].getIcon()==R.drawable.batsu) {
+                    Hijousyoku_tv[i].setTextColor(Color.RED);
+                }
+                if(item[i].getIcon()==R.drawable.bikkuri) {
+                    Hijousyoku_tv[i].setTextColor(Color.BLUE);
+                }
             }
         }
 /*
@@ -452,6 +457,11 @@ public class MainActivity extends Activity {
             item.setIcon( R.drawable.batsu );
         } else if( nokori <= nissu ) {
             item.setIcon(R.drawable.bikkuri);
+        }
+        if( nokori <= 0 && item.getName() == "離乳食" || nokori <= 0 && item.getName() == "粉ミルク") {
+            item.setIcon(R.drawable.batsu_b);
+        } else if ( nokori <= nissu && item.getName() == "離乳食" || nokori <= nissu && item.getName() == "粉ミルク") {
+            item.setIcon(R.drawable.bikkuri_b);
         }
     }
 

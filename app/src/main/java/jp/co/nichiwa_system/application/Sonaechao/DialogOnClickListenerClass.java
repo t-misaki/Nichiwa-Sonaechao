@@ -463,6 +463,11 @@ public class DialogOnClickListenerClass implements View.OnClickListener {
         } else if( nokori <= nissu ) {
             item.setIcon(R.drawable.bikkuri);
         }
+        if( nokori <= 0 && item.getName() == "離乳食" || nokori <= 0 && item.getName() == "粉ミルク") {
+            item.setIcon(R.drawable.batsu_b);
+        } else if ( nokori <= nissu && item.getName() == "離乳食" || nokori <= nissu && item.getName() == "粉ミルク") {
+            item.setIcon(R.drawable.bikkuri_b);
+        }
     }
 
     // 乳児一人以上で、なおかつ離乳食と粉ミルクが「0」のとき、警告を表示
