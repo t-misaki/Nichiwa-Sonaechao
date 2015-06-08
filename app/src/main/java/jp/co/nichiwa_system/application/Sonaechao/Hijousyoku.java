@@ -98,7 +98,7 @@ public class Hijousyoku extends Activity {
         }
 
         // 場所を指定する
-        Home.setOnClickListener(new OnClickTransListenerClass(this)); // ホーム画面へ
+        Home.setOnClickListener(new OnClickTransListenerClass(".MainActivity", this)); // ホーム画面へ
         Stock.setOnClickListener(new OnClickTransListenerClass(".Stock", this)); // 備蓄品画面へ
         DispBtn.setOnClickListener(new OnClickTransListenerClass(".SubActivity", this)); // 設定画面へ
         food.setOnClickListener(new View.OnClickListener() { // 非常食ボタンを押した時の処理（説明ダイアログ）
