@@ -66,6 +66,7 @@ public class SubActivity extends Activity {
             e.commit();
         }
 
+        //バージョン情報出力
         PackageInfo packageInfo = null;
         TextView tv = (TextView)findViewById(R.id.version);
         try {

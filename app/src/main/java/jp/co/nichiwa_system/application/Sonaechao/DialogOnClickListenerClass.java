@@ -29,7 +29,7 @@ public class DialogOnClickListenerClass implements View.OnClickListener {
     private Activity act;            //アクティビティ
     private boolean calendarshow; //カレンダー機能の有無
     private String tani;            //アイテムの単
-    private int Number;
+    private int Number;             
 
     //1日生きるために最低限必要な量
     //左から大人、小人、幼児。1以上だと表示。

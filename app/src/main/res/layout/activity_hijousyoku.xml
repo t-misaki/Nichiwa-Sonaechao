@@ -5,7 +5,7 @@
 
     <fragment
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="200dp"
         android:name="jp.co.nichiwa_system.application.Sonaechao.Hijousyoku_List"
         class="jp.co.nichiwa_system.application.Sonaechao.Hijousyoku_List"
         android:id="@+id/fragment_Hijousyoku_List"
@@ -45,4 +45,16 @@
         android:id="@+id/fragment6"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="赤い枠線のものは備蓄して下さい"
+        android:id="@+id/textView27"
+        android:textColor="#ffff0000"
+        android:layout_alignTop="@+id/fragment_Hijousyoku_List"
+        android:layout_alignParentEnd="true"
+        android:background="#ffcdffb3" />
+
 </RelativeLayout>

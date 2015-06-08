@@ -279,13 +279,13 @@ public class MainActivity extends Activity {
         }
 
         //設定画面の合計値(gou)が0ならば警告ダイアログをだす
-        if( gou <= 0 )
+        if( gou == 0 )
         {
             //ダイアログの表示
-            DialogClass dc = new DialogClass("人数の合計が0です！","　人数の設定を行ってください！",this);
-            dc.setPositiveButton("設定へ移動", new ListenerClass("jp.co.nichiwa_system.application.Sonaechao", "jp.co.nichiwa_system.application.Sonaechao.SubActivity", MainActivity.this) );
+            keikoku = new DialogClass("人数の合計が0です！","　人数の設定を行ってください！",this);
+            keikoku.setPositiveButton("設定へ移動", new ListenerClass("jp.co.nichiwa_system.application.Sonaechao", "jp.co.nichiwa_system.application.Sonaechao.SubActivity", MainActivity.this) );
 //            dc.setNegativeButton("後で",null);
-            dc.Diarog_show();
+            keikoku.Diarog_show();
         }
 
         //要チェックに使用するTextViewを使用する
