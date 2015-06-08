@@ -203,6 +203,10 @@ public class DialogOnClickListenerClass implements View.OnClickListener {
             }
         }
 
+        // ダイアログ内に備えちゃお日数の表示
+        TextView sonaechao_tv = (TextView)viw.findViewById(R.id.sonaechao_text);
+        sonaechao_tv.setText(" 備えちゃお日数" + loadInt("sitei_day") + "日分");
+
         //決定ボタンを押すと行われる処理
         alert.setPositiveButton("OK",new DialogInterface.OnClickListener() {
             @Override
