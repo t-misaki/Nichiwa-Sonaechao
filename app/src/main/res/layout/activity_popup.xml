@@ -14,6 +14,7 @@
         android:inputType="number"
         android:ems="10"
         android:maxLength="2"
+        android:selectAllOnFocus="true"
         android:id="@+id/Number"
         android:layout_alignBottom="@+id/textView26"
         android:layout_toStartOf="@+id/textView26" />
