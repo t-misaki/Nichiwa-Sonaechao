@@ -96,10 +96,9 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="推奨値：00"
-        android:id="@+id/suisyou"
-        android:layout_alignTop="@+id/otona_text"
-        android:layout_alignParentStart="true" />
+        android:text=" 備えちゃお日数0日分"
+        android:id="@+id/sonaechao_text"
+        android:layout_above="@+id/otona_text"
+        android:layout_alignEnd="@+id/otona_text" />
 
 </RelativeLayout>
