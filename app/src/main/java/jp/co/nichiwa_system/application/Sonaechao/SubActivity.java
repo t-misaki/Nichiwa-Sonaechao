@@ -118,9 +118,26 @@ public class SubActivity extends Activity {
         ImageButton set = (ImageButton)findViewById(R.id.settingbutton);
 
         //移動
-        Home.setOnClickListener( new OnClickListenerClass() );
-        Stock.setOnClickListener( new OnClickListenerClass(".Stock", this) );
-        hijousyoku.setOnClickListener( new OnClickListenerClass(".Hijousyoku", this) );
+        Home.setOnClickListener( new OnClickListenerClass() ); // ホーム画面へ
+        Stock.setOnClickListener( new OnClickListenerClass(".Stock", this) ); // 備蓄品画面へ
+        hijousyoku.setOnClickListener( new OnClickListenerClass(".Hijousyoku", this) ); // 非常食画面へ
+        set.setOnClickListener(new View.OnClickListener() { // 設定ボタンを押した時の処理（説明ダイアログ）
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder fast = new AlertDialog.Builder(SubActivity.this);
+                fast.setTitle("設定画面の説明！");
+                fast.setMessage("ここでは大人、小人、幼児等の設定できます！\n" +
+                        "人数やお知らせ期日、備えちゃお日数を設定して災害に備えちゃお！");
+                fast.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+                fast.show();
+            }
+        });
+
         set.setBackgroundResource(R.drawable.style2);
 
         //広告の設定

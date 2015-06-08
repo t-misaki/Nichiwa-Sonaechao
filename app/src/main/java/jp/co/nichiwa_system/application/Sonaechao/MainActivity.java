@@ -95,12 +95,12 @@ public class MainActivity extends Activity {
         //非常食へ
         hijousyoku.setOnClickListener(new OnClickTransListenerClass(".Hijousyoku", this));
         hijousyoku_ib.setOnClickListener(new OnClickTransListenerClass(".Hijousyoku",this));
-
         //備蓄品へ
         Stock.setOnClickListener(new OnClickTransListenerClass(".Stock", this));
         bichiku_ib.setOnClickListener( new OnClickTransListenerClass(".Stock",this) );
         //設定画面へ
         DispBtn.setOnClickListener( new OnClickTransListenerClass(".SubActivity",this ) );
+
 
         // 広告の設定
         // IDはあくまでテスト用なので、apkを出すときは外すように

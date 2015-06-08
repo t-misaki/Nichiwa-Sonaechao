@@ -98,11 +98,28 @@ public class Hijousyoku extends Activity {
         }
 
         // 場所を指定する
-        Home.setOnClickListener(new OnClickTransListenerClass(this));
-        Stock.setOnClickListener(new OnClickTransListenerClass(".Stock", this));
-        DispBtn.setOnClickListener(new OnClickTransListenerClass(".SubActivity", this));
+        Home.setOnClickListener(new OnClickTransListenerClass(this)); // ホーム画面へ
+        Stock.setOnClickListener(new OnClickTransListenerClass(".Stock", this)); // 備蓄品画面へ
+        DispBtn.setOnClickListener(new OnClickTransListenerClass(".SubActivity", this)); // 設定画面へ
+        food.setOnClickListener(new View.OnClickListener() { // 非常食ボタンを押した時の処理（説明ダイアログ）
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder fast = new AlertDialog.Builder(Hijousyoku.this);
+                fast.setTitle("非常食画面の説明！");
+                fast.setMessage("ここでは非常食のストックを設定できます！\n" +
+                        "備蓄したいものをタップして災害に備えちゃお！\n" +
+                        "※赤い枠線のものがピンチです！");
+                fast.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+                fast.show();
+            }
+        });
 
-        //枠線をつける
+                //枠線をつける
         for( int i = 0 ; i < 12 ; i++ ) {
             //ボタンアクションの処理
             Hijousyoku_iv[i].setOnClickListener( new DialogOnClickListenerClass( item[i]) );
