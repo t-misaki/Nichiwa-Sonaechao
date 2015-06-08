@@ -7,6 +7,7 @@ import android.app.FragmentManager;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.GridLayout;
 import android.widget.ImageButton;
@@ -119,9 +120,26 @@ public class Stock extends Activity {
         ImageButton hijousyoku = (ImageButton)findViewById(R.id.hijousyoku);//「非常食」ボタン
         ImageButton stock =(ImageButton)findViewById(R.id.bichiku);
 
-        Home.setOnClickListener( new OnClickTransListenerClass(this) );
-        hijousyoku.setOnClickListener( new OnClickTransListenerClass(".Hijousyoku",this ) );
-        DispBtn.setOnClickListener( new OnClickTransListenerClass(".SubActivity",this ) );
+        Home.setOnClickListener( new OnClickTransListenerClass(this) ); // ホーム画面へ
+        hijousyoku.setOnClickListener( new OnClickTransListenerClass(".Hijousyoku",this ) ); // 非常食画面へ
+        DispBtn.setOnClickListener( new OnClickTransListenerClass(".SubActivity",this ) ); // 設定画面へ
+        stock.setOnClickListener(new View.OnClickListener() { // 備蓄品ボタンを押した時の処理（説明ダイアログ）
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder fast = new AlertDialog.Builder(Stock.this);
+                fast.setTitle("備蓄品画面の説明！");
+                fast.setMessage("ここでは備蓄品のストックを設定できます！\n" +
+                        "備蓄したいものをタップして災害に備えちゃお！");
+                fast.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+                fast.show();
+            }
+        });
+
         stock.setBackgroundResource(R.drawable.style2);
 
         //枠線をつける
