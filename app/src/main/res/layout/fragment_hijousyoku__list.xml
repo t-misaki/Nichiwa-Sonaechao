@@ -2,8 +2,7 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="600dp" android:id="@+id/ScrollView2"
-    tools:context="jp.co.nichiwa_system.application.Sonaechao.Hijousyoku_List"
-    android:background="#ffcdffb3">
+    tools:context="jp.co.nichiwa_system.application.Sonaechao.Hijousyoku_List">
 
     <GridLayout
         android:id="@+id/ListLayout"
