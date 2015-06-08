@@ -132,9 +132,7 @@ public class MainActivity extends Activity {
         //pref = getSharedPreferences("Preferences",MODE_PRIVATE);
         int gou = pref.getInt("youji_people",0) +
                 pref.getInt("kobito_people",0) +
-                pref.getInt("otona_people",0) +
-                pref.getInt("kiniti_day",0) +
-                pref.getInt("sitei_day",0);
+                pref.getInt("otona_people",0);
 
         //非常食の割合を取得
         goukei[0] = eiyou();
