@@ -118,7 +118,7 @@ public class SubActivity extends Activity {
         ImageButton set = (ImageButton)findViewById(R.id.settingbutton);
 
         //移動
-        Home.setOnClickListener( new OnClickListenerClass() ); // ホーム画面へ
+        Home.setOnClickListener( new OnClickListenerClass(".MainActivity", this) ); // ホーム画面へ
         Stock.setOnClickListener( new OnClickListenerClass(".Stock", this) ); // 備蓄品画面へ
         hijousyoku.setOnClickListener( new OnClickListenerClass(".Hijousyoku", this) ); // 非常食画面へ
         set.setOnClickListener(new View.OnClickListener() { // 設定ボタンを押した時の処理（説明ダイアログ）

@@ -120,7 +120,7 @@ public class Stock extends Activity {
         ImageButton hijousyoku = (ImageButton)findViewById(R.id.hijousyoku);//「非常食」ボタン
         ImageButton stock =(ImageButton)findViewById(R.id.bichiku);
 
-        Home.setOnClickListener( new OnClickTransListenerClass(this) ); // ホーム画面へ
+        Home.setOnClickListener( new OnClickTransListenerClass(".MainActivity", this) ); // ホーム画面へ
         hijousyoku.setOnClickListener( new OnClickTransListenerClass(".Hijousyoku",this ) ); // 非常食画面へ
         DispBtn.setOnClickListener( new OnClickTransListenerClass(".SubActivity",this ) ); // 設定画面へ
         stock.setOnClickListener(new View.OnClickListener() { // 備蓄品ボタンを押した時の処理（説明ダイアログ）
