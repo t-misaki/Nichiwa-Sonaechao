@@ -14,7 +14,6 @@
         android:inputType="number"
         android:ems="10"
         android:maxLength="2"
-        android:selectAllOnFocus="true"
         android:id="@+id/Number"
         android:layout_alignBottom="@+id/textView26"
         android:layout_toStartOf="@+id/textView26" />
@@ -92,5 +91,13 @@
         android:id="@+id/limitmessage"
         android:layout_alignTop="@+id/popup_day"
         android:layout_toStartOf="@+id/popup_day" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=" 備えちゃお日数0日分"
+        android:id="@+id/sonaechao_text"
+        android:layout_above="@+id/otona_text"
+        android:layout_alignEnd="@+id/otona_text" />
 
 </RelativeLayout>
