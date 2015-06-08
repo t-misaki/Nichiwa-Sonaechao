@@ -51,4 +51,15 @@
         android:layout_alignParentTop="true"
         android:layout_alignStart="@+id/Stock_list" />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="赤い枠線のものは備蓄して下さい"
+        android:id="@+id/textView28"
+        android:textColor="#ffff0000"
+        android:background="#ffcdffb3"
+        android:layout_below="@+id/fragment5"
+        android:layout_alignParentEnd="true" />
+
 </RelativeLayout>
