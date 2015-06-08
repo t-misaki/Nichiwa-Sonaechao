@@ -53,7 +53,7 @@ public class MainActivity extends Activity {
             new ItemClass("乾パン", "kanpan_number", R.drawable.kanpan, true,"缶", this),
             new ItemClass("缶詰（肉・魚）", "kandume2_number", R.drawable.kandume, true, "缶", this),
             new ItemClass("レトルト食品", "retoruto_number", R.drawable.retoruto, true, "袋", this),
-            new ItemClass("フリーズドライ", "furizu_dorai_number", R.drawable.furizu_dorai, true, "塊", this),
+            new ItemClass("フリーズドライ", "furizu_dorai_number", R.drawable.furizu_dorai, true, "食", this),
             new ItemClass("水", "mizu_number", R.drawable.mizu, true, "ℓ",this),
             new ItemClass("カロリーメイト", "karori_meito_number", R.drawable.karori_meito, true, "箱", this),
             new ItemClass("お菓子", "okasi_number", R.drawable.okasi, true, "箱・袋", this),

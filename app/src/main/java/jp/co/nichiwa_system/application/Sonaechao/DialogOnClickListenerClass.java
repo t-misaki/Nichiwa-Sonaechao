@@ -235,7 +235,7 @@ public class DialogOnClickListenerClass implements View.OnClickListener {
                                 new ItemClass("レトルトご飯", "retorutogohan_number", R.drawable.retoruto_gohan, true,"食", act),
                                 new ItemClass("缶詰（ご飯）", "kandume_number", R.drawable.kandume_gohan, true,"缶", act),
                                 new ItemClass("乾麺", "kanmen_number", R.drawable.kanmen, true,"袋", act),
-                                new ItemClass("カンパン", "kanpan_number", R.drawable.kanpan, true,"缶", act),
+                                new ItemClass("乾パン", "kanpan_number", R.drawable.kanpan, true,"缶", act),
                                 new ItemClass("缶詰（肉・魚）", "kandume2_number", R.drawable.kandume, true, "缶", act),
                                 new ItemClass("レトルト食品", "retoruto_number", R.drawable.retoruto, true, "袋", act),
                                 new ItemClass("フリーズドライ", "furizu_dorai_number", R.drawable.furizu_dorai, true, "食", act),
