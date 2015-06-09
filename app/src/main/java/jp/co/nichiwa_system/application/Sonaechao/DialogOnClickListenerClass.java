@@ -384,48 +384,6 @@ public class DialogOnClickListenerClass implements View.OnClickListener {
 
                     // アクティビティが非常食画面の場合、以下の処理を行う
                     if ( act.getClass() == Hijousyoku.class ) {
-                        ImageView[] Hijousyoku_iv = new ImageView[12];
-
-                        //各イメージビューの取得
-                        Hijousyoku_iv[0] = (ImageView)viw.findViewById(R.id.retoruto_gohan);
-                        Hijousyoku_iv[1] = (ImageView)viw.findViewById(R.id.kandume);
-                        Hijousyoku_iv[2] = (ImageView)viw.findViewById(R.id.kanmen);
-                        Hijousyoku_iv[3] = (ImageView)viw.findViewById(R.id.kanpan);
-                        Hijousyoku_iv[4] = (ImageView)viw.findViewById(R.id.kandume2);
-                        Hijousyoku_iv[5] = (ImageView)viw.findViewById(R.id.retoruto);
-                        Hijousyoku_iv[6] = (ImageView)viw.findViewById(R.id.furizu_dorai);
-                        Hijousyoku_iv[7] = (ImageView)viw.findViewById(R.id.mizu);
-                        Hijousyoku_iv[8] = (ImageView)viw.findViewById(R.id.karori_meito);
-                        Hijousyoku_iv[9] = (ImageView)viw.findViewById(R.id.okasi);
-                        Hijousyoku_iv[10] = (ImageView)viw.findViewById(R.id.rinyu);
-                        Hijousyoku_iv[11] = (ImageView)viw.findViewById(R.id.konamilk);
-
-                        //非常食の項目を取得する
-                        ItemClass[] item = new ItemClass[12];
-                        item[0] = new ItemClass("レトルトご飯", "retorutogohan_number", R.drawable.retoruto_gohan, true,"食", act);
-                        item[1] = new ItemClass("缶詰（ご飯）", "kandume_number", R.drawable.kandume_gohan, true,"缶", act);
-                        item[2] = new ItemClass("乾麺", "kanmen_number", R.drawable.kanmen, true,"袋", act);
-                        item[3] = new ItemClass("乾パン", "kanpan_number", R.drawable.kanpan, true,"缶", act);
-                        item[4] = new ItemClass("缶詰（肉・魚）", "kandume2_number", R.drawable.kandume, true, "缶", act);
-                        item[5] = new ItemClass("レトルト食品", "retoruto_number", R.drawable.retoruto, true, "袋", act);
-                        item[6] = new ItemClass("フリーズドライ", "furizu_dorai_number", R.drawable.furizu_dorai, true, "食", act);
-                        item[7] = new ItemClass("水", "mizu_number", R.drawable.mizu, true, "ℓ", act);
-                        item[8] = new ItemClass("カロリーメイト", "karori_meito_number", R.drawable.karori_meito, true, "箱", act);
-                        item[9] = new ItemClass("菓子類", "okasi_number", R.drawable.okasi, true, "箱・袋", act);
-                        item[10] = new ItemClass("離乳食", "rinyu_number", R.drawable.rinyu, true, "食", act);
-                        item[11] = new ItemClass("粉ミルク", "konamilk_number", R.drawable.konamilk, true, "缶", act);
-
-/*
-                        //枠線をつける
-                        for( int i = 0 ; i < 12 ; i++ ) {
-                            //ボタンアクションの処理
-                            Hijousyoku_iv[i].setOnClickListener( new DialogOnClickListenerClass( item[i]) );
-                            //期限の切れているものは赤線を敷く
-                            if( !Check_Day(item[i].getPrefName()) ) {
-                                Hijousyoku_iv[i].setBackgroundResource(R.drawable.style2);
-                            }
-                        }
-*/
                         // インテントで画面遷移し消費期限の赤枠線の更新を行う
                         Intent intent = new Intent();
                         intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
