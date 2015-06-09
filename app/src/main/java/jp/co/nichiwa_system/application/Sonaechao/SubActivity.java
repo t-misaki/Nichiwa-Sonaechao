@@ -52,7 +52,8 @@ public class SubActivity extends Activity {
             AlertDialog.Builder fast = new AlertDialog.Builder(this);
             fast.setTitle("設定画面の説明");
             fast.setMessage("ここでは大人、小人、幼児等の設定できます！\n" +
-                    "人数やお知らせ期日、備えちゃお日数を設定して災害に備えちゃお！");
+                    "人数やお知らせ期日、備えちゃお日数を設定して災害に備えちゃお！\n"+
+            "※このメッセージは画面下の設定ボタンを押すと再び表示されます。");
             fast.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
