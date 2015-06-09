@@ -21,12 +21,14 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.content.DialogInterface;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
@@ -78,6 +80,7 @@ public class SubActivity extends Activity {
         tv.setText("versionCode : "+packageInfo.versionCode+" / "+"versionName : "+packageInfo.versionName);
 
 
+
                 //キーボードの状態を取得
         inputMethodManager = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
         //レイアウトの取得
@@ -112,7 +115,7 @@ public class SubActivity extends Activity {
         settei_et.setOnClickListener( new OnClick( nissuu_day, R.id.EditText4 ) );  //備えちゃお日数
 
         ImageButton Home = (ImageButton)findViewById(R.id.home);          //「ホーム」ボタン
-        ImageButton Stock = (ImageButton)findViewById(R.id.bichiku);           //「備蓄」ボタン
+        final ImageButton Stock = (ImageButton)findViewById(R.id.bichiku);           //「備蓄」ボタン
         ImageButton hijousyoku = (ImageButton)findViewById(R.id.hijousyoku);  //「非常食」ボタン
         ImageButton set = (ImageButton)findViewById(R.id.settingbutton);
 
@@ -138,6 +141,44 @@ public class SubActivity extends Activity {
         });
 
         set.setBackgroundResource(R.drawable.style2);
+
+        /**********************************************************************************************
+         * 処理内容：保存ボタン押下時、大人、小人、幼児、お知らせ期日、備えちゃお日数を保存
+         * 制作日時：2015/06/09
+         * 制作者：中山延雄
+         * コメントアウト【//保存ボタン押下時の挙動ここまで】まで編集
+         **********************************************************************************************/
+        //保存ボタン押下時の挙動
+        final ImageView save = (ImageView)findViewById(R.id.save_Button);
+        save.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                AlertDialog.Builder fast = new AlertDialog.Builder(SubActivity.this);
+                fast.setTitle("※注意※");
+                fast.setMessage("保存すると、ホームのメーターや必要数が増減する可能性があります。\n" +
+                        "本当に保存しますか？");
+                fast.setPositiveButton("はい", new DialogInterface.OnClickListener() {//はいボタン押下時
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        saveInt( (EditText)findViewById(R.id.EditText5)  , "youji_people");//幼児保存
+                        saveInt( (EditText)findViewById(R.id.EditText)  , "otona_people");//大人保存
+                        saveInt( (EditText)findViewById(R.id.EditText2) , "kobito_people");//小人保存
+                        saveInt( (EditText)findViewById(R.id.EditText3) , "kiniti_day");//お知らせ期日保存
+                        saveInt( (EditText)findViewById(R.id.EditText4) , "sitei_day");//備えちゃお日数保存
+                        dialog.dismiss();//ダイアログを閉じる
+
+                        Toast.makeText(SubActivity.this, "保存しました", Toast.LENGTH_SHORT).show();//【保存しました】とトースト表示
+                    }
+                });
+                fast.setNegativeButton("いいえ", new DialogInterface.OnClickListener(){//いいえボタン押下
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();//ダイアログを閉じる
+                    }
+
+                });
+                fast.show();//ダイアログ【fast】出力
+            }
+        });//保存ボタン押下時の挙動ここまで
 
         //広告の設定
         AdView adview = (AdView)findViewById(R.id.adView);
@@ -206,14 +247,14 @@ public class SubActivity extends Activity {
         public void onClick(View v) {
 
             //値に問題がないかチェック
-            if(
+          /*  if(
 
                     saveInt( (EditText)findViewById(R.id.EditText5)  , "youji_people")   &&
                             saveInt( (EditText)findViewById(R.id.EditText)  , "otona_people")   &&
                             saveInt( (EditText)findViewById(R.id.EditText2) , "kobito_people")  &&
                             saveInt( (EditText)findViewById(R.id.EditText3) , "kiniti_day")     &&
                             saveInt( (EditText)findViewById(R.id.EditText4) , "sitei_day")
-            ) {
+            ) {*/
                 if(intent == null) {
                     //ホームボタンの時アクティビティを閉じる
                     finish();
@@ -222,7 +263,7 @@ public class SubActivity extends Activity {
                     startActivity(intent);
                 }
             }
-            else {
+            /*else {
                 //歯抜けがあれば、警告文を表示する
                 Builder alertDialog = new Builder(SubActivity.this);
 
@@ -233,9 +274,11 @@ public class SubActivity extends Activity {
 
                 alertDialog.create();
                 alertDialog.show();
-            }
+            }*/
         }
-    }
+  //  }
+
+
 
     //値データを取り出す関数
     public void loadInt( EditText et , String name, int CreateNum)
