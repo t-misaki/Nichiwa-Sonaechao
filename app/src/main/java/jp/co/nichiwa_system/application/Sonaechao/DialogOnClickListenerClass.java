@@ -184,6 +184,8 @@ public class DialogOnClickListenerClass implements View.OnClickListener {
             // 消費期限の説明
             TextView limitmessage = (TextView)viw.findViewById(R.id.limitmessage);
             limitmessage.setText("消費期限：");
+            TextView limitmessage2 = (TextView)viw.findViewById(R.id.limitmessage2);
+            limitmessage2.setText("複数個ある場合は消費期限が一番早いものの期限を設定して下さい");
 
             // カレンダーボタンの説明
             TextView calmessage = (TextView)viw.findViewById(R.id.calmessage);

@@ -81,9 +81,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/calmessage"
-        android:layout_below="@+id/imageCalender"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="31dp" />
+        android:layout_below="@+id/limitmessage2"
+        android:layout_alignStart="@+id/limitmessage2" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -107,5 +106,13 @@
         android:id="@+id/suisyouti"
         android:layout_above="@+id/Number"
         android:layout_toStartOf="@+id/imageView" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/limitmessage2"
+        android:layout_below="@+id/popup_day"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp" />
 
 </RelativeLayout>
