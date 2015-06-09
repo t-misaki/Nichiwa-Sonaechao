@@ -15,6 +15,7 @@ import android.widget.ImageView;
 
 import android.widget.TableLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -175,12 +176,38 @@ public class DialogOnClickListenerClass implements View.OnClickListener {
                     cl.get(Calendar.DAY_OF_MONTH)
             );
 
+            /**********************************************************************************************
+             * 処理内容：カレンダーアイコン押下時、入力された値が０ならカレンダーダイアログを表示させない
+             * 制作日時：2015/06/09
+             * 制作者：中山延雄
+             * コメントアウト【//カレンダーアイコン入力時の処理はここまで】まで編集
+             **********************************************************************************************/
+            //カレンダーボタンが押された時の処理
             Clock_iv.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    dpd.show();
+                    //IF文テキストビュー内の文字数が０以下なら
+                    if(et.getText().toString().length() <= 0) {
+                        //カラッポである
+                        et.setText("0");//テキストビューに０を挿入
+                        saveInt(et, DateName);//プリファレンスに保存
+                    }
+                    //違うなら、入力されている値を保存
+                    else{
+                        saveInt(et,DateName);
+                    }
+
+                    //備蓄数が０なら警告表示
+                    if(loadInt2(DateName)==0){
+                        Toast.makeText(act,"備蓄数を入力してください", Toast.LENGTH_SHORT ).show();
+
+                    }
+                    //０じゃなければカレンダーダイアログ表示
+                    else {
+                        dpd.show();
+                    }
                 }
-            });
+            });//カレンダーアイコン入力時の処理はここまで
 
             // 消費期限の説明
             TextView limitmessage = (TextView)viw.findViewById(R.id.limitmessage);
