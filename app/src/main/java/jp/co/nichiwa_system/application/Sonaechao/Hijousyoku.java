@@ -35,9 +35,9 @@ public class Hijousyoku extends Activity {
             /***処理***/
             AlertDialog.Builder fast = new AlertDialog.Builder(this);
             fast.setTitle("非常食画面の説明");
-            fast.setMessage("ここでは非常食のストックを設定できます！\n" +
-                    "備蓄したいものをタップして災害に備えちゃお！\n"+
-                    "※赤い枠線のものは消費期限が過ぎています。");
+            fast.setMessage("ここでは非常食のストックが設定できます。\n" +
+                    "備蓄したいものをタップし数量と消費期限を設定してみましょう。\n" +
+                    "※このメッセージは画面下の非常食ボタンを押すと再び表示されます。");
             fast.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
@@ -106,9 +106,9 @@ public class Hijousyoku extends Activity {
             public void onClick(View v) {
                 AlertDialog.Builder fast = new AlertDialog.Builder(Hijousyoku.this);
                 fast.setTitle("非常食画面の説明");
-                fast.setMessage("ここでは非常食のストックを設定できます！\n" +
-                        "備蓄したいものをタップして災害に備えちゃお！\n" +
-                        "※赤い枠線のものがピンチです！");
+                fast.setMessage("ここでは非常食のストックが設定できます。\n" +
+                        "備蓄したいものをタップし数量と消費期限を設定してみましょう。\n" +
+                        "※このメッセージは画面下の非常食ボタンを押すと再び表示されます。");
                 fast.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {

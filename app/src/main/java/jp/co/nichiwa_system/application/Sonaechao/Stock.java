@@ -35,8 +35,9 @@ public class Stock extends Activity {
             /***処理***/
             AlertDialog.Builder fast = new AlertDialog.Builder(this);
             fast.setTitle("備蓄品画面の説明");
-            fast.setMessage("ここでは備蓄品のストックを設定できます！\n" +
-                            "備蓄したいものをタップして災害に備えちゃお！");
+            fast.setMessage("ここでは備蓄品（防災グッズ）のストックが設定できます。\n" +
+                    "備蓄したいものをタップし数量と消費期限を設定してみましょう。\n" +
+                    "※このメッセージは画面下の備蓄品ボタンを押すと再び表示されます。");
             fast.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
@@ -128,8 +129,9 @@ public class Stock extends Activity {
             public void onClick(View v) {
                 AlertDialog.Builder fast = new AlertDialog.Builder(Stock.this);
                 fast.setTitle("備蓄品画面の説明");
-                fast.setMessage("ここでは備蓄品のストックを設定できます！\n" +
-                        "備蓄したいものをタップして災害に備えちゃお！");
+                fast.setMessage("ここでは備蓄品（防災グッズ）のストックが設定できます。\n" +
+                        "備蓄したいものをタップし数量と消費期限を設定してみましょう。\n" +
+                        "※このメッセージは画面下の備蓄品ボタンを押すと再び表示されます。");
                 fast.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
