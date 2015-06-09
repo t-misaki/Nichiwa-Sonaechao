@@ -144,6 +144,13 @@ public class DialogOnClickListenerClass implements View.OnClickListener {
         People_tv[1].setText("小人" + loadInt("kobito_people") + "人分");
         People_tv[2].setText("幼児"  + loadInt("youji_people")  + "人分");
 
+        //アイテムが不要な人は、ダイアログに表示させない
+        for( int i = 0 ; i < 3 ; i++ ) {
+            if( Hijou_num[Number][i] <= 0 ) {
+                People_tv[i].setVisibility( View.GONE );
+            }
+        }
+
         //指定したEditTextの中に値を挿入する
         et.setText( loadInt(DateName) );
 
@@ -224,13 +231,6 @@ public class DialogOnClickListenerClass implements View.OnClickListener {
             ImageView Clock_iv = (ImageView)viw.findViewById(R.id.imageCalender);
             Clock_iv.setVisibility(View.GONE);
             day.setVisibility(View.GONE);
-        }
-
-        //アイテムが不要な人は、ダイアログに表示させない
-        for( int i = 0 ; i < 3 ; i++ ) {
-            if( Hijou_num[Number][i] <= 0 ) {
-                People_tv[i].setVisibility( View.GONE );
-            }
         }
 
         // ダイアログ内に備えちゃお日数の表示
