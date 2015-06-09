@@ -260,6 +260,7 @@ public class DialogOnClickListenerClass implements View.OnClickListener {
                         //日付を保存する
                         saveCalendar(cl, DateName);
                     }
+                    Toast.makeText(act, "保存しました", Toast.LENGTH_SHORT).show();//【保存しました】とトースト表示
 
                     //アクティビティがメイン画面の場合、以下の処理を行う
                     if( act.getClass() == MainActivity.class )
@@ -279,6 +280,7 @@ public class DialogOnClickListenerClass implements View.OnClickListener {
                                 new ItemClass("離乳食", "rinyu_number", R.drawable.rinyu, true,"食", act ),
                                 new ItemClass("粉ミルク", "konamilk_number", R.drawable.konamilk, true,"缶", act)
                         };
+
 
                         //要チェックに使用するTextViewを使用する
                         TextView[] Hijousyoku_tv = new TextView[12];

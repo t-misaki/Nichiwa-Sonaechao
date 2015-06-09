@@ -52,17 +52,31 @@ public class SubActivity extends Activity {
             AlertDialog.Builder fast = new AlertDialog.Builder(this);
             fast.setTitle("設定画面の説明");
             fast.setMessage("ここでは大人、小人、幼児等の設定できます！\n" +
-                    "人数やお知らせ期日、備えちゃお日数を設定して災害に備えちゃお！\n"+
-            "※このメッセージは画面下の設定ボタンを押すと再び表示されます。");
-            fast.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    "人数やお知らせ期日、備えちゃお日数を設定して災害に備えちゃお！\n"
+            );
+
+            fast.setPositiveButton("次へ", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-                    dialog.dismiss();
+                   // dialog.dismiss();
+                    AlertDialog.Builder fast = new AlertDialog.Builder(SubActivity.this);
+                    fast.setTitle("設定画面の説明");
+                    fast.setMessage("大人、小人、幼児の人数を入力できます。\n\n" +
+                            "お知らせ期日は賞味期限何日前にお知らせをだすか設定できます。\n\n"+"備えちゃお数は何日分の備蓄をするのか設定できます。\n\n"+
+                            "※このメッセージは画面下の設定ボタンを押すと再び表示されます。");
+                    fast.setPositiveButton("閉じる", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    });
+                    fast.show();
+
                 }
             });
-
-
             fast.show();
+
+
 
             SharedPreferences.Editor e = pre.edit();
             e.putInt("fast_start_sub", 1);
@@ -127,14 +141,30 @@ public class SubActivity extends Activity {
         set.setOnClickListener(new View.OnClickListener() { // 設定ボタンを押した時の処理（説明ダイアログ）
             @Override
             public void onClick(View v) {
+                /***処理***/
                 AlertDialog.Builder fast = new AlertDialog.Builder(SubActivity.this);
                 fast.setTitle("設定画面の説明");
                 fast.setMessage("ここでは大人、小人、幼児等の設定できます！\n" +
-                        "人数やお知らせ期日、備えちゃお日数を設定して災害に備えちゃお！");
-                fast.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                "人数やお知らせ期日、備えちゃお日数を設定して災害に備えちゃお！\n"
+                );
+
+                fast.setPositiveButton("次へ", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
+                        // dialog.dismiss();
+                        AlertDialog.Builder fast = new AlertDialog.Builder(SubActivity.this);
+                        fast.setTitle("設定画面の説明");
+                        fast.setMessage("大人、小人、幼児の人数を入力できます。\n\n" +
+                                "お知らせ期日は賞味期限何日前にお知らせをだすか設定できます。\n\n"+"備えちゃお数は何日分の備蓄をするのか設定できます。\n\n"+
+                                "※このメッセージは画面下の設定ボタンを押すと再び表示されます。");
+                        fast.setPositiveButton("閉じる", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        });
+                        fast.show();
+
                     }
                 });
                 fast.show();
@@ -174,6 +204,7 @@ public class SubActivity extends Activity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();//ダイアログを閉じる
+                        Toast.makeText(SubActivity.this, "保存をキャンセルしました", Toast.LENGTH_SHORT).show();//【保存をキャンセルしました】とトースト表示
                     }
 
                 });
