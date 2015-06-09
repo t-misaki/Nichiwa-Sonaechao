@@ -48,7 +48,7 @@ public class SubActivity extends Activity {
         if(pre.getInt("fast_start_sub",0)==0){
             /***処理***/
             AlertDialog.Builder fast = new AlertDialog.Builder(this);
-            fast.setTitle("設定画面の説明！");
+            fast.setTitle("設定画面の説明");
             fast.setMessage("ここでは大人、小人、幼児等の設定できます！\n" +
                     "人数やお知らせ期日、備えちゃお日数を設定して災害に備えちゃお！");
             fast.setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -125,7 +125,7 @@ public class SubActivity extends Activity {
             @Override
             public void onClick(View v) {
                 AlertDialog.Builder fast = new AlertDialog.Builder(SubActivity.this);
-                fast.setTitle("設定画面の説明！");
+                fast.setTitle("設定画面の説明");
                 fast.setMessage("ここでは大人、小人、幼児等の設定できます！\n" +
                         "人数やお知らせ期日、備えちゃお日数を設定して災害に備えちゃお！");
                 fast.setPositiveButton("OK", new DialogInterface.OnClickListener() {
