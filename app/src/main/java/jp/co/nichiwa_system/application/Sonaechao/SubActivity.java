@@ -105,7 +105,6 @@ public class SubActivity extends Activity {
         EditText settei_et = (EditText)findViewById(R.id.EditText4); //備えちゃお日数
 
         //クリックするとダイアログを表示
-
         otona_et.setOnClickListener( new OnClick( people, R.id.EditText ) );        //大人
         kobito_et.setOnClickListener( new OnClick( people, R.id.EditText2 ) );      //小人
         youji_et.setOnClickListener( new OnClick( people, R.id.EditText5 ) );       //幼児
