@@ -34,7 +34,7 @@ public class Hijousyoku extends Activity {
         if(pre.getInt("fast_start_food",0)==0){
             /***処理***/
             AlertDialog.Builder fast = new AlertDialog.Builder(this);
-            fast.setTitle("非常食画面の説明！");
+            fast.setTitle("非常食画面の説明");
             fast.setMessage("ここでは非常食のストックを設定できます！\n" +
                     "備蓄したいものをタップして災害に備えちゃお！\n"+
                     "※赤い枠線のものがピンチです！");
@@ -105,7 +105,7 @@ public class Hijousyoku extends Activity {
             @Override
             public void onClick(View v) {
                 AlertDialog.Builder fast = new AlertDialog.Builder(Hijousyoku.this);
-                fast.setTitle("非常食画面の説明！");
+                fast.setTitle("非常食画面の説明");
                 fast.setMessage("ここでは非常食のストックを設定できます！\n" +
                         "備蓄したいものをタップして災害に備えちゃお！\n" +
                         "※赤い枠線のものがピンチです！");
@@ -119,7 +119,7 @@ public class Hijousyoku extends Activity {
             }
         });
 
-                //枠線をつける
+        //枠線をつける
         for( int i = 0 ; i < 12 ; i++ ) {
             //ボタンアクションの処理
             Hijousyoku_iv[i].setOnClickListener( new DialogOnClickListenerClass( item[i]) );
