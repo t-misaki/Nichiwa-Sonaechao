@@ -35,13 +35,26 @@ public class Hijousyoku extends Activity {
             /***処理***/
             AlertDialog.Builder fast = new AlertDialog.Builder(this);
             fast.setTitle("非常食画面の説明");
-            fast.setMessage("ここでは非常食のストックが設定できます。\n" +
-                    "備蓄したいものをタップし数量と消費期限を設定してみましょう。\n" +
-                    "※このメッセージは画面下の非常食ボタンを押すと再び表示されます。");
-            fast.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            fast.setMessage("ここでは非常食の備蓄が設定できます。\n" +
+                    "備蓄したいものを選択し数量と消費期限を設定してみましょう。\n");
+            fast.setPositiveButton("次へ", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     dialog.dismiss();
+                    AlertDialog.Builder fast = new AlertDialog.Builder(Hijousyoku.this);
+                    fast.setTitle("非常食画面の説明");
+                    fast.setMessage("備蓄している個数を入力できます\n\n" +
+                            "カレンダーのボタンを押すと消費期限が入力できます\n\n" +
+                            "okボタンまたはカレンダーボタンを押さなければ備蓄個数は保存されないので注意してください。\n\n"+
+                            "※このメッセージは画面下の非常食ボタンを押すと再び表示されます。");
+                    fast.setPositiveButton("閉じる", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+
+                        }
+                    });
+                    fast.show();
                 }
             });
 
@@ -106,13 +119,26 @@ public class Hijousyoku extends Activity {
             public void onClick(View v) {
                 AlertDialog.Builder fast = new AlertDialog.Builder(Hijousyoku.this);
                 fast.setTitle("非常食画面の説明");
-                fast.setMessage("ここでは非常食のストックが設定できます。\n" +
-                        "備蓄したいものをタップし数量と消費期限を設定してみましょう。\n" +
-                        "※このメッセージは画面下の非常食ボタンを押すと再び表示されます。");
+                fast.setMessage("ここでは非常食の備蓄が設定できます。\n" +
+                        "備蓄したいものを選択し数量と消費期限を設定してみましょう。\n");
                 fast.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
+                        AlertDialog.Builder fast = new AlertDialog.Builder(Hijousyoku.this);
+                        fast.setTitle("非常食画面の説明");
+                        fast.setMessage("備蓄している個数を入力できます\n\n" +
+                                "カレンダーのボタンを押すと消費期限が入力できます\n\n" +
+                                "okボタンまたはカレンダーボタンを押さなければ備蓄個数は保存されないので注意してください。\n\n"+
+                                "※このメッセージは画面下の非常食ボタンを押すと再び表示されます。");
+                        fast.setPositiveButton("閉じる", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+
+                            }
+                        });
+                        fast.show();
                     }
                 });
                 fast.show();
