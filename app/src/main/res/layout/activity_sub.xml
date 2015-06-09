@@ -255,8 +255,8 @@
         android:layout_height="wrap_content"
         android:id="@+id/save_Button"
         android:src="@drawable/save"
-        android:layout_alignBottom="@+id/textView19"
-        android:layout_alignEnd="@+id/fragment4" />
+        android:layout_alignTop="@+id/textView9"
+        android:layout_alignParentEnd="true" />
 
 
 </RelativeLayout>
