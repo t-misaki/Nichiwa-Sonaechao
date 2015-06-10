@@ -312,6 +312,28 @@ public class DialogOnClickListenerClass implements View.OnClickListener {
                                 }
                             }
                         }
+
+                        // 要チェック欄に「～が備蓄されていません」というメッセージを出す
+                        SharedPreferences Preferences = act.getSharedPreferences("Preferences", act.MODE_PRIVATE);
+                        int otona = Preferences.getInt("otona_people", 0); // 大人の人数を取得
+                        int kobito = Preferences.getInt("kobito_people", 0); // 小人の人数を取得
+                        int youji = Preferences.getInt("youji_people",0); // 幼児の人数を取得
+                        if (otona >= 1 || kobito >= 1) { // もし大人または小人が1人以上いるならば
+                            for (int i = 0; i < 12 - 2; i++) { // 幼児用の離乳食と粉ミルクは別の条件になるので-2しています
+                                Hijousyoku_tv[i].setText(get_Number_of_days_Warning(item[i].getPrefName(), item[i].getName())); // 非常食品名 + が備蓄されていません
+                                Hijousyoku_tv[i].setCompoundDrawablesWithIntrinsicBounds(item[i].getIcon(), 0, 0, 0);
+                                Hijousyoku_tv[i].setOnClickListener(new DialogOnClickListenerClass(item[i])); //警告文を押すとダイアログが表示されるようにする
+                            }
+                        }
+                        if (youji >= 1) { // もし幼児が1人以上いるならば
+                            Hijousyoku_tv[10].setText(get_Number_of_days_Warning(item[10].getPrefName(), item[10].getName())); // 離乳食が備蓄されていません
+                            Hijousyoku_tv[10].setCompoundDrawablesWithIntrinsicBounds(item[10].getIcon(), 0, 0, 0);
+                            Hijousyoku_tv[10].setOnClickListener(new DialogOnClickListenerClass(item[10])); //警告文を押すとダイアログが表示されるようにする
+                            Hijousyoku_tv[11].setText(get_Number_of_days_Warning(item[11].getPrefName(), item[11].getName())); // 粉ミルクが備蓄されていません
+                            Hijousyoku_tv[11].setCompoundDrawablesWithIntrinsicBounds(item[11].getIcon(), 0, 0, 0);
+                            Hijousyoku_tv[11].setOnClickListener(new DialogOnClickListenerClass(item[11])); //警告文を押すとダイアログが表示されるようにする
+                        }
+
 /*
                         //幼児用のみテキストを変更
                         Hijousyoku_tv[10].setText( get_Child_Warning( item[10].getPrefName(),item[10].getName() ) );
@@ -487,11 +509,17 @@ public class DialogOnClickListenerClass implements View.OnClickListener {
     public String get_Number_of_days_Warning( String prefName, String HijousyokuName )
     {
         String str = "";
+
+        // 非常食の備蓄数を取得する
+        int food_h = ( act.getSharedPreferences("Preferences",act.MODE_PRIVATE) ).getInt(prefName,0);
         //残り日数を取得する
         int nokori = (int)getDate(prefName);
         //期日を取得する
         int nissu =  ( act.getSharedPreferences("Preferences",act.MODE_PRIVATE) ).getInt("kiniti_day",0);
-        if( nokori < 0 ) {
+
+        if ( food_h < 1 ) { // もし非常食が備蓄されていなかったら
+            str = HijousyokuName + "が備蓄されていません";
+        } else if( nokori < 0 ) { // 非常食の備蓄数が1以上の賞味期限表示
             //賞味期限が切れたら表示
             str = HijousyokuName + "の賞味期限が切れました";
         } else if( nokori <= nissu ) {
@@ -529,6 +557,7 @@ public class DialogOnClickListenerClass implements View.OnClickListener {
         }
     }
 
+/*
     // 乳児一人以上で、なおかつ離乳食と粉ミルクが「0」のとき、警告を表示
     public String get_Child_Warning( String dateName , String name )
     {
@@ -546,6 +575,7 @@ public class DialogOnClickListenerClass implements View.OnClickListener {
 
         return str;
     }
+*/
 
     //賞味期限を切れているかどうか判定する関数
     public boolean Check_Day( String prefName )
