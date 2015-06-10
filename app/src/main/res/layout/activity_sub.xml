@@ -223,15 +223,6 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="Small Text"
-        android:id="@+id/version"
-        android:layout_above="@+id/textView4"
-        android:layout_alignEnd="@+id/EditText5" />
-
     <fragment
         android:layout_width="fill_parent"
         android:layout_height="50dp"
