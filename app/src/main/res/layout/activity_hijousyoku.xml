@@ -50,7 +50,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="赤い枠線のものは備蓄して下さい"
+        android:text="赤い枠線のものは確認して下さい"
         android:id="@+id/textView27"
         android:textColor="#ffff0000"
         android:layout_alignTop="@+id/fragment_Hijousyoku_List"
