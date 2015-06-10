@@ -321,21 +321,25 @@ public class MainActivity extends Activity {
         }
 
         // 要チェック欄に「～が備蓄されていません」というメッセージを出す
+
         SharedPreferences Preferences = getSharedPreferences("Preferences", MODE_PRIVATE);
         int otona = Preferences.getInt("otona_people", 0); // 大人の人数を取得
         int kobito = Preferences.getInt("kobito_people", 0); // 小人の人数を取得
         int youji = Preferences.getInt("youji_people",0); // 幼児の人数を取得
         if (otona >= 1 || kobito >= 1) { // もし大人または小人が1人以上いるならば
             for (int i = 0; i < MAX_HIJOUSYOKU - 2; i++) { // 幼児用の離乳食と粉ミルクは別の条件になるので-2しています
-                Hijousyoku_tv[i].setText(get_Food_Warning(item[i].getPrefName(), item[i].getName())); // 非常食品名 + が備蓄されていません
+                Hijousyoku_tv[i].setText(get_Number_of_days_Warning(item[i].getPrefName(), item[i].getName())); // 非常食品名 + が備蓄されていません
                 Hijousyoku_tv[i].setCompoundDrawablesWithIntrinsicBounds(item[i].getIcon(), 0, 0, 0);
+                Hijousyoku_tv[i].setOnClickListener(new DialogOnClickListenerClass(item[i])); //警告文を押すとダイアログが表示されるようにする
             }
         }
         if (youji >= 1) { // もし幼児が1人以上いるならば
-            Hijousyoku_tv[10].setText(get_Food_Warning(item[10].getPrefName(), item[10].getName())); // 離乳食が備蓄されていません
+            Hijousyoku_tv[10].setText(get_Number_of_days_Warning(item[10].getPrefName(), item[10].getName())); // 離乳食が備蓄されていません
             Hijousyoku_tv[10].setCompoundDrawablesWithIntrinsicBounds(item[10].getIcon(), 0, 0, 0);
-            Hijousyoku_tv[11].setText(get_Food_Warning(item[11].getPrefName(), item[11].getName())); // 粉ミルクが備蓄されていません
+            Hijousyoku_tv[10].setOnClickListener(new DialogOnClickListenerClass(item[10])); //警告文を押すとダイアログが表示されるようにする
+            Hijousyoku_tv[11].setText(get_Number_of_days_Warning(item[11].getPrefName(), item[11].getName())); // 粉ミルクが備蓄されていません
             Hijousyoku_tv[11].setCompoundDrawablesWithIntrinsicBounds(item[11].getIcon(), 0, 0, 0);
+            Hijousyoku_tv[11].setOnClickListener(new DialogOnClickListenerClass(item[11])); //警告文を押すとダイアログが表示されるようにする
         }
 
 /*
@@ -440,12 +444,16 @@ public class MainActivity extends Activity {
     {
         String str = "";
 
+        // 非常食の備蓄数を取得する
+        int food_h = ( getSharedPreferences("Preferences",MODE_PRIVATE) ).getInt(prefName,0);
         //残り日数を取得する
         int nokori = (int)getDate(prefName);
         //期日を取得する
         int nissu =  ( getSharedPreferences("Preferences",MODE_PRIVATE) ).getInt("kiniti_day",14);
 
-        if(nokori == 0) {
+        if( food_h < 1 ) { // もし非常食が備蓄されていなかったら
+            str = HijousyokuName + "が備蓄されていません";
+        } else if(nokori == 0) { // 非常食の備蓄数が1以上の賞味期限表示
             //賞味期限が当日になったら表示
             str = HijousyokuName + "の賞味期限が当日です";
         } else if( nokori < 0 ) {
@@ -455,9 +463,21 @@ public class MainActivity extends Activity {
             //賞味期限が期日に近づいたら表示
             str = HijousyokuName + "の賞味期限が" + nokori + "日前です";
         }
-
         return str;
     }
+
+/*    // 非常食が0の時、要チェック欄に「～が備蓄されていません」警告を表示（ifの条件文は上の出力の時にしてあります）
+    public String get_Food_Warning( String dateName , String name )
+    {
+        String str = "";
+        int food_h = ( getSharedPreferences("Preferences",MODE_PRIVATE) ).getInt(dateName,0);
+
+        if( food_h < 1 ) { // もし非常食が備蓄されていなかったら
+            str = name + "が備蓄されていません";
+        }
+        return str;
+    }
+*/
 
     /*********************************************************************
      //非常食の賞味期限と設定した期日を計算して、それぞれのアイコンを返す
@@ -480,18 +500,6 @@ public class MainActivity extends Activity {
         } else if ( nokori <= nissu && item.getName() == "離乳食" || nokori <= nissu && item.getName() == "粉ミルク") {
             item.setIcon(R.drawable.bikkuri_b);
         }
-    }
-
-    // 非常食が0の時、要チェック欄に「～が備蓄されていません」警告を表示（ifの条件文は上の出力の時にしてあります）
-    public String get_Food_Warning( String dateName , String name )
-    {
-        String str = "";
-        int food_h = ( getSharedPreferences("Preferences",MODE_PRIVATE) ).getInt(dateName,0);
-
-        if( food_h < 1 ) { // もし非常食が備蓄されていなかったら
-            str = name + "が備蓄されていません";
-        }
-        return str;
     }
 
 /*
