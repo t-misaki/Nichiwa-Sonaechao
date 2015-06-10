@@ -135,7 +135,7 @@ public class MainActivity extends Activity {
                 pref.getInt("otona_people",0);
 
         //非常食の割合を取得
-        goukei[0] = eiyou();
+        goukei[0] = FoodOverKids() + FoodBaby() + RateWater();
         volume[0] = VolumeFoods();
 
         //左グラフの画像
@@ -549,7 +549,7 @@ public class MainActivity extends Activity {
      // 人数と非常食の栄養量から割り出されたパーセンテージを返す
      // return: s_w ・・・ 非常食の全体のパーセンテージ
      *********************************************************************/
-    public int eiyou() {
+    public int FoodOverKids() {
         SharedPreferences pref = getSharedPreferences("Preferences", MODE_PRIVATE);
 
         int reto_g = pref.getInt("retorutogohan_number", 0);
@@ -559,9 +559,6 @@ public class MainActivity extends Activity {
         int kan2 = pref.getInt("kandume2_number", 0);
         int reto = pref.getInt("retoruto_number", 0);
         int furizu = pref.getInt("furizu_dorai_number", 0);
-        double mizu = pref.getInt("mizu_number", 0);
-        int rinyu = pref.getInt("rinyu_number", 0);
-        int konamilk = pref.getInt("konamilk_number", 0);
         int karori = pref.getInt("karori_meito_number", 0);
         int okasi = pref.getInt("okasi_number", 0);
 
@@ -576,21 +573,12 @@ public class MainActivity extends Activity {
         //各合計（大小のみ）
         int Hijousyoku_sum = reto_g + kan + kanmen + kanpan + kan2 + reto + furizu + karori + okasi;
 
-        double s_w = 0;
-        //食べ物の備蓄の％格納用
-        double p;
-        //非常食（大人用）の栄養価合計値
         double okAll;
-        double bAll;
-        double tAll;
         double div = 2.0;
 
         //栄養価の計算。乾パンとカロリーメイトを抜いたものは栄養価１．乾パン、カロリーメイトは３。
         //  大小限定の栄養価総計。over kids All
         okAll = ((Hijousyoku_sum - kanpan - karori) * 1) + (kanpan + karori) * 3;
-
-        //  幼児限定の栄養価総計。baby All
-        bAll  = ( konamilk * 3 ) + rinyu;
 
         //  大小の割合。
         double rateOK = okAll / ((( adult_n * 3 ) + ( child_n * 2 )) * setDays );
@@ -599,31 +587,82 @@ public class MainActivity extends Activity {
             rateOK = 1.0;
         }
 
-        double rateB  = bAll / (( baby_n * 3 ) * setDays );
-
-        if(rateB >= 1.0){
-            rateB = 1.0;
+        //  幼児がいなかった場合
+        if(!(baby_n > 0)){
+            div -= 1.0;
         }
 
         if(!( adult_n > 0 || child_n > 0 )){
             rateOK = 0.0;
+        }
+
+        if( adult_n > 0 || child_n > 0 ){
+            rateOK = ( rateOK / div ) * 50.0;
+        }
+
+        return (int)rateOK;
+    }
+
+    public int FoodBaby(){
+        SharedPreferences pref = getSharedPreferences("Preferences", MODE_PRIVATE);
+
+        int rinyu = pref.getInt("rinyu_number", 0);
+        int konamilk = pref.getInt("konamilk_number", 0);
+
+        //人数
+        int adult_n = pref.getInt("otona_people", 0);
+        int child_n = pref.getInt("kobito_people", 0);
+        int baby_n = pref.getInt("youji_people", 0);
+
+
+        int setDays = pref.getInt("sitei_day",3);
+
+        double bAll;
+
+        //  幼児限定の栄養価総計。baby All
+        bAll  = ( konamilk * 3 ) + rinyu;
+
+        double rate  = bAll / (( baby_n * 3 ) * setDays );
+        double div = 2.0;
+
+        if(rate >= 1.0){
+            rate = 1.0;
+        }
+
+        //  大人・小人がいなかった場合
+        if(!( adult_n > 0 || child_n > 0 )){
             div -= 1.0;
         }
+
+        //  幼児がいなかった場合
         if(!(baby_n > 0)){
-            rateB = 0.0;
-            div -= 1.0;
+            rate = 0.0;
         }
 
-        tAll = rateOK + rateB;
-
-        if(!(div == 0.0)){
-            p = ( tAll / div ) * 50.0;
-        }else{
-            p = 0.0;
+        //  幼児がいる場合計算を行う(念のため）
+        if(baby_n > 0) {
+            rate = (rate / div) * 50.0;
         }
+
+        return (int)rate;
+    }
+
+    public int RateWater(){
+        double rate;
 
         //水の必要数の計算
         //　水の部分が計算が異なっていたので修正。修正者：岡田
+        SharedPreferences pref = getSharedPreferences("Preferences", MODE_PRIVATE);
+
+        double mizu = pref.getInt("mizu_number", 0);
+
+        //人数
+        int adult_n = pref.getInt("otona_people", 0);
+        int child_n = pref.getInt("kobito_people", 0);
+        int baby_n = pref.getInt("youji_people", 0);
+
+        int setDays = pref.getInt("sitei_day",3);
+
         double   adult_w = adult_n * 3;
         double   child_w = child_n * 2;
         double   baby_w  = baby_n  * 2;
@@ -632,19 +671,20 @@ public class MainActivity extends Activity {
         double   total_w = (adult_w + child_w + baby_w) * setDays;
 
         //備蓄は何％あるか計算。最大50％
-        s_w = ( mizu / total_w ) * 50;
+        rate = ( mizu / total_w ) * 50;
 
         //  水の最大値は50％までの設定
-        if( s_w >= 50 ){
-            s_w = 50;
+        if( rate >= 50 ){
+            rate = 50;
         }
 
-        //非常食と水の備蓄を合計。最大100％
-        s_w = s_w + p;
+        if(( adult_n + child_n + baby_n ) == 0){
+            rate = 0.0;
+        }
 
-        return (int)s_w;
-
+        return (int)rate;
     }
+
 /***************************************************************************************************
 //  処理内容：備蓄品のパーセントの算出
 //  概要  　：備蓄品の各パーセントを求めだし、それらを足し合わせたものをreturnしている。
@@ -1018,4 +1058,5 @@ public class MainActivity extends Activity {
 
         return total;
     }
+
 }
