@@ -408,8 +408,6 @@ public class SubActivity extends Activity {
                     save_d.putInt("save_d",1);
                     save_d.commit();
 
-                    TextView tv = (TextView)findViewById(R.id.version);
-                    tv.setText(String.valueOf(pref.getInt("save_d",0)));
                     //選択した値を格納する
                     String str = (String)item[which];
                     //備蓄日数を記入する
@@ -442,10 +440,6 @@ public class SubActivity extends Activity {
             Editor save_d = pref.edit();
             save_d.putInt("save_d",1);
             save_d.commit();
-
-            TextView tv = (TextView)findViewById(R.id.version);
-            tv.setText(String.valueOf(pref.getInt("save_d",0)));
-
 
             if(intent == null) {
                     //ホームボタンの時アクティビティを閉じる
