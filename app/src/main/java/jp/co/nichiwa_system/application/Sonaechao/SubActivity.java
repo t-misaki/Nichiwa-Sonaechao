@@ -37,7 +37,7 @@ import jp.co.nichiwa_system.application.Sonaechao.R;
 
 
 public class SubActivity extends Activity {
-
+    int save = 0;
     InputMethodManager inputMethodManager;
     RelativeLayout R_layout;
 
@@ -84,7 +84,7 @@ public class SubActivity extends Activity {
         }
 
         //バージョン情報出力
-        PackageInfo packageInfo = null;
+       /* PackageInfo packageInfo = null;
         TextView tv = (TextView)findViewById(R.id.version);
         try {
             packageInfo = getPackageManager().getPackageInfo("jp.co.nichiwa_system.application.Sonaechao", PackageManager.GET_META_DATA);
@@ -93,6 +93,9 @@ public class SubActivity extends Activity {
             e.printStackTrace();
         }
         tv.setText("versionCode : "+packageInfo.versionCode+" / "+"versionName : "+packageInfo.versionName);
+        SharedPreferences pref= getSharedPreferences("preferense",MODE_PRIVATE);
+        TextView tv = (TextView)findViewById(R.id.version);
+        tv.setText(String.valueOf(pref.getInt("save_d",0)));*/
 
 
 
@@ -104,7 +107,7 @@ public class SubActivity extends Activity {
         //人数
         final CharSequence[] people = {"0","1","2","3","4","5","6","7","8","9"};
         //期日
-        final CharSequence[] kijitu_day = { "14", "30", "60" };
+        final CharSequence[] kijitu_day = { "14", "30", "60" ,"90","180","365"};
         //備えちゃお日数
         final CharSequence[] nissuu_day = { "1", "3", "7" };
 
@@ -116,7 +119,7 @@ public class SubActivity extends Activity {
         loadInt( (EditText)findViewById(R.id.EditText4) , "sitei_day", 3);       //備えちゃお日数
 
         //設定日数と期日のEditTextを取得
-        EditText otona_et = (EditText)findViewById(R.id.EditText); //大人
+        final EditText otona_et = (EditText)findViewById(R.id.EditText); //大人
         EditText kobito_et = (EditText)findViewById(R.id.EditText2); //小人
         EditText youji_et = (EditText)findViewById(R.id.EditText5); //幼児
         EditText kijitu_et = (EditText)findViewById(R.id.EditText3); //期日
@@ -135,9 +138,151 @@ public class SubActivity extends Activity {
         ImageButton set = (ImageButton)findViewById(R.id.settingbutton);
 
         //移動
-        Home.setOnClickListener( new OnClickListenerClass(".MainActivity", this) ); // ホーム画面へ
+       /* Home.setOnClickListener( new OnClickListenerClass(".MainActivity", this) ); // ホーム画面へ
         Stock.setOnClickListener( new OnClickListenerClass(".Stock", this) ); // 備蓄品画面へ
-        hijousyoku.setOnClickListener( new OnClickListenerClass(".Hijousyoku", this) ); // 非常食画面へ
+        hijousyoku.setOnClickListener( new OnClickListenerClass(".Hijousyoku", this) ); // 非常食画面へ*/
+
+
+        /**********************************************************************************************
+         * 処理内容：大人子供幼児お知らせ期日備えちゃお日数を編集後、
+         *           保存せずに画面遷移しようとしたときの処理
+         * 制作日時：2015/06/10
+         * 制作者：中山延雄
+         * コメントアウト【//非常食ボタン押下時の処理はここまで】まで編集
+         **********************************************************************************************/
+        //ホームボタン押下時の処理
+        Home.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(save_dialog()==true){//save_dialogクラスがtrueをreturnしてきたときの処理
+                    AlertDialog.Builder fast = new AlertDialog.Builder(SubActivity.this);
+                    fast.setTitle("※値が変更されている可能性があります※");//ここから
+                    fast.setMessage("保存しなくてもよろしいですか？\n\n"+
+                                    "※保存は右の保存ボタンより行えます。"
+                    );//ここまでの　内容のダイアログ出力
+                    
+                    //ここからはダイアログ内のはいorいいえ押下時の処理
+                    fast.setPositiveButton("はい", new DialogInterface.OnClickListener() {//はい押下時
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            SharedPreferences pref =
+                                    getSharedPreferences("Preferences",MODE_PRIVATE);
+                            Editor save_d = pref.edit();
+                            save_d.putInt("save_d",0);
+                            save_d.commit();//save_dに0を挿入
+
+                            Intent intent=new Intent();
+                            intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+                            intent.setClassName("jp.co.nichiwa_system.application.Sonaechao","jp.co.nichiwa_system.application.Sonaechao.MainActivity");
+                            startActivity(intent);//ホーム画面に遷移
+                        }
+                    });//ここまでがはい押下時の処理
+                    fast.setNegativeButton("いいえ", new DialogInterface.OnClickListener() {//いいえ押下時の処理
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();//ダイアログ消去
+                        }
+                    });//いいえ押下時の処理はここまで
+                    fast.show();//ダイアログfast出力
+                }//ここまでがtrue時の処理
+                else{
+                    Intent intent=new Intent();
+                    intent.setClassName("jp.co.nichiwa_system.application.Sonaechao","jp.co.nichiwa_system.application.Sonaechao.MainActivity");
+                    startActivity(intent);//ホーム画面に遷移
+                }
+            }
+        });
+
+
+        //備蓄品ボタン押下時の処理
+        Stock.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                if(save_dialog()==true){//save_dialogがtrueなら
+                    AlertDialog.Builder fast = new AlertDialog.Builder(SubActivity.this);
+                    fast.setTitle("※値が変更されている可能性があります※");//ここから
+                    fast.setMessage("保存しなくてもよろしいですか？\n\n"+
+                                    "※保存は右の保存ボタンより行えます。"
+                    );//ここまでの　内容のダイアログ出力
+
+                    fast.setPositiveButton("はい", new DialogInterface.OnClickListener() {//はい押下
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            SharedPreferences pref =
+                                    getSharedPreferences("Preferences",MODE_PRIVATE);
+                            Editor save_d = pref.edit();
+                            save_d.putInt("save_d",0);//プリファレンスsave_dに0を挿入
+                            save_d.commit();
+
+                            Intent intent=new Intent();
+                            intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+                            intent.setClassName("jp.co.nichiwa_system.application.Sonaechao","jp.co.nichiwa_system.application.Sonaechao.Stock");
+                            startActivity(intent);//備蓄品画面に遷移
+                        }
+                    });
+                    fast.setNegativeButton("いいえ", new DialogInterface.OnClickListener() {//いいえ押下
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();//ダイアログを消す
+                        }
+                    });
+                    fast.show();//ダイアログfast出力
+
+                }
+                else{
+                    Intent intent=new Intent();
+                    intent.setClassName("jp.co.nichiwa_system.application.Sonaechao","jp.co.nichiwa_system.application.Sonaechao.Stock");
+                    startActivity(intent);//備蓄品画面に遷移
+                }
+            }
+        });//ここまでが備蓄品ボタン押下時の処理
+
+        //非常食ボタン押下時の処理
+        hijousyoku.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(save_dialog()==true){//save_dialogクラスからtrueがreturnしてきたときの処理
+                    AlertDialog.Builder fast = new AlertDialog.Builder(SubActivity.this);
+                    fast.setTitle("※値が変更されている可能性があります※");//ここから
+                    fast.setMessage("保存しなくてもよろしいですか？\n\n"+
+                                    "※保存は右の保存ボタンより行えます。"
+                    );//ここまでの　内容のダイアログ出力
+
+                    //ここからはダイアログのはいorいいえボタン上家事の処理
+                    fast.setPositiveButton("はい", new DialogInterface.OnClickListener() {//はい押下
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            SharedPreferences pref =
+                                    getSharedPreferences("Preferences",MODE_PRIVATE);
+                            Editor save_d = pref.edit();
+                            save_d.putInt("save_d",0);
+                            save_d.commit();//プリファレンスsave_dに0を挿入
+
+                            Intent intent=new Intent();
+                            intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+                            intent.setClassName("jp.co.nichiwa_system.application.Sonaechao","jp.co.nichiwa_system.application.Sonaechao.Hijousyoku");
+                            startActivity(intent);//非常食画面へ遷移
+                        }
+                    });
+                    fast.setNegativeButton("いいえ", new DialogInterface.OnClickListener() {//いいえボタン押下時の処理
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();//ダイアログを消す
+                        }
+                    });
+                    fast.show();//ダイアログfast出力
+
+                }
+                else{
+                    Intent intent=new Intent();
+                    intent.setClassName("jp.co.nichiwa_system.application.Sonaechao","jp.co.nichiwa_system.application.Sonaechao.Hijousyoku");
+                    startActivity(intent);//非常食画面へ遷移
+                }
+            }
+        });//非常食ボタン押下時の処理はここまで
+
+
         set.setOnClickListener(new View.OnClickListener() { // 設定ボタンを押した時の処理（説明ダイアログ）
             @Override
             public void onClick(View v) {
@@ -190,12 +335,19 @@ public class SubActivity extends Activity {
                 fast.setPositiveButton("はい", new DialogInterface.OnClickListener() {//はいボタン押下時
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        SharedPreferences pref =
+                                getSharedPreferences("Preferences",MODE_PRIVATE);
+                        Editor save_d = pref.edit();
+                        save_d.putInt("save_d",0);
+                        save_d.commit();
+
                         saveInt( (EditText)findViewById(R.id.EditText5)  , "youji_people");//幼児保存
                         saveInt( (EditText)findViewById(R.id.EditText)  , "otona_people");//大人保存
                         saveInt( (EditText)findViewById(R.id.EditText2) , "kobito_people");//小人保存
                         saveInt( (EditText)findViewById(R.id.EditText3) , "kiniti_day");//お知らせ期日保存
                         saveInt( (EditText)findViewById(R.id.EditText4) , "sitei_day");//備えちゃお日数保存
                         dialog.dismiss();//ダイアログを閉じる
+
 
                         Toast.makeText(SubActivity.this, "保存しました", Toast.LENGTH_SHORT).show();//【保存しました】とトースト表示
                     }
@@ -250,6 +402,14 @@ public class SubActivity extends Activity {
             alert.setItems(item, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
+                    SharedPreferences pref =
+                            getSharedPreferences("Preferences",MODE_PRIVATE);
+                    Editor save_d = pref.edit();
+                    save_d.putInt("save_d",1);
+                    save_d.commit();
+
+                    TextView tv = (TextView)findViewById(R.id.version);
+                    tv.setText(String.valueOf(pref.getInt("save_d",0)));
                     //選択した値を格納する
                     String str = (String)item[which];
                     //備蓄日数を記入する
@@ -277,38 +437,26 @@ public class SubActivity extends Activity {
 
         @Override
         public void onClick(View v) {
+            SharedPreferences pref =
+                    getSharedPreferences("Preferences",MODE_PRIVATE);
+            Editor save_d = pref.edit();
+            save_d.putInt("save_d",1);
+            save_d.commit();
 
-            //値に問題がないかチェック
-          /*  if(
+            TextView tv = (TextView)findViewById(R.id.version);
+            tv.setText(String.valueOf(pref.getInt("save_d",0)));
 
-                    saveInt( (EditText)findViewById(R.id.EditText5)  , "youji_people")   &&
-                            saveInt( (EditText)findViewById(R.id.EditText)  , "otona_people")   &&
-                            saveInt( (EditText)findViewById(R.id.EditText2) , "kobito_people")  &&
-                            saveInt( (EditText)findViewById(R.id.EditText3) , "kiniti_day")     &&
-                            saveInt( (EditText)findViewById(R.id.EditText4) , "sitei_day")
-            ) {*/
-                if(intent == null) {
+
+            if(intent == null) {
                     //ホームボタンの時アクティビティを閉じる
                     finish();
                 }else{
+
                     //それ以外はアクティビティを表示
                     startActivity(intent);
                 }
             }
-            /*else {
-                //歯抜けがあれば、警告文を表示する
-                Builder alertDialog = new Builder(SubActivity.this);
-
-                alertDialog.setTitle("Error");
-                alertDialog.setMessage("値が入力されていません");
-
-                alertDialog.setPositiveButton("はい", null);
-
-                alertDialog.create();
-                alertDialog.show();
-            }*/
         }
-  //  }
 
 
 
@@ -347,5 +495,17 @@ public class SubActivity extends Activity {
 
         // 成功である
         return true;
+    }
+
+    public boolean save_dialog(){
+        SharedPreferences pref =
+                getSharedPreferences("Preferences",MODE_PRIVATE);
+        int save_d=pref.getInt("save_d",0);
+        if(save_d>=1){//1度でも大人子供幼児設定期日を編集した場合
+            return true;
+        }
+        else {//編集されてない場合
+            return false;
+        }
     }
 }
