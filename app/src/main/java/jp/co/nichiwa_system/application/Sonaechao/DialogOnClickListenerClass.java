@@ -7,6 +7,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.text.InputFilter;
+import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.DatePicker;
@@ -125,7 +127,15 @@ public class DialogOnClickListenerClass implements View.OnClickListener {
 
         //EditTextを取得する
         final EditText et = (EditText)viw.findViewById(R.id.Number);
+        if(tani=="ℓ") {
 
+            et.setInputType(InputType.TYPE_CLASS_NUMBER);
+            et.setFilters(new InputFilter[]{new InputFilter.LengthFilter(3)});
+        }
+        else {
+            et.setInputType(InputType.TYPE_CLASS_NUMBER);
+            et.setFilters(new InputFilter[]{new InputFilter.LengthFilter(2)});
+        }
         //日付処理
         final TextView day = (TextView)viw.findViewById(R.id.popup_day);
         final Calendar cl = loadCalendar(DateName);       //日付の取得。インスタンス（実体）を取得
@@ -152,7 +162,7 @@ public class DialogOnClickListenerClass implements View.OnClickListener {
         }
 
         //指定したEditTextの中に値を挿入する
-        et.setText( loadInt(DateName) );
+            et.setText( loadInt(DateName) );
 
         //カレンダーが必要ある時に行う処理
          if( calendarshow )
@@ -576,6 +586,7 @@ public class DialogOnClickListenerClass implements View.OnClickListener {
         return str;
     }
 */
+
 
     //賞味期限を切れているかどうか判定する関数
     public boolean Check_Day( String prefName )

@@ -160,7 +160,7 @@ public class SubActivity extends Activity {
                     fast.setMessage("保存しなくてもよろしいですか？\n\n"+
                                     "※保存は右の保存ボタンより行えます。"
                     );//ここまでの　内容のダイアログ出力
-                    
+
                     //ここからはダイアログ内のはいorいいえ押下時の処理
                     fast.setPositiveButton("はい", new DialogInterface.OnClickListener() {//はい押下時
                         @Override
