@@ -319,6 +319,25 @@ public class MainActivity extends Activity {
                 }
             }
         }
+
+        // 要チェック欄に「～が備蓄されていません」というメッセージを出す
+        SharedPreferences Preferences = getSharedPreferences("Preferences", MODE_PRIVATE);
+        int otona = Preferences.getInt("otona_people", 0); // 大人の人数を取得
+        int kobito = Preferences.getInt("kobito_people", 0); // 小人の人数を取得
+        int youji = Preferences.getInt("youji_people",0); // 幼児の人数を取得
+        if (otona >= 1 || kobito >= 1) { // もし大人または小人が1人以上いるならば
+            for (int i = 0; i < MAX_HIJOUSYOKU - 2; i++) { // 幼児用の離乳食と粉ミルクは別の条件になるので-2しています
+                Hijousyoku_tv[i].setText(get_Food_Warning(item[i].getPrefName(), item[i].getName())); // 非常食品名 + が備蓄されていません
+                Hijousyoku_tv[i].setCompoundDrawablesWithIntrinsicBounds(item[i].getIcon(), 0, 0, 0);
+            }
+        }
+        if (youji >= 1) { // もし幼児が1人以上いるならば
+            Hijousyoku_tv[10].setText(get_Food_Warning(item[10].getPrefName(), item[10].getName())); // 離乳食が備蓄されていません
+            Hijousyoku_tv[10].setCompoundDrawablesWithIntrinsicBounds(item[10].getIcon(), 0, 0, 0);
+            Hijousyoku_tv[11].setText(get_Food_Warning(item[11].getPrefName(), item[11].getName())); // 粉ミルクが備蓄されていません
+            Hijousyoku_tv[11].setCompoundDrawablesWithIntrinsicBounds(item[11].getIcon(), 0, 0, 0);
+        }
+
 /*
         //幼児用のみテキストを変更
         Hijousyoku_tv[10].setText( get_Child_Warning( item[10].getPrefName(),item[10].getName() ) );
@@ -463,6 +482,19 @@ public class MainActivity extends Activity {
         }
     }
 
+    // 非常食が0の時、要チェック欄に「～が備蓄されていません」警告を表示（ifの条件文は上の出力の時にしてあります）
+    public String get_Food_Warning( String dateName , String name )
+    {
+        String str = "";
+        int food_h = ( getSharedPreferences("Preferences",MODE_PRIVATE) ).getInt(dateName,0);
+
+        if( food_h < 1 ) { // もし非常食が備蓄されていなかったら
+            str = name + "が備蓄されていません";
+        }
+        return str;
+    }
+
+/*
     // 乳児一人以上で、なおかつ離乳食と粉ミルクが「0」のとき、警告を表示
     public String get_Child_Warning( String dateName , String name )
     {
@@ -480,6 +512,7 @@ public class MainActivity extends Activity {
 
         return str;
     }
+*/
 
     /*********************************************************************
     // 賞味期限の日付と現在の日付から引き出された残り日数を返す
