@@ -198,7 +198,7 @@ public class SubActivity extends Activity {
                     });//いいえ押下時の処理はここまで
                     fast.show();//ダイアログfast出力
                 }//ここまでがtrue時の処理
-                if(gou==0) {
+               else if(gou==0) {
                     //ダイアログの表示
                     AlertDialog.Builder fast = new AlertDialog.Builder(SubActivity.this);
                     fast.setTitle("※人数の合計が０です※");//ここから
@@ -266,7 +266,7 @@ public class SubActivity extends Activity {
                     });//いいえ押下時の処理はここまで
                     fast.show();//ダイアログfast出力
                 }//ここまでがtrue時の処理
-                if(gou==0) {
+               else if(gou==0) {
                     //ダイアログの表示
                     AlertDialog.Builder fast = new AlertDialog.Builder(SubActivity.this);
                     fast.setTitle("※人数の合計が０です※");//ここから
@@ -333,7 +333,7 @@ public class SubActivity extends Activity {
                     });//いいえ押下時の処理はここまで
                     fast.show();//ダイアログfast出力
                 }//ここまでがtrue時の処理
-                if(gou==0) {
+               else if(gou==0) {
                     //ダイアログの表示
                     AlertDialog.Builder fast = new AlertDialog.Builder(SubActivity.this);
                     fast.setTitle("※人数の合計が０です※");//ここから
