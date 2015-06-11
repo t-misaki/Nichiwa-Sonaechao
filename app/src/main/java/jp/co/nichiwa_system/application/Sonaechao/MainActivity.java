@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.LoaderManager;
+import android.content.ClipData;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.Loader;
@@ -337,7 +338,7 @@ public class MainActivity extends Activity {
             //警告文を取得する
             Hijousyoku_tv[i].setTextSize(18.0f);
             if ( pref.getInt(item[i].getPrefName(), 0) > 0 ) {
-                Hijousyoku_tv[i].setText(get_Number_of_days_Warning(item[i].getPrefName(), item[i].getName()));
+                Hijousyoku_tv[i].setText(get_Number_of_days_Warning(item[i].getPrefName(), item[i].getName(), item[i].getCalender_flag()));
             }
             //警告文を挿入する
             if( Hijousyoku_tv[i].getText().length() > 0 ) {
@@ -374,13 +375,13 @@ public class MainActivity extends Activity {
             if ( otona >= 1 || kobito >= 1 ) { // 大人または小人が1人以上
                 if ( FoodOverKids() < 50 ) { // 非常食が50％未満
                     for ( int i = 0; i < MAX_HIJOUSYOKU - 3; i++ ) { // 幼児用の離乳食と粉ミルク、水は別の条件になるので-3しています
-                        Hijousyoku_tv[i].setText(get_Number_of_days_Warning(item[i].getPrefName(), item[i].getName())); // 非常食品名 + が備蓄されていません
+                        Hijousyoku_tv[i].setText(get_Number_of_days_Warning(item[i].getPrefName(), item[i].getName(), item[i].getCalender_flag())); // 非常食品名 + が備蓄されていません
                         Hijousyoku_tv[i].setCompoundDrawablesWithIntrinsicBounds(item[i].getIcon(), 0, 0, 0);
                         Hijousyoku_tv[i].setOnClickListener(new DialogOnClickListenerClass(item[i])); //警告文を押すとダイアログが表示されるようにする
                     }
                 }
                 if ( RateWater() < 50 ) { // 水が50％未満
-                    Hijousyoku_tv[11].setText(get_Number_of_days_Warning(item[11].getPrefName(), item[11].getName())); // 水が備蓄されていません
+                    Hijousyoku_tv[11].setText(get_Number_of_days_Warning(item[11].getPrefName(), item[11].getName(), item[11].getCalender_flag())); // 水が備蓄されていません
                     Hijousyoku_tv[11].setCompoundDrawablesWithIntrinsicBounds(item[11].getIcon(), 0, 0, 0);
                     Hijousyoku_tv[11].setOnClickListener(new DialogOnClickListenerClass(item[11])); //警告文を押すとダイアログが表示されるようにする
                 }
@@ -391,21 +392,21 @@ public class MainActivity extends Activity {
             if ( otona >= 1 || kobito >= 1 ) { // 大人または小人が1人以上
                 if ( FoodOverKids() < 25 ) { // 非常食が25％未満
                     for ( int i = 0; i < MAX_HIJOUSYOKU - 3; i++ ) { // 幼児用の離乳食と粉ミルク、水は別の条件になるので-3しています
-                        Hijousyoku_tv[i].setText(get_Number_of_days_Warning(item[i].getPrefName(), item[i].getName())); // 非常食品名 + が備蓄されていません
+                        Hijousyoku_tv[i].setText(get_Number_of_days_Warning(item[i].getPrefName(), item[i].getName(), item[i].getCalender_flag())); // 非常食品名 + が備蓄されていません
                         Hijousyoku_tv[i].setCompoundDrawablesWithIntrinsicBounds(item[i].getIcon(), 0, 0, 0);
                         Hijousyoku_tv[i].setOnClickListener(new DialogOnClickListenerClass(item[i])); //警告文を押すとダイアログが表示されるようにする
                     }
                 }
                 if ( RateWater() < 50 ) { // 水が50％未満
-                    Hijousyoku_tv[11].setText(get_Number_of_days_Warning(item[11].getPrefName(), item[11].getName())); // 水が備蓄されていません
+                    Hijousyoku_tv[11].setText(get_Number_of_days_Warning(item[11].getPrefName(), item[11].getName(), item[11].getCalender_flag())); // 水が備蓄されていません
                     Hijousyoku_tv[11].setCompoundDrawablesWithIntrinsicBounds(item[11].getIcon(), 0, 0, 0);
                     Hijousyoku_tv[11].setOnClickListener(new DialogOnClickListenerClass(item[11])); //警告文を押すとダイアログが表示されるようにする
                 }
                 if ( FoodBaby() < 25 ) { // 乳児用が25％未満
-                    Hijousyoku_tv[9].setText(get_Number_of_days_Warning(item[9].getPrefName(), item[9].getName())); // 離乳食が備蓄されていません
+                    Hijousyoku_tv[9].setText(get_Number_of_days_Warning(item[9].getPrefName(), item[9].getName(), item[9].getCalender_flag())); // 離乳食が備蓄されていません
                     Hijousyoku_tv[9].setCompoundDrawablesWithIntrinsicBounds(item[9].getIcon(), 0, 0, 0);
                     Hijousyoku_tv[9].setOnClickListener(new DialogOnClickListenerClass(item[9])); //警告文を押すとダイアログが表示されるようにする
-                    Hijousyoku_tv[10].setText(get_Number_of_days_Warning(item[10].getPrefName(), item[10].getName())); // 粉ミルクが備蓄されていません
+                    Hijousyoku_tv[10].setText(get_Number_of_days_Warning(item[10].getPrefName(), item[10].getName(), item[10].getCalender_flag())); // 粉ミルクが備蓄されていません
                     Hijousyoku_tv[10].setCompoundDrawablesWithIntrinsicBounds(item[10].getIcon(), 0, 0, 0);
                     Hijousyoku_tv[10].setOnClickListener(new DialogOnClickListenerClass(item[10])); //警告文を押すとダイアログが表示されるようにする
                 }
@@ -415,15 +416,15 @@ public class MainActivity extends Activity {
         if ( otona <= 0 && kobito <= 0 ) { // 大人、小人がいない
             if ( youji >= 1 ) { // 幼児が1人以上
                 if ( FoodBaby() < 50 ) { // 乳児用が25％未満
-                    Hijousyoku_tv[9].setText(get_Number_of_days_Warning(item[9].getPrefName(), item[9].getName())); // 離乳食が備蓄されていません
+                    Hijousyoku_tv[9].setText(get_Number_of_days_Warning(item[9].getPrefName(), item[9].getName(), item[9].getCalender_flag())); // 離乳食が備蓄されていません
                     Hijousyoku_tv[9].setCompoundDrawablesWithIntrinsicBounds(item[9].getIcon(), 0, 0, 0);
                     Hijousyoku_tv[9].setOnClickListener(new DialogOnClickListenerClass(item[9])); //警告文を押すとダイアログが表示されるようにする
-                    Hijousyoku_tv[10].setText(get_Number_of_days_Warning(item[10].getPrefName(), item[10].getName())); // 粉ミルクが備蓄されていません
+                    Hijousyoku_tv[10].setText(get_Number_of_days_Warning(item[10].getPrefName(), item[10].getName(), item[10].getCalender_flag())); // 粉ミルクが備蓄されていません
                     Hijousyoku_tv[10].setCompoundDrawablesWithIntrinsicBounds(item[10].getIcon(), 0, 0, 0);
                     Hijousyoku_tv[10].setOnClickListener(new DialogOnClickListenerClass(item[10])); //警告文を押すとダイアログが表示されるようにする
                 }
                 if ( RateWater() < 50 ) { // 水が50％未満
-                    Hijousyoku_tv[11].setText(get_Number_of_days_Warning(item[11].getPrefName(), item[11].getName())); // 水が備蓄されていません
+                    Hijousyoku_tv[11].setText(get_Number_of_days_Warning(item[11].getPrefName(), item[11].getName(), item[11].getCalender_flag())); // 水が備蓄されていません
                     Hijousyoku_tv[11].setCompoundDrawablesWithIntrinsicBounds(item[11].getIcon(), 0, 0, 0);
                     Hijousyoku_tv[11].setOnClickListener(new DialogOnClickListenerClass(item[11])); //警告文を押すとダイアログが表示されるようにする
                 }
@@ -524,48 +525,39 @@ public class MainActivity extends Activity {
     }
 
     /*********************************************************************
-    //非常食の賞味期限と設定した期日を計算して、それぞれのテキストを返す
-    // prefName       ・・・ プレファレンス名
-    // HijousyokuName ・・・ 非常食の名前
+    // 消費期限と設定した期日を計算して、それぞれのテキストを返す
+    // prefName ・・・ プレファレンス名
+    // ItemName ・・・ 項目の名前
      *********************************************************************/
-    public String get_Number_of_days_Warning( String prefName, String HijousyokuName )
+    public String get_Number_of_days_Warning( String prefName, String ItemName, boolean isCal )
     {
         String str = "";
 
         // 非常食の備蓄数を取得する
-        int food_h = ( getSharedPreferences("Preferences",MODE_PRIVATE) ).getInt(prefName,0);
+        int BichikuSu = ( getSharedPreferences("Preferences",MODE_PRIVATE) ).getInt(prefName,0);
         //残り日数を取得する
         int nokori = (int)getDate(prefName);
         //期日を取得する
         int nissu =  ( getSharedPreferences("Preferences",MODE_PRIVATE) ).getInt("kiniti_day",14);
 
-        if( food_h < 1 ) { // もし非常食が備蓄されていなかったら
-            str = HijousyokuName + "が備蓄されていません";
-        } else if(nokori == 0) { // 非常食の備蓄数が1以上の賞味期限表示
-            //賞味期限が当日になったら表示
-            str = HijousyokuName + "の賞味期限が当日です";
-        } else if( nokori < 0 ) {
-            //賞味期限が切れたら表示
-            str = HijousyokuName + "の賞味期限が切れました";
-        } else if( nokori <= nissu ) {
-            //賞味期限が期日に近づいたら表示
-            str = HijousyokuName + "の賞味期限が" + nokori + "日前です";
+        if ( isCal == true ) { // カレンダーが存在するもの
+            if (nokori == 0) { // 備蓄数が1以上の消費期限表示
+                //消費期限が当日になったら表示
+                str = ItemName + "の消費期限が当日です";
+            } else if (nokori < 0) {
+                //消費期限が切れたら表示
+                str = ItemName + "の消費期限が切れました";
+            } else if (nokori <= nissu) {
+                //消費期限が期日に近づいたら表示
+                str = ItemName + "の消費期限が" + nokori + "日前です";
+            }
+        }
+        if( BichikuSu < 1 ) { // もし備蓄されていなかったら
+            str = ItemName + "が備蓄されていません";
         }
         return str;
     }
 
-/*    // 非常食が0の時、要チェック欄に「～が備蓄されていません」警告を表示（ifの条件文は上の出力の時にしてあります）
-    public String get_Food_Warning( String dateName , String name )
-    {
-        String str = "";
-        int food_h = ( getSharedPreferences("Preferences",MODE_PRIVATE) ).getInt(dateName,0);
-
-        if( food_h < 1 ) { // もし非常食が備蓄されていなかったら
-            str = name + "が備蓄されていません";
-        }
-        return str;
-    }
-*/
 
     /*********************************************************************
      //非常食の賞味期限と設定した期日を計算して、それぞれのアイコンを返す
@@ -589,26 +581,6 @@ public class MainActivity extends Activity {
             item.setIcon(R.drawable.bikkuri_b);
         }
     }
-
-/*
-    // 乳児一人以上で、なおかつ離乳食と粉ミルクが「0」のとき、警告を表示
-    public String get_Child_Warning( String dateName , String name )
-    {
-        String str = "";
-        int youji = ( getSharedPreferences("Preferences",MODE_PRIVATE) ).getInt("youji_people",0);
-        int youji_h = ( getSharedPreferences("Preferences",MODE_PRIVATE) ).getInt(dateName,0);
-
-        //幼児が一人以上の時
-        if( youji >= 1  ) {
-            //離乳食がない
-            if( youji_h < 1 ) {
-                str = name + "が備蓄されていません";
-            }
-        }
-
-        return str;
-    }
-*/
 
     /*********************************************************************
     // 賞味期限の日付と現在の日付から引き出された残り日数を返す
