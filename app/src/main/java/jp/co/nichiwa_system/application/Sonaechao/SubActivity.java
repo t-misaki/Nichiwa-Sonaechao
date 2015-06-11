@@ -37,7 +37,7 @@ import jp.co.nichiwa_system.application.Sonaechao.R;
 
 
 public class SubActivity extends Activity {
-    int save = 0;
+    //SharedPreferences pref = getSharedPreferences("Preference",MODE_PRIVATE);
     InputMethodManager inputMethodManager;
     RelativeLayout R_layout;
 
@@ -119,7 +119,7 @@ public class SubActivity extends Activity {
         loadInt( (EditText)findViewById(R.id.EditText4) , "sitei_day", 3);       //備えちゃお日数
 
         //設定日数と期日のEditTextを取得
-        final EditText otona_et = (EditText)findViewById(R.id.EditText); //大人
+        EditText otona_et = (EditText)findViewById(R.id.EditText); //大人
         EditText kobito_et = (EditText)findViewById(R.id.EditText2); //小人
         EditText youji_et = (EditText)findViewById(R.id.EditText5); //幼児
         EditText kijitu_et = (EditText)findViewById(R.id.EditText3); //期日
@@ -149,11 +149,24 @@ public class SubActivity extends Activity {
          * 制作日時：2015/06/10
          * 制作者：中山延雄
          * コメントアウト【//非常食ボタン押下時の処理はここまで】まで編集
+         * ********************************************************************************************
+         * 更新日時：2015/06/11
+         * 更新者：中山延雄
+         * 更新内容：大人子供幼児の総数が０の時、画面遷移しないようにした。
+         * コメントアウト【//非常食ボタン押下時の処理はここまで】まで編集
          **********************************************************************************************/
         //ホームボタン押下時の処理
         Home.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {
+                SharedPreferences pref = getSharedPreferences("Preferences",MODE_PRIVATE);
+                int gou = pref.getInt("youji_people",0) +
+                        pref.getInt("kobito_people",0) +
+                        pref.getInt("otona_people",0);
+                TextView debag_tv = (TextView)findViewById(R.id.debag);
+                debag_tv.setText(toString().valueOf(gou));
+
                 if(save_dialog()==true){//save_dialogクラスがtrueをreturnしてきたときの処理
                     AlertDialog.Builder fast = new AlertDialog.Builder(SubActivity.this);
                     fast.setTitle("※値が変更されている可能性があります※");//ここから
@@ -185,6 +198,22 @@ public class SubActivity extends Activity {
                     });//いいえ押下時の処理はここまで
                     fast.show();//ダイアログfast出力
                 }//ここまでがtrue時の処理
+                if(gou==0) {
+                    //ダイアログの表示
+                    AlertDialog.Builder fast = new AlertDialog.Builder(SubActivity.this);
+                    fast.setTitle("※人数の合計が０です※");//ここから
+                    fast.setMessage("人数が０だと備蓄を行えません！\n" +
+                                    "人数の入力を行ってください。\n\n" +
+                                    "例：家族構成等・・・"
+                    );
+                    fast.setPositiveButton("ok", new DialogInterface.OnClickListener() {//はい押下時
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    });
+                    fast.show();
+                }
                 else{
                     Intent intent=new Intent();
                     intent.setClassName("jp.co.nichiwa_system.application.Sonaechao","jp.co.nichiwa_system.application.Sonaechao.MainActivity");
@@ -199,85 +228,131 @@ public class SubActivity extends Activity {
 
             @Override
             public void onClick(View v) {
-                if(save_dialog()==true){//save_dialogがtrueなら
+                SharedPreferences pref = getSharedPreferences("Preferences",MODE_PRIVATE);
+                int gou = pref.getInt("youji_people",0) +
+                        pref.getInt("kobito_people",0) +
+                        pref.getInt("otona_people",0);
+                TextView debag_tv = (TextView)findViewById(R.id.debag);
+                debag_tv.setText(toString().valueOf(gou));
+
+                if(save_dialog()==true){//save_dialogクラスがtrueをreturnしてきたときの処理
                     AlertDialog.Builder fast = new AlertDialog.Builder(SubActivity.this);
                     fast.setTitle("※値が変更されている可能性があります※");//ここから
                     fast.setMessage("保存しなくてもよろしいですか？\n\n"+
                                     "※保存は右の保存ボタンより行えます。"
                     );//ここまでの　内容のダイアログ出力
 
-                    fast.setPositiveButton("はい", new DialogInterface.OnClickListener() {//はい押下
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            SharedPreferences pref =
-                                    getSharedPreferences("Preferences",MODE_PRIVATE);
-                            Editor save_d = pref.edit();
-                            save_d.putInt("save_d",0);//プリファレンスsave_dに0を挿入
-                            save_d.commit();
-
-                            Intent intent=new Intent();
-                            intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
-                            intent.setClassName("jp.co.nichiwa_system.application.Sonaechao","jp.co.nichiwa_system.application.Sonaechao.Stock");
-                            startActivity(intent);//備蓄品画面に遷移
-                        }
-                    });
-                    fast.setNegativeButton("いいえ", new DialogInterface.OnClickListener() {//いいえ押下
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.dismiss();//ダイアログを消す
-                        }
-                    });
-                    fast.show();//ダイアログfast出力
-
-                }
-                else{
-                    Intent intent=new Intent();
-                    intent.setClassName("jp.co.nichiwa_system.application.Sonaechao","jp.co.nichiwa_system.application.Sonaechao.Stock");
-                    startActivity(intent);//備蓄品画面に遷移
-                }
-            }
-        });//ここまでが備蓄品ボタン押下時の処理
-
-        //非常食ボタン押下時の処理
-        hijousyoku.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(save_dialog()==true){//save_dialogクラスからtrueがreturnしてきたときの処理
-                    AlertDialog.Builder fast = new AlertDialog.Builder(SubActivity.this);
-                    fast.setTitle("※値が変更されている可能性があります※");//ここから
-                    fast.setMessage("保存しなくてもよろしいですか？\n\n"+
-                                    "※保存は右の保存ボタンより行えます。"
-                    );//ここまでの　内容のダイアログ出力
-
-                    //ここからはダイアログのはいorいいえボタン上家事の処理
-                    fast.setPositiveButton("はい", new DialogInterface.OnClickListener() {//はい押下
+                    //ここからはダイアログ内のはいorいいえ押下時の処理
+                    fast.setPositiveButton("はい", new DialogInterface.OnClickListener() {//はい押下時
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             SharedPreferences pref =
                                     getSharedPreferences("Preferences",MODE_PRIVATE);
                             Editor save_d = pref.edit();
                             save_d.putInt("save_d",0);
-                            save_d.commit();//プリファレンスsave_dに0を挿入
+                            save_d.commit();//save_dに0を挿入
 
                             Intent intent=new Intent();
                             intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
-                            intent.setClassName("jp.co.nichiwa_system.application.Sonaechao","jp.co.nichiwa_system.application.Sonaechao.Hijousyoku");
-                            startActivity(intent);//非常食画面へ遷移
+                            intent.setClassName("jp.co.nichiwa_system.application.Sonaechao","jp.co.nichiwa_system.application.Sonaechao.MainActivity");
+                            startActivity(intent);//ホーム画面に遷移
                         }
-                    });
-                    fast.setNegativeButton("いいえ", new DialogInterface.OnClickListener() {//いいえボタン押下時の処理
+                    });//ここまでがはい押下時の処理
+                    fast.setNegativeButton("いいえ", new DialogInterface.OnClickListener() {//いいえ押下時の処理
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            dialog.dismiss();//ダイアログを消す
+                            dialog.dismiss();//ダイアログ消去
+                        }
+                    });//いいえ押下時の処理はここまで
+                    fast.show();//ダイアログfast出力
+                }//ここまでがtrue時の処理
+                if(gou==0) {
+                    //ダイアログの表示
+                    AlertDialog.Builder fast = new AlertDialog.Builder(SubActivity.this);
+                    fast.setTitle("※人数の合計が０です※");//ここから
+                    fast.setMessage("人数が０だと備蓄を行えません！\n" +
+                                    "人数の入力を行ってください。\n\n" +
+                                    "例：家族構成等・・・"
+                    );
+                    fast.setPositiveButton("ok", new DialogInterface.OnClickListener() {//はい押下時
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
                         }
                     });
-                    fast.show();//ダイアログfast出力
-
+                    fast.show();
                 }
                 else{
                     Intent intent=new Intent();
-                    intent.setClassName("jp.co.nichiwa_system.application.Sonaechao","jp.co.nichiwa_system.application.Sonaechao.Hijousyoku");
-                    startActivity(intent);//非常食画面へ遷移
+                    intent.setClassName("jp.co.nichiwa_system.application.Sonaechao","jp.co.nichiwa_system.application.Sonaechao.MainActivity");
+                    startActivity(intent);//ホーム画面に遷移
+                }
+            }
+        });//ここまでが備蓄品ボタン押下時の処理
+
+
+        //非常食ボタン押下時の処理
+        hijousyoku.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SharedPreferences pref = getSharedPreferences("Preferences",MODE_PRIVATE);
+                int gou = pref.getInt("youji_people",0) +
+                        pref.getInt("kobito_people",0) +
+                        pref.getInt("otona_people",0);
+                TextView debag_tv = (TextView)findViewById(R.id.debag);
+                debag_tv.setText(toString().valueOf(gou));
+
+                if(save_dialog()==true){//save_dialogクラスがtrueをreturnしてきたときの処理
+                    AlertDialog.Builder fast = new AlertDialog.Builder(SubActivity.this);
+                    fast.setTitle("※値が変更されている可能性があります※");//ここから
+                    fast.setMessage("保存しなくてもよろしいですか？\n\n"+
+                                    "※保存は右の保存ボタンより行えます。"
+                    );//ここまでの　内容のダイアログ出力
+
+                    //ここからはダイアログ内のはいorいいえ押下時の処理
+                    fast.setPositiveButton("はい", new DialogInterface.OnClickListener() {//はい押下時
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            SharedPreferences pref =
+                                    getSharedPreferences("Preferences",MODE_PRIVATE);
+                            Editor save_d = pref.edit();
+                            save_d.putInt("save_d",0);
+                            save_d.commit();//save_dに0を挿入
+
+                            Intent intent=new Intent();
+                            intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+                            intent.setClassName("jp.co.nichiwa_system.application.Sonaechao","jp.co.nichiwa_system.application.Sonaechao.MainActivity");
+                            startActivity(intent);//ホーム画面に遷移
+                        }
+                    });//ここまでがはい押下時の処理
+                    fast.setNegativeButton("いいえ", new DialogInterface.OnClickListener() {//いいえ押下時の処理
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();//ダイアログ消去
+                        }
+                    });//いいえ押下時の処理はここまで
+                    fast.show();//ダイアログfast出力
+                }//ここまでがtrue時の処理
+                if(gou==0) {
+                    //ダイアログの表示
+                    AlertDialog.Builder fast = new AlertDialog.Builder(SubActivity.this);
+                    fast.setTitle("※人数の合計が０です※");//ここから
+                    fast.setMessage("人数が０だと備蓄を行えません！\n" +
+                                    "人数の入力を行ってください。\n\n" +
+                                    "例：家族構成等・・・"
+                    );
+                    fast.setPositiveButton("ok", new DialogInterface.OnClickListener() {//はい押下時
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    });
+                    fast.show();
+                }
+                else{
+                    Intent intent=new Intent();
+                    intent.setClassName("jp.co.nichiwa_system.application.Sonaechao","jp.co.nichiwa_system.application.Sonaechao.MainActivity");
+                    startActivity(intent);//ホーム画面に遷移
                 }
             }
         });//非常食ボタン押下時の処理はここまで
