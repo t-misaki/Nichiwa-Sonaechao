@@ -254,7 +254,7 @@ public class SubActivity extends Activity {
 
                             Intent intent=new Intent();
                             intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
-                            intent.setClassName("jp.co.nichiwa_system.application.Sonaechao","jp.co.nichiwa_system.application.Sonaechao.MainActivity");
+                            intent.setClassName("jp.co.nichiwa_system.application.Sonaechao","jp.co.nichiwa_system.application.Sonaechao.Stock");
                             startActivity(intent);//ホーム画面に遷移
                         }
                     });//ここまでがはい押下時の処理
@@ -284,7 +284,7 @@ public class SubActivity extends Activity {
                 }
                 else{
                     Intent intent=new Intent();
-                    intent.setClassName("jp.co.nichiwa_system.application.Sonaechao","jp.co.nichiwa_system.application.Sonaechao.MainActivity");
+                    intent.setClassName("jp.co.nichiwa_system.application.Sonaechao","jp.co.nichiwa_system.application.Sonaechao.Stock");
                     startActivity(intent);//ホーム画面に遷移
                 }
             }
@@ -321,7 +321,7 @@ public class SubActivity extends Activity {
 
                             Intent intent=new Intent();
                             intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
-                            intent.setClassName("jp.co.nichiwa_system.application.Sonaechao","jp.co.nichiwa_system.application.Sonaechao.MainActivity");
+                            intent.setClassName("jp.co.nichiwa_system.application.Sonaechao","jp.co.nichiwa_system.application.Sonaechao.Hijousyoku");
                             startActivity(intent);//ホーム画面に遷移
                         }
                     });//ここまでがはい押下時の処理
@@ -351,7 +351,7 @@ public class SubActivity extends Activity {
                 }
                 else{
                     Intent intent=new Intent();
-                    intent.setClassName("jp.co.nichiwa_system.application.Sonaechao","jp.co.nichiwa_system.application.Sonaechao.MainActivity");
+                    intent.setClassName("jp.co.nichiwa_system.application.Sonaechao","jp.co.nichiwa_system.application.Sonaechao.Hijousyoku");
                     startActivity(intent);//ホーム画面に遷移
                 }
             }
