@@ -166,11 +166,14 @@ public class Stock extends Activity {
 
         //枠線をつける
        for( int i = 0 ; i < Stock_iv.length ; i++ ) {
+           SharedPreferences pref =
+                   getSharedPreferences("Preferences",MODE_PRIVATE);
+           int r = pref.getInt(item[i].getPrefName(),0);
             //ボタンアクションの処理
            Stock_iv[i].setOnClickListener(new DialogOnClickListenerClass(item[i]));
            //期限の切れているものは赤線を敷く
            if( item[i].getCalender_flag() == true ) {
-               if (!Check_Day(item[i].getPrefName())) {
+               if (!Check_Day(item[i].getPrefName())&& r!=0 ) {
                    Stock_iv[i].setBackgroundResource(R.drawable.style2);
                }
            }
