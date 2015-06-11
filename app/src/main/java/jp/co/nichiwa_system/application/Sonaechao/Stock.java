@@ -36,16 +36,25 @@ public class Stock extends Activity {
             AlertDialog.Builder fast = new AlertDialog.Builder(this);
             fast.setTitle("備蓄品画面の説明");
             fast.setMessage("ここでは備蓄品（防災グッズ）のストックが設定できます。\n" +
-                    "備蓄したいものをタップし数量と消費期限を設定してみましょう。\n" +
-                    "※このメッセージは画面下の備蓄品ボタンを押すと再び表示されます。");
-            fast.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    "備蓄したいものをタップし数量と消費期限を設定してみましょう。\n");
+            fast.setPositiveButton("次へ", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-                   dialog.dismiss();
+                    AlertDialog.Builder fast = new AlertDialog.Builder(Stock.this);
+                    fast.setTitle("備蓄品画面の説明");
+                    fast.setMessage("各画像をタップすると設定画面が開きます。\n\n" +
+                            "備蓄数を推奨値を参考にして備蓄してみましょう。\n\n" +
+                            "※このメッセージは画面下の備蓄品ボタンを押すと再び表示されます。");
+                    fast.setPositiveButton("閉じる", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    });
+                    fast.show();
+
                 }
             });
-
-
             fast.show();
 
             SharedPreferences.Editor e = pre.edit();
@@ -130,12 +139,23 @@ public class Stock extends Activity {
                 AlertDialog.Builder fast = new AlertDialog.Builder(Stock.this);
                 fast.setTitle("備蓄品画面の説明");
                 fast.setMessage("ここでは備蓄品（防災グッズ）のストックが設定できます。\n" +
-                        "備蓄したいものをタップし数量と消費期限を設定してみましょう。\n" +
-                        "※このメッセージは画面下の備蓄品ボタンを押すと再び表示されます。");
-                fast.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        "備蓄したいものをタップし数量と消費期限を設定してみましょう。\n");
+                fast.setPositiveButton("次へ", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
+                        AlertDialog.Builder fast = new AlertDialog.Builder(Stock.this);
+                        fast.setTitle("備蓄品画面の説明");
+                        fast.setMessage("各画像をタップすると設定画面が開きます。\n\n" +
+                                "備蓄数を推奨値を参考にして備蓄してみましょう。\n\n" +
+                                "※このメッセージは画面下の備蓄品ボタンを押すと再び表示されます。");
+                        fast.setPositiveButton("閉じる", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        });
+                        fast.show();
+
                     }
                 });
                 fast.show();
