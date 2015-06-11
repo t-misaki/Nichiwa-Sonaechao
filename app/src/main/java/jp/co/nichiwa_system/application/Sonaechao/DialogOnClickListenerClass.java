@@ -161,96 +161,89 @@ public class DialogOnClickListenerClass implements View.OnClickListener {
         People_tv[1].setText("小人" + loadInt("kobito_people") + "人分");
         People_tv[2].setText("幼児"  + loadInt("youji_people")  + "人分");
 
-        TextView s_tv = (TextView)viw.findViewById(R.id.suisyouti);
-        if(TitleName =="水"){
-            SharedPreferences pref = act.getSharedPreferences("Preferences", act.MODE_PRIVATE);
+        if (act.getClass() == Hijousyoku.class) {
+            TextView s_tv = (TextView) viw.findViewById(R.id.suisyouti);
+            if (TitleName == "水") {
+                SharedPreferences pref = act.getSharedPreferences("Preferences", act.MODE_PRIVATE);
 
-            int mizu = pref.getInt("mizu_number", 0);
+                int mizu = pref.getInt("mizu_number", 0);
 
-            //人数
-            int adult_n = pref.getInt("otona_people", 0);
-            int child_n = pref.getInt("kobito_people", 0);
-            int baby_n = pref.getInt("youji_people", 0);
+                //人数
+                int adult_n = pref.getInt("otona_people", 0);
+                int child_n = pref.getInt("kobito_people", 0);
+                int baby_n = pref.getInt("youji_people", 0);
 
-            int setDays = pref.getInt("sitei_day",3);
+                int setDays = pref.getInt("sitei_day", 3);
 
-            int   adult_w = adult_n * 3;
-            int   child_w = child_n * 2;
-            int   baby_w  = baby_n  * 2;
+                int adult_w = adult_n * 3;
+                int child_w = child_n * 2;
+                int baby_w = baby_n * 2;
 
-            //  水の必要値の算出。備えちゃお日数も追加。
-            int   total_w = (adult_w + child_w + baby_w) * setDays;
-            if(total_w<=0){
-                s_tv.setText("十分備蓄されています");
+                //  水の必要値の算出。備えちゃお日数も追加。
+                int total_w = (adult_w + child_w + baby_w) * setDays;
+                if (total_w <= 0) {
+                    s_tv.setText("十分備蓄されています");
+                }
+                s_tv.setText("あと" + (toString().valueOf(total_w - mizu)) + tani + "備蓄してください");
+            } else if (TitleName == "離乳食" || TitleName == "粉ミルク") {
+                SharedPreferences pref = act.getSharedPreferences("Preferences", act.MODE_PRIVATE);
+
+                int rinyu = pref.getInt("rinyu_number", 0);
+                int konamilk = pref.getInt("konamilk_number", 0);
+
+                //人数
+                int baby_n = pref.getInt("youji_people", 0);
+                int setDays = pref.getInt("sitei_day", 3);
+                int bAll;
+
+                //  幼児限定の栄養価総計。baby All
+                bAll = (konamilk * 3) + rinyu;
+                int total_b = (3 * baby_n) * setDays;
+                double need_sum = total_b - bAll;
+                if (need_sum <= 0) {
+                    s_tv.setText("十分備蓄されています");
+                } else if (TitleName == "粉ミルク") {
+                    s_tv.setText("あと" + toString().valueOf(((int) Math.ceil(need_sum / 3)) + tani + "備蓄してください"));
+                } else {
+                    s_tv.setText("あと" + toString().valueOf(((int) need_sum) + tani + "備蓄してください"));
+                }
+            } else {
+                SharedPreferences pref = act.getSharedPreferences("Preferences", act.MODE_PRIVATE);
+
+                int reto_g = pref.getInt("retorutogohan_number", 0);
+                int kan = pref.getInt("kandume_number", 0);
+                int kanmen = pref.getInt("kanmen_number", 0);
+                int kanpan = pref.getInt("kanpan_number", 0);
+                int kan2 = pref.getInt("kandume2_number", 0);
+                int reto = pref.getInt("retoruto_number", 0);
+                int furizu = pref.getInt("furizu_dorai_number", 0);
+                int karori = pref.getInt("karori_meito_number", 0);
+                int okasi = pref.getInt("okasi_number", 0);
+                //人数
+                int adult_n = pref.getInt("otona_people", 0);
+                int child_n = pref.getInt("kobito_people", 0);
+                //  設定人数。訂正者：岡田
+                int setDays = pref.getInt("sitei_day", 3);
+                //各合計（大小のみ）
+                int Hijousyoku_sum = reto_g + kan + kanmen + kanpan + kan2 + reto + furizu + karori + okasi;
+                int okAll;
+                int div = 2;
+                //栄養価の計算。乾パンとカロリーメイトを抜いたものは栄養価１．乾パン、カロリーメイトは３。
+                //  大小限定の栄養価総計。over kids All
+                okAll = ((Hijousyoku_sum - kanpan - karori) * 1) + (kanpan + karori) * 3;
+                //  大小の割合。
+                int rateOK = (((adult_n * 3) + (child_n * 2)) * setDays);
+                double need_sum = rateOK - okAll;
+                if (need_sum <= 0) {
+                    s_tv.setText("十分備蓄されています");
+                } else if (TitleName == "カロリーメイト" || TitleName == "乾パン") {
+                    s_tv.setText("あと" + toString().valueOf(((int) Math.ceil(need_sum / 3)) + tani + "備蓄してください"));
+                } else {
+                    s_tv.setText("あと" + toString().valueOf(((int) need_sum) + tani + "備蓄してください"));
+                }
+
             }
-            s_tv.setText("あと"+(toString().valueOf(total_w-mizu))+tani+"備蓄してください");
         }
-        else if(TitleName == "離乳食" || TitleName == "粉ミルク"){
-            SharedPreferences pref = act.getSharedPreferences("Preferences", act.MODE_PRIVATE);
-
-            int rinyu = pref.getInt("rinyu_number", 0);
-            int konamilk = pref.getInt("konamilk_number", 0);
-
-            //人数
-            int baby_n = pref.getInt("youji_people", 0);
-            int setDays = pref.getInt("sitei_day",3);
-            int bAll;
-
-            //  幼児限定の栄養価総計。baby All
-            bAll  = ( konamilk * 3 ) + rinyu;
-            int   total_b = ( 3 * baby_n ) * setDays;
-            double need_sum = total_b-bAll;
-            if(need_sum<=0){
-                s_tv.setText("十分備蓄されています");
-            }
-            else if(TitleName == "粉ミルク"){
-                s_tv.setText("あと"+toString().valueOf(((int)Math.ceil(need_sum/3))+tani+"備蓄してください"));
-            }
-            else{
-                s_tv.setText("あと"+toString().valueOf(((int)need_sum)+tani+"備蓄してください"));
-            }
-        }
-        else {
-            SharedPreferences pref = act.getSharedPreferences("Preferences", act.MODE_PRIVATE);
-
-            int reto_g = pref.getInt("retorutogohan_number", 0);
-            int kan = pref.getInt("kandume_number", 0);
-            int kanmen = pref.getInt("kanmen_number", 0);
-            int kanpan = pref.getInt("kanpan_number", 0);
-            int kan2 = pref.getInt("kandume2_number", 0);
-            int reto = pref.getInt("retoruto_number", 0);
-            int furizu = pref.getInt("furizu_dorai_number", 0);
-            int karori = pref.getInt("karori_meito_number", 0);
-            int okasi = pref.getInt("okasi_number", 0);
-            //人数
-            int adult_n = pref.getInt("otona_people", 0);
-            int child_n = pref.getInt("kobito_people", 0);
-            //  設定人数。訂正者：岡田
-            int setDays = pref.getInt("sitei_day",3);
-            //各合計（大小のみ）
-            int Hijousyoku_sum = reto_g + kan + kanmen + kanpan + kan2 + reto + furizu + karori + okasi;
-            int okAll;
-            int div = 2;
-            //栄養価の計算。乾パンとカロリーメイトを抜いたものは栄養価１．乾パン、カロリーメイトは３。
-            //  大小限定の栄養価総計。over kids All
-            okAll = ((Hijousyoku_sum - kanpan - karori) * 1) + (kanpan + karori) * 3;
-            //  大小の割合。
-            int rateOK = ((( adult_n * 3 ) + ( child_n * 2 )) * setDays );
-            double need_sum = rateOK-okAll;
-            if(need_sum<=0){
-                s_tv.setText("十分備蓄されています");
-            }
-            else if(TitleName == "カロリーメイト"||TitleName == "乾パン"){
-                s_tv.setText("あと"+toString().valueOf(((int)Math.ceil(need_sum/3))+tani+"備蓄してください"));
-            }
-            else{
-                s_tv.setText("あと"+toString().valueOf(((int)need_sum)+tani+"備蓄してください"));
-            }
-
-        }
-
-       // s_tv.setText(toString().valueOf((FoodOverKids() + FoodBaby() + RateWater())/ VolumeFoods()));
-
 
         //アイテムが不要な人は、ダイアログに表示させない
         for( int i = 0 ; i < 3 ; i++ ) {
@@ -669,20 +662,143 @@ public class DialogOnClickListenerClass implements View.OnClickListener {
 
                     // アクティビティが非常食画面の場合、以下の処理を行う
                     if (act.getClass() == Hijousyoku.class) {
-                        // インテントで画面遷移し消費期限の赤枠線の更新を行う
-                        Intent intent = new Intent();
-                        intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
-                        intent.setClassName("jp.co.nichiwa_system.application.Sonaechao", "jp.co.nichiwa_system.application.Sonaechao.Hijousyoku");
-                        act.startActivity(intent);
+
+                        ItemClass[] item = new ItemClass[12];
+                        item[0] = new ItemClass("レトルトご飯", "retorutogohan_number", R.drawable.retoruto_gohan, true,"食", act);
+                        item[1] = new ItemClass("缶詰（ご飯）", "kandume_number", R.drawable.kandume_gohan, true,"缶", act);
+                        item[2] = new ItemClass("乾麺", "kanmen_number", R.drawable.kanmen, true,"袋", act);
+                        item[3] = new ItemClass("乾パン", "kanpan_number", R.drawable.kanpan, true,"缶", act);
+                        item[4] = new ItemClass("缶詰（肉・魚）", "kandume2_number", R.drawable.kandume, true, "缶", act);
+                        item[5] = new ItemClass("レトルト食品", "retoruto_number", R.drawable.retoruto, true, "袋", act);
+                        item[6] = new ItemClass("フリーズドライ", "furizu_dorai_number", R.drawable.furizu_dorai, true, "食", act);
+                        item[7] = new ItemClass("水", "mizu_number", R.drawable.mizu, true, "ℓ",act);
+                        item[8] = new ItemClass("カロリーメイト", "karori_meito_number", R.drawable.karori_meito, true, "箱",act);
+                        item[9] = new ItemClass("菓子類", "okasi_number", R.drawable.okasi, true, "箱・袋",act);
+                        item[10] = new ItemClass("離乳食", "rinyu_number", R.drawable.rinyu, true, "食", act );
+                        item[11] = new ItemClass("粉ミルク", "konamilk_number", R.drawable.konamilk, true, "缶", act);
+
+                        //番号の振り分け
+                        for( int i = 0 ; i < 12 ; i++ ) {
+                            item[i].setNumber(i);
+                        }
+                        ImageView[] Hijousyoku_iv = new ImageView[12];
+
+                        //各イメージビューの取得
+                        Hijousyoku_iv[0] = (ImageView)act.findViewById(R.id.retoruto_gohan);
+                        Hijousyoku_iv[1] = (ImageView)act.findViewById(R.id.kandume);
+                        Hijousyoku_iv[2] = (ImageView)act.findViewById(R.id.kanmen);
+                        Hijousyoku_iv[3] = (ImageView)act.findViewById(R.id.kanpan);
+                        Hijousyoku_iv[4] = (ImageView)act.findViewById(R.id.kandume2);
+                        Hijousyoku_iv[5] = (ImageView)act.findViewById(R.id.retoruto);
+                        Hijousyoku_iv[6] = (ImageView)act.findViewById(R.id.furizu_dorai);
+                        Hijousyoku_iv[7] = (ImageView)act.findViewById(R.id.mizu);
+                        Hijousyoku_iv[8] = (ImageView)act.findViewById(R.id.karori_meito);
+                        Hijousyoku_iv[9] = (ImageView)act.findViewById(R.id.okasi);
+                        Hijousyoku_iv[10] = (ImageView)act.findViewById(R.id.rinyu);
+                        Hijousyoku_iv[11] = (ImageView)act.findViewById(R.id.konamilk);
+
+                        for( int i = 0 ; i < 12 ; i++ ) {
+                       SharedPreferences pref = act.getSharedPreferences("Preferences",act.MODE_PRIVATE);
+                        //ボタンアクションの処理
+                        Hijousyoku_iv[i].setOnClickListener( new DialogOnClickListenerClass( item[i]) );
+                        int r = pref.getInt(item[i].getPrefName(),0);
+                        //期限の切れているものは赤線を敷く
+                        if( !Check_Day(item[i].getPrefName()) && r!=0  ) {
+                            Hijousyoku_iv[i].setBackgroundResource(R.drawable.style2);
+                        }
+                            else{
+                            Hijousyoku_iv[i].setBackgroundResource(R.drawable.style);
+                        }
+                    }
                     } // 非常食画面処理　ここまで
 
                     // アクティビティが備蓄品画面の場合、以下の処理を行う
                     if (act.getClass() == Stock.class) {
+                        //各イメージビューの取得
+                        ImageView[] Stock_iv = {
+                                (ImageView)act.findViewById(R.id.gasView),
+                                (ImageView)act.findViewById(R.id.matchView),
+                                (ImageView)act.findViewById(R.id.bombeView),
+                                (ImageView)act.findViewById(R.id.whistleView),
+                                (ImageView)act.findViewById(R.id.shitagiView),
+                                (ImageView)act.findViewById(R.id.kodomoView),
+                                (ImageView)act.findViewById(R.id.tissueView),
+                                (ImageView)act.findViewById(R.id.almiView),
+                                (ImageView)act.findViewById(R.id.rapView),
+                                (ImageView)act.findViewById(R.id.gunnteView),
+                                (ImageView)act.findViewById(R.id.maskView),
+                                (ImageView)act.findViewById(R.id.biniiruView),
+                                (ImageView)act.findViewById(R.id.kaityuView),
+                                (ImageView)act.findViewById(R.id.kankiriView),
+                                (ImageView)act.findViewById(R.id.radioView),
+                                (ImageView)act.findViewById(R.id.judenkiView),
+                                (ImageView)act.findViewById(R.id.supunView),
+                                (ImageView)act.findViewById(R.id.hasiView),
+                                (ImageView)act.findViewById(R.id.koppuView),
+                                (ImageView)act.findViewById(R.id.nyujiView),
+                                (ImageView)act.findViewById(R.id.omutuView),
+                                (ImageView)act.findViewById(R.id.dentiView),
+                                (ImageView)act.findViewById(R.id.nebukuroView),
+                                (ImageView)act.findViewById(R.id.utuwaView),
+                                (ImageView)act.findViewById(R.id.taoruView),
+                        };
+                        //備蓄品の項目を取得する
+                        ItemClass[] item = {
+                                new ItemClass("ガスコンロ・鍋", "gas_number", R.drawable.gas, false, "個",act),
+                                new ItemClass("マッチ・ライター", "match_number", R.drawable.match, false,"箱", act),
+                                new ItemClass("ガスボンベ", "bombe_number", R.drawable.bombe, true,"本", act),
+                                new ItemClass("笛（防犯ブザー）", "whistle_number", R.drawable.whistle, false,"個", act),
+                                new ItemClass("大人下着", "shitagi_number", R.drawable.otona, false,"枚", act),
+                                new ItemClass("小人下着", "kodomo_number", R.drawable.kodomo, false,"枚", act),
+                                new ItemClass("ティッシュ・ウェットティッシュ", "tissue_number", R.drawable.thissyu, false,"箱", act),
+                                new ItemClass("アルミホイル", "almi_number", R.drawable.almi, false,"本", act),
+                                new ItemClass("ラップ", "rap_number", R.drawable.rappu, false,"本", act),
+                                new ItemClass("軍手", "gunnte_number", R.drawable.gunnte, false,"対", act),
+                                new ItemClass("マスク", "mask_number", R.drawable.mask, false,"×１００枚", act),
+                                new ItemClass("ビニール袋（ゴミ袋）", "bag_number", R.drawable.hukuro, false,"×１０枚", act),
+                                new ItemClass("懐中電灯　※単三電池推奨", "kaityu_number", R.drawable.kaityu, false,"本", act),
+                                new ItemClass("缶切り", "kankiri_number", R.drawable.kankiri, false,"個", act),
+                                new ItemClass("ラジオ　※単三電池推奨", "radio_number", R.drawable.radio, false,"個", act),
+                                new ItemClass("携帯電話充電器　※単三電池推奨", "judenki_number", R.drawable.judenti, false,"個", act),
+                                new ItemClass("スプーン", "supun_number", R.drawable.spoon, false,"×１００本", act),
+                                new ItemClass("割り箸", "hasi_number", R.drawable.hasi, false,"×１００膳", act),
+                                new ItemClass("コップ（プラスチック）", "koppu_number", R.drawable.koppu, false,"個", act),
+                                new ItemClass("哺乳びん", "nyuji_number", R.drawable.bin, false,"本", act),
+                                new ItemClass("おむつ", "omutu_number", R.drawable.omutu, false,"枚", act),
+                                new ItemClass("乾電池　※単三", "denti_number", R.drawable.denti, true,"×１０本", act),
+                                new ItemClass("寝袋", "nebukuro_number", R.drawable.nebukuro, false,"枚", act),
+                                new ItemClass("器（プラスチック）", "utuwa_number", R.drawable.utuwa, false,"枚", act),
+                                new ItemClass("タオル", "taoru_number", R.drawable.taoru, false,"枚", act),
+                        };
+                        //番号の振り分け + 非常食の分もプラスしています。
+                        for( int i = 0 ; i < Stock_iv.length ; i++ ) {
+                            item[i].setNumber(i);
+                        }
+
+
+                        //枠線をつける
+                        for( int i = 0 ; i < Stock_iv.length ; i++ ) {
+                            SharedPreferences pref =
+                                    act.getSharedPreferences("Preferences",act.MODE_PRIVATE);
+                            int r = pref.getInt(item[i].getPrefName(),0);
+                            //ボタンアクションの処理
+                            Stock_iv[i].setOnClickListener(new DialogOnClickListenerClass(item[i]));
+                            //期限の切れているものは赤線を敷く
+                            if( item[i].getCalender_flag() == true ) {
+                                if (!Check_Day(item[i].getPrefName())&& r!=0 ) {
+                                    Stock_iv[i].setBackgroundResource(R.drawable.style2);
+                                }
+                                else{
+                                    Stock_iv[i].setBackgroundResource(R.drawable.style);
+                                }
+                            }
+                        }
+
                         // インテントで画面遷移し消費期限の赤枠線の更新を行う
-                        Intent intent = new Intent();
+                       /* Intent intent = new Intent();
                         intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
                         intent.setClassName("jp.co.nichiwa_system.application.Sonaechao", "jp.co.nichiwa_system.application.Sonaechao.Stock");
-                        act.startActivity(intent);
+                        act.startActivity(intent);*/
                     }
                 }
             }
@@ -1191,6 +1307,19 @@ public class DialogOnClickListenerClass implements View.OnClickListener {
         }
         return rate;
     }
+    public boolean Check_Day( String prefName )
+    {
+        int i = 0;
+        //残り日数を取得する
+        int nokori = (int)getDate(prefName);
+
+        if( nokori <= 0 ) {
+            //賞味期限が切れたら表示
+            return false;
+        }
+        return true;
+    }
+
 
     //  コップと器専用の計算関数
     public float UsedOneStock(float stock, int adult, int kids, int baby){
