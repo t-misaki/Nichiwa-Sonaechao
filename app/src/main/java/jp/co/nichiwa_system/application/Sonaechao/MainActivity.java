@@ -320,26 +320,81 @@ public class MainActivity extends Activity {
             }
         }
 
+        /*******************************************************************************************
         // 要チェック欄に「～が備蓄されていません」というメッセージを出す
-
+        //
+        // メッセージ出力の条件
+        //   大人または小人が1以上、幼児が0　かつ　非常食の食べ物が50％未満
+        //   大人または小人が1以上、幼児が1以上　かつ　食べ物25％未満、乳児用25％未満
+        //   大人または小人が0、幼児が1以上　かつ　乳児用50％未満
+        //   水は大人または小人または幼児が1以上の場合に50％未満だとメッセージが出ます
+        *******************************************************************************************/
         SharedPreferences Preferences = getSharedPreferences("Preferences", MODE_PRIVATE);
         int otona = Preferences.getInt("otona_people", 0); // 大人の人数を取得
         int kobito = Preferences.getInt("kobito_people", 0); // 小人の人数を取得
         int youji = Preferences.getInt("youji_people",0); // 幼児の人数を取得
-        if (otona >= 1 || kobito >= 1) { // もし大人または小人が1人以上いるならば
-            for (int i = 0; i < MAX_HIJOUSYOKU - 2; i++) { // 幼児用の離乳食と粉ミルクは別の条件になるので-2しています
-                Hijousyoku_tv[i].setText(get_Number_of_days_Warning(item[i].getPrefName(), item[i].getName())); // 非常食品名 + が備蓄されていません
-                Hijousyoku_tv[i].setCompoundDrawablesWithIntrinsicBounds(item[i].getIcon(), 0, 0, 0);
-                Hijousyoku_tv[i].setOnClickListener(new DialogOnClickListenerClass(item[i])); //警告文を押すとダイアログが表示されるようにする
+        if ( youji <= 0 ) { // 幼児がいない
+            if ( otona >= 1 || kobito >= 1 ) { // 大人または小人が1人以上
+                if ( FoodOverKids() < 50 ) { // 非常食が50％未満
+                    for ( int i = 0; i < MAX_HIJOUSYOKU - 2; i++ ) { // 幼児用の離乳食と粉ミルクは別の条件になるので-2しています
+                        if ( item[i].getName() != "水" ) { // 水を除く
+                            Hijousyoku_tv[i].setText(get_Number_of_days_Warning(item[i].getPrefName(), item[i].getName())); // 非常食品名 + が備蓄されていません
+                            Hijousyoku_tv[i].setCompoundDrawablesWithIntrinsicBounds(item[i].getIcon(), 0, 0, 0);
+                            Hijousyoku_tv[i].setOnClickListener(new DialogOnClickListenerClass(item[i])); //警告文を押すとダイアログが表示されるようにする
+                        }
+                    }
+                }
+                if ( RateWater() < 50 ) { // 水が50％未満
+                    Hijousyoku_tv[7].setText(get_Number_of_days_Warning(item[7].getPrefName(), item[7].getName())); // 水が備蓄されていません
+                    Hijousyoku_tv[7].setCompoundDrawablesWithIntrinsicBounds(item[7].getIcon(), 0, 0, 0);
+                    Hijousyoku_tv[7].setOnClickListener(new DialogOnClickListenerClass(item[7])); //警告文を押すとダイアログが表示されるようにする
+                }
             }
         }
-        if (youji >= 1) { // もし幼児が1人以上いるならば
-            Hijousyoku_tv[10].setText(get_Number_of_days_Warning(item[10].getPrefName(), item[10].getName())); // 離乳食が備蓄されていません
-            Hijousyoku_tv[10].setCompoundDrawablesWithIntrinsicBounds(item[10].getIcon(), 0, 0, 0);
-            Hijousyoku_tv[10].setOnClickListener(new DialogOnClickListenerClass(item[10])); //警告文を押すとダイアログが表示されるようにする
-            Hijousyoku_tv[11].setText(get_Number_of_days_Warning(item[11].getPrefName(), item[11].getName())); // 粉ミルクが備蓄されていません
-            Hijousyoku_tv[11].setCompoundDrawablesWithIntrinsicBounds(item[11].getIcon(), 0, 0, 0);
-            Hijousyoku_tv[11].setOnClickListener(new DialogOnClickListenerClass(item[11])); //警告文を押すとダイアログが表示されるようにする
+
+        if ( youji >= 1 ) { // 幼児が1人以上
+            if ( otona >= 1 || kobito >= 1 ) { // 大人または小人が1人以上
+                if ( FoodOverKids() < 25 ) { // 非常食が25％未満
+                    for ( int i = 0; i < MAX_HIJOUSYOKU - 2; i++ ) { // 幼児用の離乳食と粉ミルクは別の条件になるので-2しています
+                        if ( item[i].getName() != "水" ) { // 水を除く
+                            Hijousyoku_tv[i].setText(get_Number_of_days_Warning(item[i].getPrefName(), item[i].getName())); // 非常食品名 + が備蓄されていません
+                            Hijousyoku_tv[i].setCompoundDrawablesWithIntrinsicBounds(item[i].getIcon(), 0, 0, 0);
+                            Hijousyoku_tv[i].setOnClickListener(new DialogOnClickListenerClass(item[i])); //警告文を押すとダイアログが表示されるようにする
+                        }
+                    }
+                }
+                if ( RateWater() < 50 ) { // 水が50％未満
+                    Hijousyoku_tv[7].setText(get_Number_of_days_Warning(item[7].getPrefName(), item[7].getName())); // 水が備蓄されていません
+                    Hijousyoku_tv[7].setCompoundDrawablesWithIntrinsicBounds(item[7].getIcon(), 0, 0, 0);
+                    Hijousyoku_tv[7].setOnClickListener(new DialogOnClickListenerClass(item[7])); //警告文を押すとダイアログが表示されるようにする
+                }
+                if ( FoodBaby() < 25 ) { // 乳児用が25％未満
+                    Hijousyoku_tv[10].setText(get_Number_of_days_Warning(item[10].getPrefName(), item[10].getName())); // 離乳食が備蓄されていません
+                    Hijousyoku_tv[10].setCompoundDrawablesWithIntrinsicBounds(item[10].getIcon(), 0, 0, 0);
+                    Hijousyoku_tv[10].setOnClickListener(new DialogOnClickListenerClass(item[10])); //警告文を押すとダイアログが表示されるようにする
+                    Hijousyoku_tv[11].setText(get_Number_of_days_Warning(item[11].getPrefName(), item[11].getName())); // 粉ミルクが備蓄されていません
+                    Hijousyoku_tv[11].setCompoundDrawablesWithIntrinsicBounds(item[11].getIcon(), 0, 0, 0);
+                    Hijousyoku_tv[11].setOnClickListener(new DialogOnClickListenerClass(item[11])); //警告文を押すとダイアログが表示されるようにする
+                }
+            }
+        }
+
+        if ( otona <= 0 && kobito <= 0 ) { // 大人、小人がいない
+            if ( youji >= 1 ) { // 幼児が1人以上
+                if ( FoodBaby() < 50 ) { // 乳児用が25％未満
+                    Hijousyoku_tv[10].setText(get_Number_of_days_Warning(item[10].getPrefName(), item[10].getName())); // 離乳食が備蓄されていません
+                    Hijousyoku_tv[10].setCompoundDrawablesWithIntrinsicBounds(item[10].getIcon(), 0, 0, 0);
+                    Hijousyoku_tv[10].setOnClickListener(new DialogOnClickListenerClass(item[10])); //警告文を押すとダイアログが表示されるようにする
+                    Hijousyoku_tv[11].setText(get_Number_of_days_Warning(item[11].getPrefName(), item[11].getName())); // 粉ミルクが備蓄されていません
+                    Hijousyoku_tv[11].setCompoundDrawablesWithIntrinsicBounds(item[11].getIcon(), 0, 0, 0);
+                    Hijousyoku_tv[11].setOnClickListener(new DialogOnClickListenerClass(item[11])); //警告文を押すとダイアログが表示されるようにする
+                }
+                if ( RateWater() < 50 ) { // 水が50％未満
+                    Hijousyoku_tv[7].setText(get_Number_of_days_Warning(item[7].getPrefName(), item[7].getName())); // 水が備蓄されていません
+                    Hijousyoku_tv[7].setCompoundDrawablesWithIntrinsicBounds(item[7].getIcon(), 0, 0, 0);
+                    Hijousyoku_tv[7].setOnClickListener(new DialogOnClickListenerClass(item[7])); //警告文を押すとダイアログが表示されるようにする
+                }
+            }
         }
 
 /*
