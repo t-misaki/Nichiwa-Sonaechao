@@ -199,15 +199,15 @@ public class DialogOnClickListenerClass implements View.OnClickListener {
             //  幼児限定の栄養価総計。baby All
             bAll  = ( konamilk * 3 ) + rinyu;
             int   total_b = ( 3 * baby_n ) * setDays;
-            int need_sum = total_b-bAll;
+            double need_sum = total_b-bAll;
             if(need_sum<=0){
                 s_tv.setText("十分備蓄されています");
             }
             else if(TitleName == "粉ミルク"){
-                s_tv.setText("あと"+toString().valueOf((need_sum/3)+tani+"備蓄してください"));
+                s_tv.setText("あと"+toString().valueOf(((int)Math.ceil(need_sum/3))+tani+"備蓄してください"));
             }
             else{
-                s_tv.setText("あと"+toString().valueOf((need_sum)+tani+"備蓄してください"));
+                s_tv.setText("あと"+toString().valueOf(((int)need_sum)+tani+"備蓄してください"));
             }
         }
         else {
@@ -236,15 +236,15 @@ public class DialogOnClickListenerClass implements View.OnClickListener {
             okAll = ((Hijousyoku_sum - kanpan - karori) * 1) + (kanpan + karori) * 3;
             //  大小の割合。
             int rateOK = ((( adult_n * 3 ) + ( child_n * 2 )) * setDays );
-            int need_sum = rateOK-okAll;
+            double need_sum = rateOK-okAll;
             if(need_sum<=0){
                 s_tv.setText("十分備蓄されています");
             }
             else if(TitleName == "カロリーメイト"||TitleName == "乾パン"){
-                s_tv.setText("あと"+toString().valueOf((need_sum/3)+tani+"備蓄してください"));
+                s_tv.setText("あと"+toString().valueOf(((int)Math.ceil(need_sum/3))+tani+"備蓄してください"));
             }
             else{
-                s_tv.setText("あと"+toString().valueOf((need_sum)+tani+"備蓄してください"));
+                s_tv.setText("あと"+toString().valueOf(((int)need_sum)+tani+"備蓄してください"));
             }
 
         }
