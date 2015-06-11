@@ -44,9 +44,11 @@ public class MainActivity extends Activity {
 
     //非常食の種類
     final int MAX_HIJOUSYOKU = 12;
+    final int MAX_BICHIKUHIN = 25;
 
     //非常食の項目を取得する
     ItemClass[] item = {
+            // 食べ物
             new ItemClass("レトルトご飯", "retorutogohan_number", R.drawable.retoruto_gohan, true,"食", this),
             new ItemClass("缶詰（ご飯）", "kandume_number", R.drawable.kandume_gohan, true,"缶", this),
             new ItemClass("乾麺", "kanmen_number", R.drawable.kanmen, true,"袋", this),
@@ -56,35 +58,44 @@ public class MainActivity extends Activity {
             new ItemClass("フリーズドライ", "furizu_dorai_number", R.drawable.furizu_dorai, true, "食", this),
             new ItemClass("カロリーメイト", "karori_meito_number", R.drawable.karori_meito, true, "箱", this),
             new ItemClass("お菓子", "okasi_number", R.drawable.okasi, true, "箱・袋", this),
+
+            // 幼児用
             new ItemClass("離乳食", "rinyu_number", R.drawable.rinyu, true, "食", this ),
             new ItemClass("粉ミルク", "konamilk_number", R.drawable.konamilk, true,"缶", this),
+
+            // 水
             new ItemClass("水", "mizu_number", R.drawable.mizu, true, "ℓ",this),
 
+            // 必需品
             new ItemClass("ガスコンロ・鍋", "gas_number", R.drawable.gas, false, "個",this),
-            new ItemClass("マッチ・ライター", "match_number", R.drawable.match, false,"箱", this),
             new ItemClass("ガスボンベ", "bombe_number", R.drawable.bombe, true,"本", this),
-            new ItemClass("笛（防犯ブザー）", "whistle_number", R.drawable.whistle, false,"個", this),
+            new ItemClass("乾電池　※単三", "denti_number", R.drawable.denti, true,"×１０本", this),
+            new ItemClass("ティッシュ・ウェットティッシュ", "tissue_number", R.drawable.thissyu, false,"箱", this),
             new ItemClass("大人下着", "shitagi_number", R.drawable.otona, false,"枚", this),
             new ItemClass("小人下着", "kodomo_number", R.drawable.kodomo, false,"枚", this),
-            new ItemClass("ティッシュ・ウェットティッシュ", "tissue_number", R.drawable.thissyu, false,"箱", this),
             new ItemClass("アルミホイル", "almi_number", R.drawable.almi, false,"本", this),
             new ItemClass("ラップ", "rap_number", R.drawable.rappu, false,"本", this),
-            new ItemClass("軍手", "gunnte_number", R.drawable.gunnte, false,"対", this),
-            new ItemClass("マスク", "mask_number", R.drawable.mask, false,"×１００枚", this),
             new ItemClass("ビニール袋（ゴミ袋）", "bag_number", R.drawable.hukuro, false,"×１０枚", this),
+            new ItemClass("割り箸", "hasi_number", R.drawable.hasi, false,"×１００膳", this),
+            new ItemClass("スプーン", "supun_number", R.drawable.spoon, false,"×１００本", this),
+            new ItemClass("タオル", "taoru_number", R.drawable.taoru, false,"枚", this),
+            new ItemClass("コップ（プラスチック）", "koppu_number", R.drawable.koppu, false,"個", this),
+            new ItemClass("器（プラスチック）", "utuwa_number", R.drawable.utuwa, false,"枚", this),
             new ItemClass("懐中電灯　※単三電池推奨", "kaityu_number", R.drawable.kaityu, false,"本", this),
-            new ItemClass("缶切り", "kankiri_number", R.drawable.kankiri, false,"個", this),
+
+            // 便利品
             new ItemClass("ラジオ　※単三電池推奨", "radio_number", R.drawable.radio, false,"個", this),
             new ItemClass("携帯電話充電器　※単三電池推奨", "judenki_number", R.drawable.judenti, false,"個", this),
-            new ItemClass("スプーン", "supun_number", R.drawable.spoon, false,"×１００本", this),
-            new ItemClass("割り箸", "hasi_number", R.drawable.hasi, false,"×１００膳", this),
-            new ItemClass("コップ（プラスチック）", "koppu_number", R.drawable.koppu, false,"個", this),
-            new ItemClass("哺乳びん", "nyuji_number", R.drawable.bin, false,"本", this),
-            new ItemClass("おむつ", "omutu_number", R.drawable.omutu, false,"枚", this),
-            new ItemClass("乾電池　※単三", "denti_number", R.drawable.denti, true,"×１０本", this),
+            new ItemClass("笛（防犯ブザー）", "whistle_number", R.drawable.whistle, false,"個", this),
+            new ItemClass("缶切り", "kankiri_number", R.drawable.kankiri, false,"個", this),
+            new ItemClass("マッチ・ライター", "match_number", R.drawable.match, false,"箱", this),
             new ItemClass("寝袋", "nebukuro_number", R.drawable.nebukuro, false,"枚", this),
-            new ItemClass("器（プラスチック）", "utuwa_number", R.drawable.utuwa, false,"枚", this),
-            new ItemClass("タオル", "taoru_number", R.drawable.taoru, false,"枚", this)
+            new ItemClass("マスク", "mask_number", R.drawable.mask, false,"×１００枚", this),
+            new ItemClass("軍手", "gunnte_number", R.drawable.gunnte, false,"対", this),
+
+            // 幼児用
+            new ItemClass("哺乳びん", "nyuji_number", R.drawable.bin, false,"本", this),
+            new ItemClass("おむつ", "omutu_number", R.drawable.omutu, false,"枚", this)
     };
 
     @Override
