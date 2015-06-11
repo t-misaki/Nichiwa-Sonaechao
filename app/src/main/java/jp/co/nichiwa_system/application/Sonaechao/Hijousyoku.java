@@ -147,10 +147,13 @@ public class Hijousyoku extends Activity {
 
         //枠線をつける
         for( int i = 0 ; i < 12 ; i++ ) {
+            SharedPreferences pref =
+                    getSharedPreferences("Preferences",MODE_PRIVATE);
             //ボタンアクションの処理
             Hijousyoku_iv[i].setOnClickListener( new DialogOnClickListenerClass( item[i]) );
+            int r = pref.getInt(item[i].getPrefName(),0);
             //期限の切れているものは赤線を敷く
-            if( !Check_Day(item[i].getPrefName()) ) {
+            if( !Check_Day(item[i].getPrefName()) && r!=0  ) {
                 Hijousyoku_iv[i].setBackgroundResource(R.drawable.style2);
             }
         }
