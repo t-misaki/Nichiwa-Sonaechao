@@ -32,7 +32,7 @@ public class WorthChecking extends Fragment {
         return inflater.inflate(R.layout.fragment_worth_checking, container, false);
     }
     public void SetTextView(String str){
-        TextView txtHoge = (TextView) rootView.findViewById(R.id.textView);
+        TextView txtHoge = (TextView) rootView.findViewById(R.id.check);
         txtHoge.setText(str);
     }
 

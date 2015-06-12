@@ -48,7 +48,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="要チェック"
-        android:id="@+id/textView"
+        android:id="@+id/check"
         android:layout_centerVertical="true"
         android:layout_alignStart="@+id/fragment"
         android:layout_alignEnd="@+id/fragment" />
@@ -101,7 +101,7 @@
         class="jp.co.nichiwa_system.application.Sonaechao.WorthChecking"
         android:id="@+id/fragment"
         tools:layout="@layout/fragment_worth_checking"
-        android:layout_below="@+id/textView"
+        android:layout_below="@+id/check"
         android:layout_above="@+id/fragment3"
         android:layout_alignStart="@+id/fragment3"
         android:layout_alignEnd="@+id/fragment3" />

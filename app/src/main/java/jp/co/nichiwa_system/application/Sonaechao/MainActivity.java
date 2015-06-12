@@ -34,6 +34,7 @@ import org.w3c.dom.Text;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.regex.Pattern;
 
 /*
  *   MainActivityクラス
@@ -324,10 +325,10 @@ public class MainActivity extends Activity {
         for( int i = 0 ; i < MAX_HIJOUSYOKU ; i++ ) {
             Hijousyoku_tv[i] = new TextView(this);
             //警告文を取得する
-            Hijousyoku_tv[i].setTextSize(18.0f);
-            if ( pref.getInt(item[i].getPrefName(), 0) > 0 ) {
+            Hijousyoku_tv[i].setTextSize(30.0f);
+
                 Hijousyoku_tv[i].setText(get_Number_of_days_Warning(item[i].getPrefName(), item[i].getName()));
-            }
+
             //警告文を挿入する
             if( Hijousyoku_tv[i].getText().length() > 0 ) {
 
@@ -345,6 +346,22 @@ public class MainActivity extends Activity {
                 }
             }
         }
+
+        int check_sum=0;
+        int check_sum_2 = 0;
+        for(int i = 0;i<MAX_HIJOUSYOKU;i++) {
+            String str = toString().valueOf(Hijousyoku_tv[i]);
+            // if(Pattern.compile("備蓄").matcher(str).find()||Pattern.compile("賞味").matcher(str).find()){
+            if (item[i].getIcon() == R.drawable.batsu||item[i].getIcon() == R.drawable.batsu_b) {
+                check_sum++;
+            } else if (item[i].getIcon() == R.drawable.bikkuri||item[i].getIcon() == R.drawable.bikkuri_b) {
+                check_sum_2++;
+            }
+        }
+            TextView check = (TextView)findViewById(R.id.check);
+            check.setText("要チェック欄：警告"+toString().valueOf(check_sum)+"件　注意:"+toString().valueOf(check_sum_2)+"件");
+
+
 
         /*******************************************************************************************
         // 要チェック欄に「～が備蓄されていません」というメッセージを出す
@@ -493,6 +510,7 @@ public class MainActivity extends Activity {
         TextView b_tv = (TextView)findViewById(R.id.bichiku_nyuuryoku);
         TextView h_tv = (TextView)findViewById(R.id.hijousyoku_nyuuryoku);
 
+
         //備蓄品の最終入力日
         pref = getSharedPreferences("Stock_pref",MODE_PRIVATE);
         cl.set( pref.getInt("year", 2000), pref.getInt("month", 1), pref.getInt("day", 1) );
@@ -563,10 +581,16 @@ public class MainActivity extends Activity {
      *********************************************************************/
     public void get_Icon_Warning(String prefName ,ItemClass item)
     {
+        // 非常食の備蓄数を取得する
+        int food_h = ( getSharedPreferences("Preferences",MODE_PRIVATE) ).getInt(prefName,0);
         //残り日数を取得する
         int nokori = (int)getDate(prefName);
         //期日を取得する
-        int nissu =  ( getSharedPreferences("Preferences",MODE_PRIVATE) ).getInt("kiniti_day",0);
+        int nissu =  ( getSharedPreferences("Preferences",MODE_PRIVATE) ).getInt("kiniti_day",14);
+
+        if( food_h < 1 ) { // もし非常食が備蓄されていなかったら
+            item.setIcon( R.drawable.batsu );
+        }
         if( nokori <= 0 ) {
             item.setIcon( R.drawable.batsu );
         } else if( nokori <= nissu ) {
@@ -577,6 +601,7 @@ public class MainActivity extends Activity {
         } else if ( nokori <= nissu && item.getName() == "離乳食" || nokori <= nissu && item.getName() == "粉ミルク") {
             item.setIcon(R.drawable.bikkuri_b);
         }
+
     }
 
 /*
