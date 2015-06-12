@@ -333,13 +333,14 @@ public class MainActivity extends Activity {
         TableLayout tl  = (TableLayout)findViewById(R.id.CheckLayout);
         tl.removeAllViews();//中身を全部消去
 
+
         for( int i = 0 ; i < MAX_HIJOUSYOKU ; i++ ) {
             Hijousyoku_tv[i] = new TextView(this);
             //警告文を取得する
             Hijousyoku_tv[i].setTextSize(18.0f);
-            if ( pref.getInt(item[i].getPrefName(), 0) > 0 ) {
+
                 Hijousyoku_tv[i].setText(get_Number_of_days_Warning(item[i].getPrefName(), item[i].getName(), item[i].getCalender_flag()));
-            }
+
             //警告文を挿入する
             if( Hijousyoku_tv[i].getText().length() > 0 ) {
 
@@ -357,6 +358,15 @@ public class MainActivity extends Activity {
                 }
             }
         }
+
+        int check=0;
+        for(int i=0;i<MAX_HIJOUSYOKU;i++){
+            if(item[i].getIcon()==R.drawable.batsu||item[i].getIcon()==R.drawable.batsu_b||item[i].getIcon()==R.drawable.bikkuri||item[i].getIcon()==R.drawable.bikkuri_b){
+                check++;
+            }
+        }
+        TextView check_tv = (TextView)findViewById(R.id.textView);
+        check_tv.setText("要チェック欄:"+check+"件");
 
         /*******************************************************************************************
         // 要チェック欄に「～が備蓄されていません」というメッセージを出す
@@ -566,10 +576,17 @@ public class MainActivity extends Activity {
      *********************************************************************/
     public void get_Icon_Warning(String prefName ,ItemClass item)
     {
+        // 非常食の備蓄数を取得する
+        int BichikuSu = ( getSharedPreferences("Preferences",MODE_PRIVATE) ).getInt(prefName,0);
         //残り日数を取得する
         int nokori = (int)getDate(prefName);
         //期日を取得する
         int nissu =  ( getSharedPreferences("Preferences",MODE_PRIVATE) ).getInt("kiniti_day",0);
+
+        if( BichikuSu < 1 ) { // もし備蓄されていなかったら
+            item.setIcon( R.drawable.batsu );
+        }
+
         if( nokori <= 0 ) {
             item.setIcon( R.drawable.batsu );
         } else if( nokori <= nissu ) {
