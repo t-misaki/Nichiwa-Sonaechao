@@ -294,15 +294,15 @@ public class MainActivity extends Activity {
             //警告文を取得する
             YouCheck_tv[i].setTextSize(18.0f);
             //if (pref.getInt(item[i].getPrefName(), 0) > 0) { // 要チェック欄とアイコン画像の喧嘩が起こるif文
-                YouCheck_tv[i].setText(get_Number_of_days_Warning(item[i].getPrefName(), item[i].getName(), item[i].getCalender_flag()));
+            YouCheck_tv[i].setText(get_Number_of_days_Warning(item[i].getPrefName(), item[i].getName(), item[i].getCalender_flag()));
 
-            if( /*pref.getInt(item[i].getPrefName(), 0) > 0 &&*/ i == 9 || i == 10 ){
+            if ( /*pref.getInt(item[i].getPrefName(), 0) > 0 &&*/ i == 9 || i == 10) {
                 YouCheck_tv[i].setText(get_Number_of_days_Warning_b(item[i].getPrefName(), item[i].getName(), item[i].getCalender_flag()));
             }
-            if( /*pref.getInt(item[i].getPrefName(), 0) > 0 &&*/ i == 11 ){
+            if ( /*pref.getInt(item[i].getPrefName(), 0) > 0 &&*/ i == 11) {
                 YouCheck_tv[i].setText(get_Number_of_days_Warning_w(item[i].getPrefName(), item[i].getName(), item[i].getCalender_flag()));
             }
-            if(i>=12){
+            if (i >= 12) {
                 YouCheck_tv[i].setText(get_Number_of_days_Warning_bichiku(item[i].getPrefName(), item[i].getName(), item[i].getCalender_flag()));
             }
 
@@ -368,14 +368,13 @@ public class MainActivity extends Activity {
                 YouCheck_tv[11].setCompoundDrawablesWithIntrinsicBounds(item[11].getIcon(), 0, 0, 0);
                 YouCheck_tv[11].setOnClickListener(new DialogOnClickListenerClass(item[11])); //警告文を押すとダイアログが表示されるようにする
             }
-            if( i >= 12 ){
+            if (i >= 12) {
                 YouCheck_tv[i].setText(get_Number_of_days_Warning_bichiku(item[i].getPrefName(), item[i].getName(), item[i].getCalender_flag())); // 非常食品名 + が足りていません
                 YouCheck_tv[i].setCompoundDrawablesWithIntrinsicBounds(item[i].getIcon(), 0, 0, 0);
                 YouCheck_tv[i].setOnClickListener(new DialogOnClickListenerClass(item[i])); //警告文を押すとダイアログが表示されるようにする
             }
 
         }
-
 
         int gas = pref.getInt("gas_number", 0);
         int matti = pref.getInt("match_number", 0);
@@ -782,93 +781,87 @@ public class MainActivity extends Activity {
 
         if (UsedFamilyStockneed(need, setDays, 1.0f, 1.0f, 1.0f) != 0) { // 大人または小人が1人以上
             str = ItemName + "が足りていません";
-        }
-        else {
+        } else {
             str = "";
         }
-        if (ItemName == "ガスボンベ"){
-            if (UsedFamilyStockneed(need, setDays, 1.0f,2.0f, 5.0f) != 0) { // 大人または小人が1人以上
+        if (ItemName == "ガスボンベ") {
+            if (UsedFamilyStockneed(need, setDays, 1.0f, 2.0f, 5.0f) != 0) { // 大人または小人が1人以上
                 str = ItemName + "が足りていません";
-            }
-            else {
+            } else {
                 str = "";
             }
         }
-        if(ItemName == "乾電池　※単三"){
-            if (UsedFamilyStockneed(need, setDays, 2.0f,2.0f, 4.0f) != 0) { // 大人または小人が1人以上
+        if (ItemName == "乾電池　※単三") {
+            if (UsedFamilyStockneed(need, setDays, 2.0f, 2.0f, 4.0f) != 0) { // 大人または小人が1人以上
                 str = ItemName + "が足りていません";
-            }
-            else {
+            } else {
                 str = "";
             }
         }
-        if(ItemName == "ティッシュ・ウェットティッシュ" || ItemName == "ラップ" || ItemName == "ビニール袋（ゴミ袋）" ){
-            if (UsedFamilyStockneed(need, setDays, 1.0f,1.0f, 3.0f) != 0) { // 大人または小人が1人以上
+        if (ItemName == "ティッシュ・ウェットティッシュ" || ItemName == "ラップ" || ItemName == "ビニール袋（ゴミ袋）") {
+            if (UsedFamilyStockneed(need, setDays, 1.0f, 1.0f, 3.0f) != 0) { // 大人または小人が1人以上
                 str = ItemName + "が足りていません";
-            }
-            else {
+            } else {
                 str = "";
             }
         }
-        if(ItemName == "アルミホイル"){
-            if (UsedFamilyStockneed(need, setDays, 1.0f,1.0f, 2.0f) != 0) { // 大人または小人が1人以上
+        if (ItemName == "アルミホイル") {
+            if (UsedFamilyStockneed(need, setDays, 1.0f, 1.0f, 2.0f) != 0) { // 大人または小人が1人以上
                 str = ItemName + "が足りていません";
-            }
-            else {
+            } else {
                 str = "";
             }
         }
-        if(ItemName == "缶切り"){
-            if (UsedFamilyStockneed(need, setDays, 0.0f,1.0f, 2.0f) != 0) { // 大人または小人が1人以上
+        if (ItemName == "缶切り") {
+            if (UsedFamilyStockneed(need, setDays, 0.0f, 1.0f, 2.0f) != 0) { // 大人または小人が1人以上
                 str = ItemName + "が足りていません";
-            }
-            else {
+            } else {
                 str = "";
             }
         }
-        if(ItemName == "大人下着") {
+        if (ItemName == "大人下着") {
             if (UsedWearStock_adultneed(need, setDays, otona) != 0) {
                 str = ItemName + "が足りていません";
             } else {
                 str = "";
             }
         }
-        if(ItemName == "小人下着") {
-            if (UsedWearStock_childneed(need, setDays, otona) != 0) {
+        if (ItemName == "小人下着") {
+            if (UsedWearStock_childneed(need, setDays, kobito) != 0) {
                 str = ItemName + "が足りていません";
             } else {
                 str = "";
             }
         }
-        if(ItemName == "タオル"){
-            if (UsedOneStockOnlyTaoruneed(need, otona, kobito, youji, setDays) != 0){
+        if (ItemName == "タオル") {
+            if (UsedOneStockOnlyTaoruneed(need, otona, kobito, youji, setDays) != 0) {
                 str = ItemName + "が足りていません";
             } else {
                 str = "";
             }
         }
-        if(ItemName == "コップ（プラスチック）" || ItemName == "器（プラスチック）"){
-            if (UsedOneStockneed(need, otona, kobito, youji) != 0){
+        if (ItemName == "コップ（プラスチック）" || ItemName == "器（プラスチック）") {
+            if (UsedOneStockneed(need, otona, kobito, youji) != 0) {
                 str = ItemName + "が足りていません";
             } else {
                 str = "";
             }
         }
-        if(ItemName == "寝袋" || ItemName == "軍手"){
+        if (ItemName == "寝袋" || ItemName == "軍手") {
             if (UsedOneStockneed(need, otona, kobito, 0) != 0) {
                 str = ItemName + "が足りていません";
             } else {
                 str = "";
             }
         }
-        if(ItemName == "哺乳びん" ){
+        if (ItemName == "哺乳びん") {
             if (UsedOneStockneed(need, 0, 0, youji) != 0) {
                 str = ItemName + "が足りていません";
             } else {
                 str = "";
             }
         }
-        if(ItemName == "おむつ"){
+        if (ItemName == "おむつ") {
             if (UsedBabyomutuneed(need, setDays, youji) != 0) {
                 str = ItemName + "が足りていません";
             } else {
