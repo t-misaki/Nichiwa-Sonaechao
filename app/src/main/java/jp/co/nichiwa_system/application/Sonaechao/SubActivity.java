@@ -164,8 +164,7 @@ public class SubActivity extends Activity {
                 int gou = pref.getInt("youji_people",0) +
                         pref.getInt("kobito_people",0) +
                         pref.getInt("otona_people",0);
-                TextView debag_tv = (TextView)findViewById(R.id.debag);
-                debag_tv.setText(toString().valueOf(gou));
+
 
                 if(save_dialog()==true){//save_dialogクラスがtrueをreturnしてきたときの処理
                     AlertDialog.Builder fast = new AlertDialog.Builder(SubActivity.this);
@@ -232,8 +231,7 @@ public class SubActivity extends Activity {
                 int gou = pref.getInt("youji_people",0) +
                         pref.getInt("kobito_people",0) +
                         pref.getInt("otona_people",0);
-                TextView debag_tv = (TextView)findViewById(R.id.debag);
-                debag_tv.setText(toString().valueOf(gou));
+
 
                 if(save_dialog()==true){//save_dialogクラスがtrueをreturnしてきたときの処理
                     AlertDialog.Builder fast = new AlertDialog.Builder(SubActivity.this);
@@ -299,8 +297,6 @@ public class SubActivity extends Activity {
                 int gou = pref.getInt("youji_people",0) +
                         pref.getInt("kobito_people",0) +
                         pref.getInt("otona_people",0);
-                TextView debag_tv = (TextView)findViewById(R.id.debag);
-                debag_tv.setText(toString().valueOf(gou));
 
                 if(save_dialog()==true){//save_dialogクラスがtrueをreturnしてきたときの処理
                     AlertDialog.Builder fast = new AlertDialog.Builder(SubActivity.this);
