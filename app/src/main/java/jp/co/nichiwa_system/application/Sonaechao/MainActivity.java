@@ -293,9 +293,19 @@ public class MainActivity extends Activity {
             YouCheck_tv[i] = new TextView(this);
             //警告文を取得する
             YouCheck_tv[i].setTextSize(18.0f);
-            if (pref.getInt(item[i].getPrefName(), 0) > 0) { // 要チェック欄とアイコン画像の喧嘩が起こるif文
+            //if (pref.getInt(item[i].getPrefName(), 0) > 0) { // 要チェック欄とアイコン画像の喧嘩が起こるif文
                 YouCheck_tv[i].setText(get_Number_of_days_Warning(item[i].getPrefName(), item[i].getName(), item[i].getCalender_flag()));
+
+            if( /*pref.getInt(item[i].getPrefName(), 0) > 0 &&*/ i == 9 || i == 10 ){
+                YouCheck_tv[i].setText(get_Number_of_days_Warning_b(item[i].getPrefName(), item[i].getName(), item[i].getCalender_flag()));
             }
+            if( /*pref.getInt(item[i].getPrefName(), 0) > 0 &&*/ i == 11 ){
+                YouCheck_tv[i].setText(get_Number_of_days_Warning_w(item[i].getPrefName(), item[i].getName(), item[i].getCalender_flag()));
+            }
+            if(i>=12){
+                YouCheck_tv[i].setText(get_Number_of_days_Warning_bichiku(item[i].getPrefName(), item[i].getName(), item[i].getCalender_flag()));
+            }
+
             //警告文を挿入する
             if (YouCheck_tv[i].getText().length() > 0) {
 
@@ -339,27 +349,33 @@ public class MainActivity extends Activity {
         int setDays = pref.getInt("sitei_day", 3); // 設定日数を取得
 
 
-/*        for (int i = 0; i < MAX_HIJOUSYOKU; i++) {
+        for (int i = 0; i < MAX_HIJOUSYOKU + MAX_BICHIKUHIN; i++) {
             YouCheck_tv[i].setText(get_Number_of_days_Warning(item[i].getPrefName(), item[i].getName(), item[i].getCalender_flag())); // 非常食品名 + が足りていません
             YouCheck_tv[i].setCompoundDrawablesWithIntrinsicBounds(item[i].getIcon(), 0, 0, 0);
             YouCheck_tv[i].setOnClickListener(new DialogOnClickListenerClass(item[i])); //警告文を押すとダイアログが表示されるようにする
-            if ( i == 9 ) {
+            if (i == 9) {
                 YouCheck_tv[9].setText(get_Number_of_days_Warning_b(item[9].getPrefName(), item[9].getName(), item[9].getCalender_flag())); // 離乳食が足りていません
                 YouCheck_tv[9].setCompoundDrawablesWithIntrinsicBounds(item[9].getIcon(), 0, 0, 0);
                 YouCheck_tv[9].setOnClickListener(new DialogOnClickListenerClass(item[9])); //警告文を押すとダイアログが表示されるようにする
             }
-            if ( i == 10 ) {
+            if (i == 10) {
                 YouCheck_tv[10].setText(get_Number_of_days_Warning_b(item[10].getPrefName(), item[10].getName(), item[10].getCalender_flag())); // 粉ミルクが足りていません
                 YouCheck_tv[10].setCompoundDrawablesWithIntrinsicBounds(item[10].getIcon(), 0, 0, 0);
                 YouCheck_tv[10].setOnClickListener(new DialogOnClickListenerClass(item[10])); //警告文を押すとダイアログが表示されるようにする
             }
-            if ( i == 11 ) {
+            if (i == 11) {
                 YouCheck_tv[11].setText(get_Number_of_days_Warning_w(item[11].getPrefName(), item[11].getName(), item[11].getCalender_flag())); // 水が足りていません
                 YouCheck_tv[11].setCompoundDrawablesWithIntrinsicBounds(item[11].getIcon(), 0, 0, 0);
                 YouCheck_tv[11].setOnClickListener(new DialogOnClickListenerClass(item[11])); //警告文を押すとダイアログが表示されるようにする
             }
+            if( i >= 12 ){
+                YouCheck_tv[i].setText(get_Number_of_days_Warning_bichiku(item[i].getPrefName(), item[i].getName(), item[i].getCalender_flag())); // 非常食品名 + が足りていません
+                YouCheck_tv[i].setCompoundDrawablesWithIntrinsicBounds(item[i].getIcon(), 0, 0, 0);
+                YouCheck_tv[i].setOnClickListener(new DialogOnClickListenerClass(item[i])); //警告文を押すとダイアログが表示されるようにする
+            }
+
         }
-*/
+
 
         int gas = pref.getInt("gas_number", 0);
         int matti = pref.getInt("match_number", 0);
@@ -387,151 +403,151 @@ public class MainActivity extends Activity {
         int utuwa = pref.getInt("utuwa_number", 0);
         int towel = pref.getInt("taoru_number", 0);
 
-        if ( UsedFamilyStockneed(gas, setDays, 1.0f, 1.0f, 1.0f) != 0 ) {
+     /*   if (UsedFamilyStockneed(gas, setDays, 1.0f, 1.0f, 1.0f) != 0) {
             YouCheck_tv[12].setText("ガスコンロ・鍋が足りていません"); // ガスコンロ・鍋が足りていません
             YouCheck_tv[12].setCompoundDrawablesWithIntrinsicBounds(item[12].getIcon(), 0, 0, 0);
             YouCheck_tv[12].setOnClickListener(new DialogOnClickListenerClass(item[12])); //警告文を押すとダイアログが表示されるようにする
         }
 
-        if ( UsedFamilyStockneed(bombe, setDays, 1.0f, 2.0f, 5.0f) != 0 ) {
+        if (UsedFamilyStockneed(bombe, setDays, 1.0f, 2.0f, 5.0f) != 0) {
             YouCheck_tv[13].setText("ガスボンベが足りていません"); // ガスボンベが足りていません
             YouCheck_tv[13].setCompoundDrawablesWithIntrinsicBounds(item[13].getIcon(), 0, 0, 0);
             YouCheck_tv[13].setOnClickListener(new DialogOnClickListenerClass(item[13])); //警告文を押すとダイアログが表示されるようにする
         }
 
-        if ( UsedFamilyStockneed(denti, setDays, 2.0f, 2.0f, 4.0f) != 0 ) {
+        if (UsedFamilyStockneed(denti, setDays, 2.0f, 2.0f, 4.0f) != 0) {
             YouCheck_tv[14].setText("乾電池が足りていません"); // 乾電池　※単三が足りていません
             YouCheck_tv[14].setCompoundDrawablesWithIntrinsicBounds(item[14].getIcon(), 0, 0, 0);
             YouCheck_tv[14].setOnClickListener(new DialogOnClickListenerClass(item[14])); //警告文を押すとダイアログが表示されるようにする
         }
 
-        if ( UsedFamilyStockneed(tissue, setDays, 1.0f, 1.0f, 3.0f) != 0 ) {
+        if (UsedFamilyStockneed(tissue, setDays, 1.0f, 1.0f, 3.0f) != 0) {
             YouCheck_tv[15].setText("ティッシュ・ウェットティッシュが足りていません"); // ティッシュ・ウェットティッシュが足りていません
             YouCheck_tv[15].setCompoundDrawablesWithIntrinsicBounds(item[15].getIcon(), 0, 0, 0);
             YouCheck_tv[15].setOnClickListener(new DialogOnClickListenerClass(item[15])); //警告文を押すとダイアログが表示されるようにする
         }
 
-        if ( UsedWearStock_adultneed(aSitagi, setDays, otona) != 0 ) {
+        if (UsedWearStock_adultneed(aSitagi, setDays, otona) != 0) {
             YouCheck_tv[16].setText("大人下着が足りていません"); // 大人下着が足りていません
             YouCheck_tv[16].setCompoundDrawablesWithIntrinsicBounds(item[16].getIcon(), 0, 0, 0);
             YouCheck_tv[16].setOnClickListener(new DialogOnClickListenerClass(item[16])); //警告文を押すとダイアログが表示されるようにする
         }
 
-        if ( UsedWearStock_childneed(kSitagi, setDays, kobito) != 0 ) {
+        if (UsedWearStock_childneed(kSitagi, setDays, kobito) != 0) {
             YouCheck_tv[17].setText("小人下着が足りていません"); // 小人下着が足りていません
             YouCheck_tv[17].setCompoundDrawablesWithIntrinsicBounds(item[17].getIcon(), 0, 0, 0);
             YouCheck_tv[17].setOnClickListener(new DialogOnClickListenerClass(item[17])); //警告文を押すとダイアログが表示されるようにする
         }
 
-        if ( UsedFamilyStockneed(almi, setDays, 1.0f, 1.0f, 2.0f) != 0 ) {
+        if (UsedFamilyStockneed(almi, setDays, 1.0f, 1.0f, 2.0f) != 0) {
             YouCheck_tv[18].setText("アルミホイルが足りていません"); // アルミホイルが足りていません
             YouCheck_tv[18].setCompoundDrawablesWithIntrinsicBounds(item[18].getIcon(), 0, 0, 0);
             YouCheck_tv[18].setOnClickListener(new DialogOnClickListenerClass(item[18])); //警告文を押すとダイアログが表示されるようにする
         }
 
-        if ( UsedFamilyStockneed(rap, setDays, 1.0f, 1.0f, 3.0f) != 0 ) {
+        if (UsedFamilyStockneed(rap, setDays, 1.0f, 1.0f, 3.0f) != 0) {
             YouCheck_tv[19].setText("ラップが足りていません"); // ラップが足りていません
             YouCheck_tv[19].setCompoundDrawablesWithIntrinsicBounds(item[19].getIcon(), 0, 0, 0);
             YouCheck_tv[19].setOnClickListener(new DialogOnClickListenerClass(item[19])); //警告文を押すとダイアログが表示されるようにする
         }
 
-        if ( UsedFamilyStockneed(bag, setDays, 1.0f, 1.0f, 3.0f) != 0 ) {
+        if (UsedFamilyStockneed(bag, setDays, 1.0f, 1.0f, 3.0f) != 0) {
             YouCheck_tv[20].setText("ビニール袋（ゴミ袋）が足りていません"); // ビニール袋が足りていません
             YouCheck_tv[20].setCompoundDrawablesWithIntrinsicBounds(item[20].getIcon(), 0, 0, 0);
             YouCheck_tv[20].setOnClickListener(new DialogOnClickListenerClass(item[20])); //警告文を押すとダイアログが表示されるようにする
         }
 
-        if ( UsedFamilyStockneed(hasi, setDays, 1.0f, 1.0f, 1.0f) != 0 ) {
+        if (UsedFamilyStockneed(hasi, setDays, 1.0f, 1.0f, 1.0f) != 0) {
             YouCheck_tv[21].setText("割り箸が足りていません"); // 割り箸が足りていません
             YouCheck_tv[21].setCompoundDrawablesWithIntrinsicBounds(item[21].getIcon(), 0, 0, 0);
             YouCheck_tv[21].setOnClickListener(new DialogOnClickListenerClass(item[21])); //警告文を押すとダイアログが表示されるようにする
         }
 
-        if ( UsedFamilyStockneed(spoon, setDays, 1.0f, 1.0f, 1.0f) != 0 ) {
+        if (UsedFamilyStockneed(spoon, setDays, 1.0f, 1.0f, 1.0f) != 0) {
             YouCheck_tv[22].setText("スプーンが足りていません"); // スプーンが足りていません
             YouCheck_tv[22].setCompoundDrawablesWithIntrinsicBounds(item[22].getIcon(), 0, 0, 0);
             YouCheck_tv[22].setOnClickListener(new DialogOnClickListenerClass(item[22])); //警告文を押すとダイアログが表示されるようにする
         }
 
-        if ( UsedOneStockOnlyTaoruneed(towel, otona, kobito, youji, setDays) != 0 ) {
+        if (UsedOneStockOnlyTaoruneed(towel, otona, kobito, youji, setDays) != 0) {
             YouCheck_tv[23].setText("タオルが足りていません"); // タオルが足りていません
             YouCheck_tv[23].setCompoundDrawablesWithIntrinsicBounds(item[23].getIcon(), 0, 0, 0);
             YouCheck_tv[23].setOnClickListener(new DialogOnClickListenerClass(item[23])); //警告文を押すとダイアログが表示されるようにする
         }
 
-        if ( UsedOneStockneed(koppu, otona, kobito, youji) != 0 ) {
+        if (UsedOneStockneed(koppu, otona, kobito, youji) != 0) {
             YouCheck_tv[24].setText("コップが足りていません"); // コップが足りていません
             YouCheck_tv[24].setCompoundDrawablesWithIntrinsicBounds(item[24].getIcon(), 0, 0, 0);
             YouCheck_tv[24].setOnClickListener(new DialogOnClickListenerClass(item[24])); //警告文を押すとダイアログが表示されるようにする
         }
 
-        if ( UsedOneStockneed(utuwa, otona, kobito, youji) != 0 ) {
+        if (UsedOneStockneed(utuwa, otona, kobito, youji) != 0) {
             YouCheck_tv[25].setText("器が足りていません"); // 器が足りていません
             YouCheck_tv[25].setCompoundDrawablesWithIntrinsicBounds(item[25].getIcon(), 0, 0, 0);
             YouCheck_tv[25].setOnClickListener(new DialogOnClickListenerClass(item[25])); //警告文を押すとダイアログが表示されるようにする
         }
 
-        if ( UsedFamilyStockneed(kaichu, setDays, 1.0f, 1.0f, 1.0f) != 0 ) {
+        if (UsedFamilyStockneed(kaichu, setDays, 1.0f, 1.0f, 1.0f) != 0) {
             YouCheck_tv[26].setText("懐中電灯が足りていません"); // 懐中電灯が足りていません
             YouCheck_tv[26].setCompoundDrawablesWithIntrinsicBounds(item[26].getIcon(), 0, 0, 0);
             YouCheck_tv[26].setOnClickListener(new DialogOnClickListenerClass(item[26])); //警告文を押すとダイアログが表示されるようにする
         }
 
-        if ( UsedFamilyStockneed(radio, setDays, 1.0f, 1.0f, 1.0f) != 0 ) {
+        if (UsedFamilyStockneed(radio, setDays, 1.0f, 1.0f, 1.0f) != 0) {
             YouCheck_tv[27].setText("ラジオが足りていません"); // ラジオが足りていません
             YouCheck_tv[27].setCompoundDrawablesWithIntrinsicBounds(item[27].getIcon(), 0, 0, 0);
             YouCheck_tv[27].setOnClickListener(new DialogOnClickListenerClass(item[27])); //警告文を押すとダイアログが表示されるようにする
         }
 
-        if ( UsedFamilyStockneed(judenki, setDays, 1.0f, 1.0f, 1.0f) != 0 ) {
+        if (UsedFamilyStockneed(judenki, setDays, 1.0f, 1.0f, 1.0f) != 0) {
             YouCheck_tv[28].setText("携帯電話充電器が足りていません"); // 充電器が足りていません
             YouCheck_tv[28].setCompoundDrawablesWithIntrinsicBounds(item[28].getIcon(), 0, 0, 0);
             YouCheck_tv[28].setOnClickListener(new DialogOnClickListenerClass(item[28])); //警告文を押すとダイアログが表示されるようにする
         }
 
-        if ( UsedFamilyStockneed(fue, setDays, 1.0f, 1.0f, 1.0f) != 0 ) {
+        if (UsedFamilyStockneed(fue, setDays, 1.0f, 1.0f, 1.0f) != 0) {
             YouCheck_tv[29].setText("笛（防犯ブザー）が足りていません"); // 笛が足りていません
             YouCheck_tv[29].setCompoundDrawablesWithIntrinsicBounds(item[29].getIcon(), 0, 0, 0);
             YouCheck_tv[29].setOnClickListener(new DialogOnClickListenerClass(item[29])); //警告文を押すとダイアログが表示されるようにする
         }
 
-        if ( UsedFamilyStockneed(kankiri, setDays, 0.0f, 1.0f, 1.0f) != 0 ) {
+        if (UsedFamilyStockneed(kankiri, setDays, 0.0f, 1.0f, 1.0f) != 0) {
             YouCheck_tv[30].setText("缶切りが足りていません"); // 缶切りが足りていません
             YouCheck_tv[30].setCompoundDrawablesWithIntrinsicBounds(item[30].getIcon(), 0, 0, 0);
             YouCheck_tv[30].setOnClickListener(new DialogOnClickListenerClass(item[30])); //警告文を押すとダイアログが表示されるようにする
         }
 
-        if ( UsedFamilyStockneed(matti, setDays, 1.0f, 1.0f, 1.0f) != 0 ) {
+        if (UsedFamilyStockneed(matti, setDays, 1.0f, 1.0f, 1.0f) != 0) {
             YouCheck_tv[31].setText("マッチ・ライターが足りていません"); // マッチが足りていません
             YouCheck_tv[31].setCompoundDrawablesWithIntrinsicBounds(item[31].getIcon(), 0, 0, 0);
             YouCheck_tv[31].setOnClickListener(new DialogOnClickListenerClass(item[31])); //警告文を押すとダイアログが表示されるようにする
         }
 
-        if ( UsedOneStockneed(nebukuro, otona, kobito, 0) != 0 ) {
+        if (UsedOneStockneed(nebukuro, otona, kobito, 0) != 0) {
             YouCheck_tv[32].setText("寝袋が足りていません"); // 寝袋が足りていません
             YouCheck_tv[32].setCompoundDrawablesWithIntrinsicBounds(item[32].getIcon(), 0, 0, 0);
             YouCheck_tv[32].setOnClickListener(new DialogOnClickListenerClass(item[32])); //警告文を押すとダイアログが表示されるようにする
         }
 
-        if ( UsedFamilyStockneed(mask, setDays, 1.0f, 1.0f, 1.0f) != 0 ) {
+        if (UsedFamilyStockneed(mask, setDays, 1.0f, 1.0f, 1.0f) != 0) {
             YouCheck_tv[33].setText("マスクが足りていません"); // マスクが足りていません
             YouCheck_tv[33].setCompoundDrawablesWithIntrinsicBounds(item[33].getIcon(), 0, 0, 0);
             YouCheck_tv[33].setOnClickListener(new DialogOnClickListenerClass(item[33])); //警告文を押すとダイアログが表示されるようにする
         }
 
-        if ( UsedOneStockneed(gunnte, otona, kobito, 0) != 0 ) {
+        if (UsedOneStockneed(gunnte, otona, kobito, 0) != 0) {
             YouCheck_tv[34].setText("軍手が足りていません"); // 軍手が足りていません
             YouCheck_tv[34].setCompoundDrawablesWithIntrinsicBounds(item[34].getIcon(), 0, 0, 0);
             YouCheck_tv[34].setOnClickListener(new DialogOnClickListenerClass(item[34])); //警告文を押すとダイアログが表示されるようにする
         }
 
-        if ( UsedOneStockneed(bin, 0, 0, youji) != 0 ) {
+        if (UsedOneStockneed(bin, 0, 0, youji) != 0) {
             YouCheck_tv[35].setText("哺乳びんが足りていません"); // 哺乳瓶が足りていません
             YouCheck_tv[35].setCompoundDrawablesWithIntrinsicBounds(item[35].getIcon(), 0, 0, 0);
             YouCheck_tv[35].setOnClickListener(new DialogOnClickListenerClass(item[35])); //警告文を押すとダイアログが表示されるようにする
         }
 
-        if ( UsedBabyomutuneed(omutu, setDays, youji) != 0 ) {
+        if (UsedBabyomutuneed(omutu, setDays, youji) != 0) {
             YouCheck_tv[36].setText("おむつが足りていません"); // おむつが足りていません
             YouCheck_tv[36].setCompoundDrawablesWithIntrinsicBounds(item[36].getIcon(), 0, 0, 0);
             YouCheck_tv[36].setOnClickListener(new DialogOnClickListenerClass(item[36])); //警告文を押すとダイアログが表示されるようにする
@@ -646,18 +662,17 @@ public class MainActivity extends Activity {
         int youji = Preferences.getInt("youji_people", 0); // 幼児の人数を取得
 
 
-        if ( youji >= 1 && otona >= 1 || kobito >= 1 ) { // 幼児が1人以上
+        if (youji >= 1 && otona >= 1 || kobito >= 1) { // 幼児が1人以上
             if (FoodOverKids() < 25) { // もし
                 str = ItemName + "が足りていません";
             }
-        } else if ( youji <= 0 && otona >= 1 || kobito >= 1 ) { // 幼児がいない
-            if ( FoodOverKids() < 50 ) { // もし足りていなかったら
+        } else if (youji <= 0 && otona >= 1 || kobito >= 1) { // 幼児がいない
+            if (FoodOverKids() < 50) { // もし足りていなかったら
                 str = ItemName + "が足りていません";
-            }
-            else {
+            } else {
                 str = "";
             }
-        } else if ( isCal == true && otona >= 1 || kobito >= 1 ) { // カレンダーが存在するもの
+        } else if (isCal == true && otona >= 1 || kobito >= 1) { // カレンダーが存在するもの
             if (nokori == 0) { // 備蓄数が1以上の消費期限表示
                 //消費期限が当日になったら表示
                 str = ItemName + "の消費期限が当日です";
@@ -692,18 +707,17 @@ public class MainActivity extends Activity {
         int youji = Preferences.getInt("youji_people", 0); // 幼児の人数を取得
 
 
-        if ( youji >= 1 && otona >= 1 || kobito >= 1 ) { // 大人または小人が1人以上
+        if (youji >= 1 && otona >= 1 || kobito >= 1) { // 大人または小人が1人以上
             if (FoodBaby() < 25) { // もし足りていなかったら
                 str = ItemName + "が足りていません";
-            }
-            else {
+            } else {
                 str = "";
             }
-        } else if ( youji >= 1 && otona <= 0 && kobito <= 0 ) { // 大人または小人がいない
-            if ( FoodBaby() < 50 ) { // もし足りていなかったら
+        } else if (youji >= 1 && otona <= 0 && kobito <= 0) { // 大人または小人がいない
+            if (FoodBaby() < 50) { // もし足りていなかったら
                 str = ItemName + "が足りていません";
             }
-        } else if ( isCal == true && youji >= 1 ) { // カレンダーが存在するもの
+        } else if (isCal == true && youji >= 1) { // カレンダーが存在するもの
             if (nokori == 0) { // 備蓄数が1以上の消費期限表示
                 //消費期限が当日になったら表示
                 str = ItemName + "の消費期限が当日です";
@@ -749,7 +763,122 @@ public class MainActivity extends Activity {
         }
         return str;
     }
-    
+
+    public String get_Number_of_days_Warning_bichiku(String prefName, String ItemName, boolean isCal) {
+        String str = "";
+        SharedPreferences pref = getSharedPreferences("Preferences", MODE_PRIVATE);
+
+        //残り日数を取得する
+        //int nokori = (int) getDate(prefName);
+        //期日を取得する
+        int nissu = (getSharedPreferences("Preferences", MODE_PRIVATE)).getInt("kiniti_day", 14);
+        SharedPreferences Preferences = getSharedPreferences("Preferences", MODE_PRIVATE);
+        int otona = Preferences.getInt("otona_people", 0); // 大人の人数を取得
+        int kobito = Preferences.getInt("kobito_people", 0); // 小人の人数を取得
+        int youji = Preferences.getInt("youji_people", 0); // 幼児の人数を取得
+        float need = pref.getInt(prefName, 0);
+        int setDays = pref.getInt("sitei_day", 3);
+
+
+        if (UsedFamilyStockneed(need, setDays, 1.0f, 1.0f, 1.0f) != 0) { // 大人または小人が1人以上
+            str = ItemName + "が足りていません";
+        }
+        else {
+            str = "";
+        }
+        if (ItemName == "ガスボンベ"){
+            if (UsedFamilyStockneed(need, setDays, 1.0f,2.0f, 5.0f) != 0) { // 大人または小人が1人以上
+                str = ItemName + "が足りていません";
+            }
+            else {
+                str = "";
+            }
+        }
+        if(ItemName == "乾電池　※単三"){
+            if (UsedFamilyStockneed(need, setDays, 2.0f,2.0f, 4.0f) != 0) { // 大人または小人が1人以上
+                str = ItemName + "が足りていません";
+            }
+            else {
+                str = "";
+            }
+        }
+        if(ItemName == "ティッシュ・ウェットティッシュ" || ItemName == "ラップ" || ItemName == "ビニール袋（ゴミ袋）" ){
+            if (UsedFamilyStockneed(need, setDays, 1.0f,1.0f, 3.0f) != 0) { // 大人または小人が1人以上
+                str = ItemName + "が足りていません";
+            }
+            else {
+                str = "";
+            }
+        }
+        if(ItemName == "アルミホイル"){
+            if (UsedFamilyStockneed(need, setDays, 1.0f,1.0f, 2.0f) != 0) { // 大人または小人が1人以上
+                str = ItemName + "が足りていません";
+            }
+            else {
+                str = "";
+            }
+        }
+        if(ItemName == "缶切り"){
+            if (UsedFamilyStockneed(need, setDays, 0.0f,1.0f, 2.0f) != 0) { // 大人または小人が1人以上
+                str = ItemName + "が足りていません";
+            }
+            else {
+                str = "";
+            }
+        }
+        if(ItemName == "大人下着") {
+            if (UsedWearStock_adultneed(need, setDays, otona) != 0) {
+                str = ItemName + "が足りていません";
+            } else {
+                str = "";
+            }
+        }
+        if(ItemName == "小人下着") {
+            if (UsedWearStock_childneed(need, setDays, otona) != 0) {
+                str = ItemName + "が足りていません";
+            } else {
+                str = "";
+            }
+        }
+        if(ItemName == "タオル"){
+            if (UsedOneStockOnlyTaoruneed(need, otona, kobito, youji, setDays) != 0){
+                str = ItemName + "が足りていません";
+            } else {
+                str = "";
+            }
+        }
+        if(ItemName == "コップ（プラスチック）" || ItemName == "器（プラスチック）"){
+            if (UsedOneStockneed(need, otona, kobito, youji) != 0){
+                str = ItemName + "が足りていません";
+            } else {
+                str = "";
+            }
+        }
+        if(ItemName == "寝袋" || ItemName == "軍手"){
+            if (UsedOneStockneed(need, otona, kobito, 0) != 0) {
+                str = ItemName + "が足りていません";
+            } else {
+                str = "";
+            }
+        }
+        if(ItemName == "哺乳びん" ){
+            if (UsedOneStockneed(need, 0, 0, youji) != 0) {
+                str = ItemName + "が足りていません";
+            } else {
+                str = "";
+            }
+        }
+        if(ItemName == "おむつ"){
+            if (UsedBabyomutuneed(need, setDays, youji) != 0) {
+                str = ItemName + "が足りていません";
+            } else {
+                str = "";
+            }
+        }
+
+        return str;
+    }
+
     /**
      * ******************************************************************
      * //非常食の賞味期限と設定した期日を計算して、それぞれのアイコンを返す
