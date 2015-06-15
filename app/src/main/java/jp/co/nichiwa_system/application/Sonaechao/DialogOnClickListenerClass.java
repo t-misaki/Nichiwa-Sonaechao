@@ -800,7 +800,7 @@ public class DialogOnClickListenerClass implements View.OnClickListener {
                         for (int i = 0; i < MAX_HIJOUSYOKU + MAX_BICHIKUHIN; i++) {
                             YouCheck_tv[i] = new TextView(act);
                             //警告文を取得する
-                            YouCheck_tv[i].setTextSize(18.0f);
+                            YouCheck_tv[i].setTextSize(30.0f);
                             //if (pref.getInt(item[i].getPrefName(), 0) > 0) { // 要チェック欄とアイコン画像の喧嘩が起こるif文
                             YouCheck_tv[i].setText(get_Number_of_days_Warning(item[i].getPrefName(), item[i].getName(), item[i].getCalender_flag()));
 
@@ -1188,6 +1188,7 @@ public class DialogOnClickListenerClass implements View.OnClickListener {
     public String get_Number_of_days_Warning(String prefName, String ItemName, boolean isCal) {
         String str = "";
 
+        SharedPreferences pref = act.getSharedPreferences("Preferences", act.MODE_PRIVATE);
         //残り日数を取得する
         int nokori = (int) getDate(prefName);
         //期日を取得する
@@ -1199,26 +1200,41 @@ public class DialogOnClickListenerClass implements View.OnClickListener {
 
 
         if (youji >= 1 && otona >= 1 || kobito >= 1) { // 幼児が1人以上
-            if (FoodOverKids() < 25) { // もし
+            if (FoodOverKids() < 25) { // もし非常食が25％未満なら
                 str = ItemName + "が足りていません";
+            } else if (FoodOverKids() >= 25 && pref.getInt(prefName, 0 ) <= 0) {
+                str = "";
+            } else if (isCal == true && otona >= 1 || kobito >= 1) { // カレンダーが存在するもの
+                if (nokori == 0) { // 備蓄数が1以上の消費期限表示
+                    //消費期限が当日になったら表示
+                    str = ItemName + "の消費期限が当日です";
+                } else if (nokori < 0) {
+                    //消費期限が切れたら表示
+                    str = ItemName + "の消費期限が切れました";
+                } else if (nokori <= nissu) {
+                    //消費期限が期日に近づいたら表示
+                    str = ItemName + "の消費期限が" + nokori + "日前です";
+                }
             }
         } else if (youji <= 0 && otona >= 1 || kobito >= 1) { // 幼児がいない
             if (FoodOverKids() < 50) { // もし足りていなかったら
                 str = ItemName + "が足りていません";
-            } else {
+            } else if(FoodOverKids() >= 50 && pref.getInt(prefName,0) <= 0) {
                 str = "";
+            } else if (isCal == true && otona >= 1 || kobito >= 1) { // カレンダーが存在するもの
+                if (nokori == 0) { // 備蓄数が1以上の消費期限表示
+                    //消費期限が当日になったら表示
+                    str = ItemName + "の消費期限が当日です";
+                } else if (nokori < 0) {
+                    //消費期限が切れたら表示
+                    str = ItemName + "の消費期限が切れました";
+                } else if (nokori <= nissu) {
+                    //消費期限が期日に近づいたら表示
+                    str = ItemName + "の消費期限が" + nokori + "日前です";
+                }
             }
-        } else if (isCal == true && otona >= 1 || kobito >= 1) { // カレンダーが存在するもの
-            if (nokori == 0) { // 備蓄数が1以上の消費期限表示
-                //消費期限が当日になったら表示
-                str = ItemName + "の消費期限が当日です";
-            } else if (nokori < 0) {
-                //消費期限が切れたら表示
-                str = ItemName + "の消費期限が切れました";
-            } else if (nokori <= nissu) {
-                //消費期限が期日に近づいたら表示
-                str = ItemName + "の消費期限が" + nokori + "日前です";
-            }
+        } else {
+            str = "";
         }
         return str;
     }
@@ -1233,6 +1249,7 @@ public class DialogOnClickListenerClass implements View.OnClickListener {
     public String get_Number_of_days_Warning_b(String prefName, String ItemName, boolean isCal) {
         String str = "";
 
+        SharedPreferences pref = act.getSharedPreferences("Preferences", act.MODE_PRIVATE);
         //残り日数を取得する
         int nokori = (int) getDate(prefName);
         //期日を取得する
@@ -1246,24 +1263,39 @@ public class DialogOnClickListenerClass implements View.OnClickListener {
         if (youji >= 1 && otona >= 1 || kobito >= 1) { // 大人または小人が1人以上
             if (FoodBaby() < 25) { // もし足りていなかったら
                 str = ItemName + "が足りていません";
-            } else {
+            } else if (FoodBaby() >= 25 && pref.getInt(prefName, 0) <= 0 ) {
                 str = "";
+            } else if (isCal == true && youji >= 1) { // カレンダーが存在するもの
+                if (nokori == 0) { // 備蓄数が1以上の消費期限表示
+                    //消費期限が当日になったら表示
+                    str = ItemName + "の消費期限が当日です";
+                } else if (nokori < 0) {
+                    //消費期限が切れたら表示
+                    str = ItemName + "の消費期限が切れました";
+                } else if (nokori <= nissu) {
+                    //消費期限が期日に近づいたら表示
+                    str = ItemName + "の消費期限が" + nokori + "日前です";
+                }
             }
         } else if (youji >= 1 && otona <= 0 && kobito <= 0) { // 大人または小人がいない
             if (FoodBaby() < 50) { // もし足りていなかったら
                 str = ItemName + "が足りていません";
+            } else if (FoodBaby() > 50 && pref.getInt(prefName, 0) <= 0) {
+                str = "";
+            } else if (isCal == true && youji >= 1) { // カレンダーが存在するもの
+                if (nokori == 0) { // 備蓄数が1以上の消費期限表示
+                    //消費期限が当日になったら表示
+                    str = ItemName + "の消費期限が当日です";
+                } else if (nokori < 0) {
+                    //消費期限が切れたら表示
+                    str = ItemName + "の消費期限が切れました";
+                } else if (nokori <= nissu) {
+                    //消費期限が期日に近づいたら表示
+                    str = ItemName + "の消費期限が" + nokori + "日前です";
+                }
             }
-        } else if (isCal == true && youji >= 1) { // カレンダーが存在するもの
-            if (nokori == 0) { // 備蓄数が1以上の消費期限表示
-                //消費期限が当日になったら表示
-                str = ItemName + "の消費期限が当日です";
-            } else if (nokori < 0) {
-                //消費期限が切れたら表示
-                str = ItemName + "の消費期限が切れました";
-            } else if (nokori <= nissu) {
-                //消費期限が期日に近づいたら表示
-                str = ItemName + "の消費期限が" + nokori + "日前です";
-            }
+        } else {
+            str = "";
         }
         return str;
     }
@@ -1285,7 +1317,8 @@ public class DialogOnClickListenerClass implements View.OnClickListener {
 
         if (RateWater() < 50) { // もし足りていなかったら
             str = ItemName + "が足りていません";
-        } else if (isCal == true) { // カレンダーが存在するもの
+        }
+        else if (isCal == true) { // カレンダーが存在するもの
             if (nokori == 0) { // 備蓄数が1以上の消費期限表示
                 //消費期限が当日になったら表示
                 str = ItemName + "の消費期限が当日です";
@@ -1296,6 +1329,8 @@ public class DialogOnClickListenerClass implements View.OnClickListener {
                 //消費期限が期日に近づいたら表示
                 str = ItemName + "の消費期限が" + nokori + "日前です";
             }
+        } else {
+            str = "";
         }
         return str;
     }
@@ -1305,7 +1340,7 @@ public class DialogOnClickListenerClass implements View.OnClickListener {
         SharedPreferences pref = act.getSharedPreferences("Preferences", act.MODE_PRIVATE);
 
         //残り日数を取得する
-        //int nokori = (int) getDate(prefName);
+        int nokori = (int) getDate(prefName);
         //期日を取得する
         int nissu = (act.getSharedPreferences("Preferences", act.MODE_PRIVATE)).getInt("kiniti_day", 14);
         SharedPreferences Preferences = act.getSharedPreferences("Preferences", act.MODE_PRIVATE);
@@ -1324,15 +1359,37 @@ public class DialogOnClickListenerClass implements View.OnClickListener {
         if (ItemName == "ガスボンベ") {
             if (UsedFamilyStockneed(need, setDays, 1.0f, 2.0f, 5.0f) != 0) { // 大人または小人が1人以上
                 str = ItemName + "が足りていません";
-            } else {
-                str = "";
+            } else if (UsedFamilyStockneed(need, setDays, 1.0f, 2.0f, 5.0f) == 0) {
+                if (nokori == 0) { // 備蓄数が1以上の賞味期限表示
+                    //消費期限が当日になったら表示
+                    str = ItemName + "の消費期限が当日です";
+                } else if (nokori < 0) {
+                    //消費期限が切れたら表示
+                    str = ItemName + "の消費期限が切れました";
+                } else if (nokori <= nissu) {
+                    //消費期限が期日に近づいたら表示
+                    str = ItemName + "の消費期限が" + nokori + "日前です";
+                } else {
+                    str = "";
+                }
             }
         }
         if (ItemName == "乾電池　※単三") {
             if (UsedFamilyStockneed(need, setDays, 2.0f, 2.0f, 4.0f) != 0) { // 大人または小人が1人以上
                 str = ItemName + "が足りていません";
-            } else {
-                str = "";
+            } else if (UsedFamilyStockneed(need, setDays, 2.0f, 2.0f, 4.0f) == 0) {
+                if (nokori == 0) { // 備蓄数が1以上の賞味期限表示
+                    //消費期限が当日になったら表示
+                    str = ItemName + "の消費期限が当日です";
+                } else if (nokori < 0) {
+                    //消費期限が切れたら表示
+                    str = ItemName + "の消費期限が切れました";
+                } else if (nokori <= nissu) {
+                    //消費期限が期日に近づいたら表示
+                    str = ItemName + "の消費期限が" + nokori + "日前です";
+                } else {
+                    str = "";
+                }
             }
         }
         if (ItemName == "ティッシュ・ウェットティッシュ" || ItemName == "ラップ" || ItemName == "ビニール袋（ゴミ袋）") {
@@ -1408,6 +1465,7 @@ public class DialogOnClickListenerClass implements View.OnClickListener {
 
         return str;
     }
+
 
     /**
      * ******************************************************************
