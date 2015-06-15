@@ -165,6 +165,7 @@ public class DialogOnClickListenerClass implements View.OnClickListener {
         People_tv[1].setText("小人" + loadInt("kobito_people") + "人分");
         People_tv[2].setText("幼児" + loadInt("youji_people") + "人分");
 
+        //非常食の推奨地値
         if (act.getClass() == Hijousyoku.class || act.getClass() == MainActivity.class) {
             TextView s_tv = (TextView) viw.findViewById(R.id.suisyouti);
             if (TitleName == "水") {
@@ -212,7 +213,9 @@ public class DialogOnClickListenerClass implements View.OnClickListener {
                 } else {
                     s_tv.setText("あと" + toString().valueOf(((int) need_sum) + tani + "備蓄してください"));
                 }
-            } else {
+            } else /*if(TitleName == "レトルトご飯" || TitleName == "缶詰（ご飯）" || TitleName == "乾麺"
+                    || TitleName == "乾パン" || TitleName == "缶詰（肉・魚）" || TitleName == "レトルト食品"
+                    || TitleName == "フリーズドライ" || TitleName == "カロリーメイト" || TitleName == "菓子類")*/{
                 SharedPreferences pref = act.getSharedPreferences("Preferences", act.MODE_PRIVATE);
 
                 int reto_g = pref.getInt("retorutogohan_number", 0);
@@ -246,11 +249,14 @@ public class DialogOnClickListenerClass implements View.OnClickListener {
                 } else {
                     s_tv.setText("あと" + toString().valueOf(((int) need_sum) + tani + "備蓄してください"));
                 }
+                rateOK=0;
 
             }
         }
+
         //備蓄品の推奨地
-        else if (act.getClass() == Stock.class || act.getClass() == MainActivity.class) {
+        if (act.getClass() == Stock.class || act.getClass() == MainActivity.class) {
+
             SharedPreferences pref = act.getSharedPreferences("Preferences", act.MODE_PRIVATE);
 
             int gas = pref.getInt("gas_number", 0);
