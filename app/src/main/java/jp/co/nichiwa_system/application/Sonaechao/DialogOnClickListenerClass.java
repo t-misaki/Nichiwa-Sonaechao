@@ -80,8 +80,10 @@ public class DialogOnClickListenerClass implements View.OnClickListener {
             {1, 1, 1}, //タオル
     };
 
-    //非常食の種類
+    // 非常食の種類
     final int MAX_HIJOUSYOKU = 12;
+    // 備蓄品の種類
+    final int MAX_BICHIKUHIN = 25;
 
     //ItemClassのコンストラクタ
     public DialogOnClickListenerClass(ItemClass item) {
@@ -633,6 +635,7 @@ public class DialogOnClickListenerClass implements View.OnClickListener {
                     //カラッポである
                     et.setText("0");
                     saveInt(et, DateName);
+                    Toast.makeText(act, "保存しました", Toast.LENGTH_SHORT).show();//【保存しました】とトースト表示
                 } else {
                     //正常なのでデータを保存する
                     saveInt(et, DateName);
@@ -654,6 +657,7 @@ public class DialogOnClickListenerClass implements View.OnClickListener {
                     if (act.getClass() == MainActivity.class) {
                         //非常食の項目を取得する
                         ItemClass[] item = {
+                                // 食べ物
                                 new ItemClass("レトルトご飯", "retorutogohan_number", R.drawable.retoruto_gohan, true, "食", act),
                                 new ItemClass("缶詰（ご飯）", "kandume_number", R.drawable.kandume_gohan, true, "缶", act),
                                 new ItemClass("乾麺", "kanmen_number", R.drawable.kanmen, true, "袋", act),
@@ -663,9 +667,44 @@ public class DialogOnClickListenerClass implements View.OnClickListener {
                                 new ItemClass("フリーズドライ", "furizu_dorai_number", R.drawable.furizu_dorai, true, "食", act),
                                 new ItemClass("カロリーメイト", "karori_meito_number", R.drawable.karori_meito, true, "箱", act),
                                 new ItemClass("お菓子", "okasi_number", R.drawable.okasi, true, "箱・袋", act),
+
+                                // 幼児用
                                 new ItemClass("離乳食", "rinyu_number", R.drawable.rinyu, true, "食", act),
                                 new ItemClass("粉ミルク", "konamilk_number", R.drawable.konamilk, true, "缶", act),
-                                new ItemClass("水", "mizu_number", R.drawable.mizu, true, "ℓ", act)
+
+                                // 水
+                                new ItemClass("水", "mizu_number", R.drawable.mizu, true, "ℓ", act),
+
+                                // 必需品
+                                new ItemClass("ガスコンロ・鍋", "gas_number", R.drawable.gas, false, "個", act),
+                                new ItemClass("ガスボンベ", "bombe_number", R.drawable.bombe, true, "本", act),
+                                new ItemClass("乾電池　※単三", "denti_number", R.drawable.denti, true, "×１０本", act),
+                                new ItemClass("ティッシュ・ウェットティッシュ", "tissue_number", R.drawable.thissyu, false, "箱", act),
+                                new ItemClass("大人下着", "shitagi_number", R.drawable.otona, false, "枚", act),
+                                new ItemClass("小人下着", "kodomo_number", R.drawable.kodomo, false, "枚", act),
+                                new ItemClass("アルミホイル", "almi_number", R.drawable.almi, false, "本", act),
+                                new ItemClass("ラップ", "rap_number", R.drawable.rappu, false, "本", act),
+                                new ItemClass("ビニール袋（ゴミ袋）", "bag_number", R.drawable.hukuro, false, "×１０枚", act),
+                                new ItemClass("割り箸", "hasi_number", R.drawable.hasi, false, "×１００膳", act),
+                                new ItemClass("スプーン", "supun_number", R.drawable.spoon, false, "×１００本", act),
+                                new ItemClass("タオル", "taoru_number", R.drawable.taoru, false, "枚", act),
+                                new ItemClass("コップ（プラスチック）", "koppu_number", R.drawable.koppu, false, "個", act),
+                                new ItemClass("器（プラスチック）", "utuwa_number", R.drawable.utuwa, false, "枚", act),
+                                new ItemClass("懐中電灯　※単三電池推奨", "kaityu_number", R.drawable.kaityu, false, "本", act),
+
+                                // 便利品
+                                new ItemClass("ラジオ　※単三電池推奨", "radio_number", R.drawable.radio, false, "個", act),
+                                new ItemClass("携帯電話充電器　※単三電池推奨", "judenki_number", R.drawable.judenti, false, "個", act),
+                                new ItemClass("笛（防犯ブザー）", "whistle_number", R.drawable.whistle, false, "個", act),
+                                new ItemClass("缶切り", "kankiri_number", R.drawable.kankiri, false, "個", act),
+                                new ItemClass("マッチ・ライター", "match_number", R.drawable.match, false, "箱", act),
+                                new ItemClass("寝袋", "nebukuro_number", R.drawable.nebukuro, false, "枚", act),
+                                new ItemClass("マスク", "mask_number", R.drawable.mask, false, "×１００枚", act),
+                                new ItemClass("軍手", "gunnte_number", R.drawable.gunnte, false, "対", act),
+
+                                // 幼児用
+                                new ItemClass("哺乳びん", "nyuji_number", R.drawable.bin, false, "本", act),
+                                new ItemClass("おむつ", "omutu_number", R.drawable.omutu, false, "枚", act)
                         };
 
                         Calendar cl = Calendar.getInstance();       //今日の日付の取得
@@ -753,37 +792,38 @@ public class DialogOnClickListenerClass implements View.OnClickListener {
                         ((TextView) act.findViewById(R.id.bichiku_percent)).setText("備蓄品：" + String.valueOf(goukei[1]) + "%");
 
                         //要チェックに使用するTextViewを使用する
-                        TextView[] Hijousyoku_tv = new TextView[MAX_HIJOUSYOKU];
+                        TextView[] YouCheck_tv = new TextView[MAX_HIJOUSYOKU + MAX_BICHIKUHIN];
                         //フラグメントのリニアレイアウトを取得
                         TableLayout tl = (TableLayout) act.findViewById(R.id.CheckLayout);
                         tl.removeAllViews();//中身を全部消去
 
-                        for (int i = 0; i < MAX_HIJOUSYOKU; i++) {
-                            Hijousyoku_tv[i] = new TextView(act);
+                        for (int i = 0; i < MAX_HIJOUSYOKU + MAX_BICHIKUHIN; i++) {
+                            YouCheck_tv[i] = new TextView(act);
                             //警告文を取得する
-                            Hijousyoku_tv[i].setTextSize(18.0f);
-
-                            Hijousyoku_tv[i].setText(get_Number_of_days_Warning(item[i].getPrefName(), item[i].getName()));
-
+                            YouCheck_tv[i].setTextSize(18.0f);
+                          //  if (pref.getInt(item[i].getPrefName(), 0) > 0) { // 要チェック欄とアイコン画像の喧嘩が起こるif文
+                                YouCheck_tv[i].setText(get_Number_of_days_Warning(item[i].getPrefName(), item[i].getName(), item[i].getCalender_flag()));
+                         //   }
                             //警告文を挿入する
-                            if (Hijousyoku_tv[i].getText().length() > 0) {
+                            if (YouCheck_tv[i].getText().length() > 0) {
 
                                 //警告文を押すとダイアログが表示されるようにする
-                                Hijousyoku_tv[i].setOnClickListener(new DialogOnClickListenerClass(item[i]));
+                                YouCheck_tv[i].setOnClickListener(new DialogOnClickListenerClass(item[i]));
 
                                 //アイコンの設定
                                 get_Icon_Warning(item[i].getPrefName(), item[i]);
-                                Hijousyoku_tv[i].setCompoundDrawablesWithIntrinsicBounds(item[i].getIcon(), 0, 0, 0);
+                                YouCheck_tv[i].setCompoundDrawablesWithIntrinsicBounds(item[i].getIcon(), 0, 0, 0);
                                 if (item[i].getIcon() == R.drawable.batsu) {
-                                    Hijousyoku_tv[i].setTextColor(Color.RED);
+                                    YouCheck_tv[i].setTextColor(Color.RED);
                                 }
                                 if (item[i].getIcon() == R.drawable.bikkuri) {
-                                    Hijousyoku_tv[i].setTextColor(Color.BLUE);
+                                    YouCheck_tv[i].setTextColor(Color.BLUE);
                                 }
                             }
                         }
+
                         int check = 0;
-                        for (int i = 0; i < MAX_HIJOUSYOKU; i++) {
+                        for (int i = 0; i < MAX_HIJOUSYOKU + MAX_BICHIKUHIN; i++) {
                             if (item[i].getIcon() == R.drawable.batsu || item[i].getIcon() == R.drawable.batsu_b || item[i].getIcon() == R.drawable.bikkuri || item[i].getIcon() == R.drawable.bikkuri_b) {
                                 check++;
                             }
@@ -792,90 +832,49 @@ public class DialogOnClickListenerClass implements View.OnClickListener {
                         check_tv.setText("要チェック欄:" + check + "件");
 
                         /*******************************************************************************************
-                         // 要チェック欄に「～が備蓄されていません」というメッセージを出す
+                         // 要チェック欄に「～が足りていません」というメッセージを出す
                          //
                          // メッセージ出力の条件
-                         //     大人または小人が1以上、幼児が0　かつ　非常食の食べ物が50％未満
-                         //     大人または小人が1以上、幼児が1以上　かつ　食べ物25％未満、乳児用25％未満
-                         //     大人または小人が0、幼児が1以上　かつ　乳児用50％未満
-                         //     水は大人または小人または幼児が1以上の場合に50％未満だとメッセージが出ます
-                         *******************************************************************************************/
-
-                        SharedPreferences Preferences = act.getSharedPreferences("Preferences", act.MODE_PRIVATE);
-                        int otona = Preferences.getInt("otona_people", 0); // 大人の人数を取得
-                        int kobito = Preferences.getInt("kobito_people", 0); // 小人の人数を取得
-                        int youji = Preferences.getInt("youji_people", 0); // 幼児の人数を取得
-                        if (youji <= 0) { // 幼児がいない
-                            if (otona >= 1 || kobito >= 1) { // 大人または小人が1人以上
-                                if (FoodOverKids() < 50) { // 非常食が50％未満
-                                    for (int i = 0; i < MAX_HIJOUSYOKU - 3; i++) { // 幼児用の離乳食と粉ミルク、水は別の条件になるので-3しています
-                                        Hijousyoku_tv[i].setText(get_Number_of_days_Warning(item[i].getPrefName(), item[i].getName())); // 非常食品名 + が備蓄されていません
-                                        Hijousyoku_tv[i].setCompoundDrawablesWithIntrinsicBounds(item[i].getIcon(), 0, 0, 0);
-                                        Hijousyoku_tv[i].setOnClickListener(new DialogOnClickListenerClass(item[i])); //警告文を押すとダイアログが表示されるようにする
-                                    }
-                                }
-                                if (RateWater() < 50) { // 水が50％未満
-                                    Hijousyoku_tv[11].setText(get_Number_of_days_Warning(item[11].getPrefName(), item[11].getName())); // 水が備蓄されていません
-                                    Hijousyoku_tv[11].setCompoundDrawablesWithIntrinsicBounds(item[11].getIcon(), 0, 0, 0);
-                                    Hijousyoku_tv[11].setOnClickListener(new DialogOnClickListenerClass(item[11])); //警告文を押すとダイアログが表示されるようにする
-                                }
+                         //   大人または小人が1以上、幼児が0　かつ　非常食の食べ物が50％未満
+                         //   大人または小人が1以上、幼児が1以上　かつ　食べ物25％未満、乳児用25％未満
+                         //   大人または小人が0、幼児が1以上　かつ　乳児用50％未満
+                         //   水は大人または小人または幼児が1以上の場合に50％未満だとメッセージが出ます
+                         ******************************************************************************************/
+                        for (int i = 0; i < MAX_HIJOUSYOKU; i++) {
+                            YouCheck_tv[i].setText(get_Number_of_days_Warning(item[i].getPrefName(), item[i].getName(), item[i].getCalender_flag())); // 非常食品名 + が足りていません
+                            YouCheck_tv[i].setCompoundDrawablesWithIntrinsicBounds(item[i].getIcon(), 0, 0, 0);
+                            YouCheck_tv[i].setOnClickListener(new DialogOnClickListenerClass(item[i])); //警告文を押すとダイアログが表示されるようにする
+                            if ( i == 9 ) {
+                                YouCheck_tv[9].setText(get_Number_of_days_Warning_b(item[9].getPrefName(), item[9].getName(), item[9].getCalender_flag())); // 離乳食が足りていません
+                                YouCheck_tv[9].setCompoundDrawablesWithIntrinsicBounds(item[9].getIcon(), 0, 0, 0);
+                                YouCheck_tv[9].setOnClickListener(new DialogOnClickListenerClass(item[9])); //警告文を押すとダイアログが表示されるようにする
+                            }
+                            if ( i == 10 ) {
+                                YouCheck_tv[10].setText(get_Number_of_days_Warning_b(item[10].getPrefName(), item[10].getName(), item[10].getCalender_flag())); // 粉ミルクが足りていません
+                                YouCheck_tv[10].setCompoundDrawablesWithIntrinsicBounds(item[10].getIcon(), 0, 0, 0);
+                                YouCheck_tv[10].setOnClickListener(new DialogOnClickListenerClass(item[10])); //警告文を押すとダイアログが表示されるようにする
+                            }
+                            if ( i == 11 ) {
+                                YouCheck_tv[11].setText(get_Number_of_days_Warning_w(item[11].getPrefName(), item[11].getName(), item[11].getCalender_flag())); // 水が足りていません
+                                YouCheck_tv[11].setCompoundDrawablesWithIntrinsicBounds(item[11].getIcon(), 0, 0, 0);
+                                YouCheck_tv[11].setOnClickListener(new DialogOnClickListenerClass(item[11])); //警告文を押すとダイアログが表示されるようにする
                             }
                         }
-
-                        if (youji >= 1) { // 幼児が1人以上
-                            if (otona >= 1 || kobito >= 1) { // 大人または小人が1人以上
-                                if (FoodOverKids() < 25) { // 非常食が25％未満
-                                    for (int i = 0; i < MAX_HIJOUSYOKU - 3; i++) { // 幼児用の離乳食と粉ミルク、水は別の条件になるので-3しています
-                                        Hijousyoku_tv[i].setText(get_Number_of_days_Warning(item[i].getPrefName(), item[i].getName())); // 非常食品名 + が備蓄されていません
-                                        Hijousyoku_tv[i].setCompoundDrawablesWithIntrinsicBounds(item[i].getIcon(), 0, 0, 0);
-                                        Hijousyoku_tv[i].setOnClickListener(new DialogOnClickListenerClass(item[i])); //警告文を押すとダイアログが表示されるようにする
-                                    }
-                                }
-                                if (RateWater() < 50) { // 水が50％未満
-                                    Hijousyoku_tv[11].setText(get_Number_of_days_Warning(item[11].getPrefName(), item[11].getName())); // 水が備蓄されていません
-                                    Hijousyoku_tv[11].setCompoundDrawablesWithIntrinsicBounds(item[11].getIcon(), 0, 0, 0);
-                                    Hijousyoku_tv[11].setOnClickListener(new DialogOnClickListenerClass(item[11])); //警告文を押すとダイアログが表示されるようにする
-                                }
-                                if (FoodBaby() < 25) { // 乳児用が25％未満
-                                    Hijousyoku_tv[9].setText(get_Number_of_days_Warning(item[9].getPrefName(), item[9].getName())); // 離乳食が備蓄されていません
-                                    Hijousyoku_tv[9].setCompoundDrawablesWithIntrinsicBounds(item[9].getIcon(), 0, 0, 0);
-                                    Hijousyoku_tv[9].setOnClickListener(new DialogOnClickListenerClass(item[9])); //警告文を押すとダイアログが表示されるようにする
-                                    Hijousyoku_tv[10].setText(get_Number_of_days_Warning(item[10].getPrefName(), item[10].getName())); // 粉ミルクが備蓄されていません
-                                    Hijousyoku_tv[10].setCompoundDrawablesWithIntrinsicBounds(item[10].getIcon(), 0, 0, 0);
-                                    Hijousyoku_tv[10].setOnClickListener(new DialogOnClickListenerClass(item[10])); //警告文を押すとダイアログが表示されるようにする
-                                }
-                            }
-                        }
-
-                        if (otona <= 0 && kobito <= 0) { // 大人、小人がいない
-                            if (youji >= 1) { // 幼児が1人以上
-                                if (FoodBaby() < 50) { // 乳児用が25％未満
-                                    Hijousyoku_tv[9].setText(get_Number_of_days_Warning(item[9].getPrefName(), item[9].getName())); // 離乳食が備蓄されていません
-                                    Hijousyoku_tv[9].setCompoundDrawablesWithIntrinsicBounds(item[9].getIcon(), 0, 0, 0);
-                                    Hijousyoku_tv[9].setOnClickListener(new DialogOnClickListenerClass(item[9])); //警告文を押すとダイアログが表示されるようにする
-                                    Hijousyoku_tv[10].setText(get_Number_of_days_Warning(item[10].getPrefName(), item[10].getName())); // 粉ミルクが備蓄されていません
-                                    Hijousyoku_tv[10].setCompoundDrawablesWithIntrinsicBounds(item[10].getIcon(), 0, 0, 0);
-                                    Hijousyoku_tv[10].setOnClickListener(new DialogOnClickListenerClass(item[10])); //警告文を押すとダイアログが表示されるようにする
-                                }
-                                if (RateWater() < 50) { // 水が50％未満
-                                    Hijousyoku_tv[11].setText(get_Number_of_days_Warning(item[11].getPrefName(), item[11].getName())); // 水が備蓄されていません
-                                    Hijousyoku_tv[11].setCompoundDrawablesWithIntrinsicBounds(item[11].getIcon(), 0, 0, 0);
-                                    Hijousyoku_tv[11].setOnClickListener(new DialogOnClickListenerClass(item[11])); //警告文を押すとダイアログが表示されるようにする
-                                }
-                            }
-                        }
-
+                        
+                        /***************************************************************************
+                         * 　ソートプログラム
+                         **************************************************************************/
                         for (int i = 0; i < MAX_HIJOUSYOKU; i++) {
                             //特に警告のないものは飛ばす
-                            if (Hijousyoku_tv[i].getText().length() > 0) {
+                            if (YouCheck_tv[i].getText().length() > 0) {
                                 for (int k = MAX_HIJOUSYOKU - 1; k > i; k--) {
                                     //同じく特に警告のないものは飛ばす
-                                    if (Hijousyoku_tv[k].getText().length() > 0) {
+                                    if (YouCheck_tv[k].getText().length() > 0) {
                                         if (getDate(item[k].getPrefName()) < getDate(item[k - 1].getPrefName())) {
                                             //場所を交換する
-                                            TextView tv = Hijousyoku_tv[k - 1];
-                                            Hijousyoku_tv[k - 1] = Hijousyoku_tv[k];
-                                            Hijousyoku_tv[k] = tv;
+                                            TextView tv = YouCheck_tv[k - 1];
+                                            YouCheck_tv[k - 1] = YouCheck_tv[k];
+                                            YouCheck_tv[k] = tv;
 
                                             //アイテム
                                             ItemClass ic = item[k - 1];
@@ -886,9 +885,9 @@ public class DialogOnClickListenerClass implements View.OnClickListener {
                                         // 離乳食である
                                         if (item[k].getName() == "離乳食") {
                                             //場所を交換する
-                                            TextView tv = Hijousyoku_tv[k - 1];
-                                            Hijousyoku_tv[k - 1] = Hijousyoku_tv[k];
-                                            Hijousyoku_tv[k] = tv;
+                                            TextView tv = YouCheck_tv[k - 1];
+                                            YouCheck_tv[k - 1] = YouCheck_tv[k];
+                                            YouCheck_tv[k] = tv;
 
                                             //アイテム
                                             ItemClass ic = item[k - 1];
@@ -899,9 +898,9 @@ public class DialogOnClickListenerClass implements View.OnClickListener {
                                         // 粉ミルクである
                                         if (item[k].getName() == "粉ミルク") {
                                             //場所を交換する
-                                            TextView tv = Hijousyoku_tv[k - 1];
-                                            Hijousyoku_tv[k - 1] = Hijousyoku_tv[k];
-                                            Hijousyoku_tv[k] = tv;
+                                            TextView tv = YouCheck_tv[k - 1];
+                                            YouCheck_tv[k - 1] = YouCheck_tv[k];
+                                            YouCheck_tv[k] = tv;
 
                                             //アイテム
                                             ItemClass ic = item[k - 1];
@@ -911,9 +910,9 @@ public class DialogOnClickListenerClass implements View.OnClickListener {
 
                                         if (item[k].getIcon() == R.drawable.batsu) { //×ボタンである
                                             //場所を交換する
-                                            TextView tv = Hijousyoku_tv[k - 1];
-                                            Hijousyoku_tv[k - 1] = Hijousyoku_tv[k];
-                                            Hijousyoku_tv[k] = tv;
+                                            TextView tv = YouCheck_tv[k - 1];
+                                            YouCheck_tv[k - 1] = YouCheck_tv[k];
+                                            YouCheck_tv[k] = tv;
 
                                             //アイテム
                                             ItemClass ic = item[k - 1];
@@ -923,7 +922,7 @@ public class DialogOnClickListenerClass implements View.OnClickListener {
                                     }
                                 }
                                 //画面に表示する
-                                tl.addView(Hijousyoku_tv[i]);
+                                tl.addView(YouCheck_tv[i]);
                             }
                         }
 
@@ -1166,32 +1165,124 @@ public class DialogOnClickListenerClass implements View.OnClickListener {
 
     /**
      * ******************************************************************
-     * //非常食の賞味期限と設定した期日を計算して、それぞれのテキストを返す
-     * // prefName       ・・・ プレファレンス名
-     * // HijousyokuName ・・・ 非常食の名前
+     * // 消費期限と設定した期日を計算して、それぞれのテキストを返す
+     * // prefName ・・・ プレファレンス名
+     * // ItemName ・・・ 項目の名前
      * *******************************************************************
      */
-    public String get_Number_of_days_Warning(String prefName, String HijousyokuName) {
+    public String get_Number_of_days_Warning(String prefName, String ItemName, boolean isCal) {
         String str = "";
 
-        // 非常食の備蓄数を取得する
-        int food_h = (act.getSharedPreferences("Preferences", act.MODE_PRIVATE)).getInt(prefName, 0);
+        //残り日数を取得する
+        int nokori = (int) getDate(prefName);
+        //期日を取得する
+        int nissu = (act.getSharedPreferences("Preferences", act.MODE_PRIVATE)).getInt("kiniti_day", 14);
+        SharedPreferences Preferences = act.getSharedPreferences("Preferences", act.MODE_PRIVATE);
+        int otona = Preferences.getInt("otona_people", 0); // 大人の人数を取得
+        int kobito = Preferences.getInt("kobito_people", 0); // 小人の人数を取得
+        int youji = Preferences.getInt("youji_people", 0); // 幼児の人数を取得
+
+
+        if ( youji >= 1 && otona >= 1 || kobito >= 1 ) { // 幼児が1人以上
+            if (FoodOverKids() < 25) { // もし
+                str = ItemName + "が足りていません";
+            }
+        } else if ( youji <= 0 && otona >= 1 || kobito >= 1 ) { // 幼児がいない
+            if ( FoodOverKids() < 50 ) { // もし足りていなかったら
+                str = ItemName + "が足りていません";
+            }
+            else {
+                str = "";
+            }
+        } else if ( isCal == true && otona >= 1 || kobito >= 1 ) { // カレンダーが存在するもの
+            if (nokori == 0) { // 備蓄数が1以上の消費期限表示
+                //消費期限が当日になったら表示
+                str = ItemName + "の消費期限が当日です";
+            } else if (nokori < 0) {
+                //消費期限が切れたら表示
+                str = ItemName + "の消費期限が切れました";
+            } else if (nokori <= nissu) {
+                //消費期限が期日に近づいたら表示
+                str = ItemName + "の消費期限が" + nokori + "日前です";
+            }
+        }
+        return str;
+    }
+
+    /**
+     * ******************************************************************
+     * // 消費期限と設定した期日を計算して、それぞれのテキストを返す
+     * // prefName ・・・ プレファレンス名
+     * // ItemName ・・・ 項目の名前
+     * *******************************************************************
+     */
+    public String get_Number_of_days_Warning_b(String prefName, String ItemName, boolean isCal) {
+        String str = "";
+
+        //残り日数を取得する
+        int nokori = (int) getDate(prefName);
+        //期日を取得する
+        int nissu = (act.getSharedPreferences("Preferences", act.MODE_PRIVATE)).getInt("kiniti_day", 14);
+        SharedPreferences Preferences = act.getSharedPreferences("Preferences", act.MODE_PRIVATE);
+        int otona = Preferences.getInt("otona_people", 0); // 大人の人数を取得
+        int kobito = Preferences.getInt("kobito_people", 0); // 小人の人数を取得
+        int youji = Preferences.getInt("youji_people", 0); // 幼児の人数を取得
+
+
+        if ( youji >= 1 && otona >= 1 || kobito >= 1 ) { // 大人または小人が1人以上
+            if (FoodBaby() < 25) { // もし足りていなかったら
+                str = ItemName + "が足りていません";
+            }
+            else {
+                str = "";
+            }
+        } else if ( youji >= 1 && otona <= 0 && kobito <= 0 ) { // 大人または小人がいない
+            if ( FoodBaby() < 50 ) { // もし足りていなかったら
+                str = ItemName + "が足りていません";
+            }
+        } else if ( isCal == true && youji >= 1 ) { // カレンダーが存在するもの
+            if (nokori == 0) { // 備蓄数が1以上の消費期限表示
+                //消費期限が当日になったら表示
+                str = ItemName + "の消費期限が当日です";
+            } else if (nokori < 0) {
+                //消費期限が切れたら表示
+                str = ItemName + "の消費期限が切れました";
+            } else if (nokori <= nissu) {
+                //消費期限が期日に近づいたら表示
+                str = ItemName + "の消費期限が" + nokori + "日前です";
+            }
+        }
+        return str;
+    }
+
+    /**
+     * ******************************************************************
+     * // 消費期限と設定した期日を計算して、それぞれのテキストを返す
+     * // prefName ・・・ プレファレンス名
+     * // ItemName ・・・ 項目の名前
+     * *******************************************************************
+     */
+    public String get_Number_of_days_Warning_w(String prefName, String ItemName, boolean isCal) {
+        String str = "";
+
         //残り日数を取得する
         int nokori = (int) getDate(prefName);
         //期日を取得する
         int nissu = (act.getSharedPreferences("Preferences", act.MODE_PRIVATE)).getInt("kiniti_day", 14);
 
-        if (food_h < 1) { // もし非常食が備蓄されていなかったら
-            str = HijousyokuName + "が備蓄されていません";
-        } else if (nokori == 0) { // 非常食の備蓄数が1以上の賞味期限表示
-            //賞味期限が当日になったら表示
-            str = HijousyokuName + "の賞味期限が当日です";
-        } else if (nokori < 0) {
-            //賞味期限が切れたら表示
-            str = HijousyokuName + "の賞味期限が切れました";
-        } else if (nokori <= nissu) {
-            //賞味期限が期日に近づいたら表示
-            str = HijousyokuName + "の賞味期限が" + nokori + "日前です";
+        if (RateWater() < 50) { // もし足りていなかったら
+            str = ItemName + "が足りていません";
+        } else if (isCal == true) { // カレンダーが存在するもの
+            if (nokori == 0) { // 備蓄数が1以上の消費期限表示
+                //消費期限が当日になったら表示
+                str = ItemName + "の消費期限が当日です";
+            } else if (nokori < 0) {
+                //消費期限が切れたら表示
+                str = ItemName + "の消費期限が切れました";
+            } else if (nokori <= nissu) {
+                //消費期限が期日に近づいたら表示
+                str = ItemName + "の消費期限が" + nokori + "日前です";
+            }
         }
         return str;
     }
