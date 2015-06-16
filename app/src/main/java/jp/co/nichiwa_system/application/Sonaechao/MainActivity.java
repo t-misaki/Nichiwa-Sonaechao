@@ -380,10 +380,10 @@ public class MainActivity extends Activity {
          * 　ソートプログラム
          ******************************************************************************************/
 
-        for (int i = 0; i < MAX_HIJOUSYOKU + MAX_BICHIKUHIN; i++) {
+        for (int i = 0; i < MAX_HIJOUSYOKU; i++) {
             //特に警告のないものは飛ばす
             if (YouCheck_tv[i].getText().length() > 0) {
-                for (int k = MAX_HIJOUSYOKU + MAX_BICHIKUHIN - 1; k > i; k--) {
+                for (int k = MAX_HIJOUSYOKU - 1; k > i; k--) {
                     //同じく特に警告のないものは飛ばす
                     if (YouCheck_tv[k].getText().length() > 0) {
                         if (getDate(item[k].getPrefName()) < getDate(item[k - 1].getPrefName())) {
@@ -439,6 +439,43 @@ public class MainActivity extends Activity {
                 }
                 //画面に表示する
                 tl.addView(YouCheck_tv[i]);
+            }
+        }
+        for (int i = 0; i < MAX_BICHIKUHIN; i++) {
+            //特に警告のないものは飛ばす
+            if (YouCheck_tv[MAX_HIJOUSYOKU+i].getText().length() > 0) {
+                for (int k = MAX_BICHIKUHIN - MAX_HIJOUSYOKU - 1; k > i; k--) {
+                    //同じく特に警告のないものは飛ばす
+                    if (YouCheck_tv[k].getText().length() > 0) {
+                        if (getDate(item[k].getPrefName()) < getDate(item[k - 1].getPrefName())) {
+                            //場所を交換する
+                            TextView tv = YouCheck_tv[k - 1];
+                            YouCheck_tv[k - 1] = YouCheck_tv[k];
+                            YouCheck_tv[k] = tv;
+
+                            //アイテム
+                            ItemClass ic = item[k - 1];
+                            item[k - 1] = item[k];
+                            item[k] = ic;
+                        }
+
+
+
+                        if (item[k].getIcon() == R.drawable.batsu) { //×ボタンである
+                            //場所を交換する
+                            TextView tv = YouCheck_tv[k - 1];
+                            YouCheck_tv[k - 1] = YouCheck_tv[k];
+                            YouCheck_tv[k] = tv;
+
+                            //アイテム
+                            ItemClass ic = item[k - 1];
+                            item[k - 1] = item[k];
+                            item[k] = ic;
+                        }
+                    }
+                }
+                //画面に表示する
+                tl.addView(YouCheck_tv[MAX_HIJOUSYOKU+i]);
             }
         }
         //最終入力日
@@ -745,6 +782,14 @@ public class MainActivity extends Activity {
             if (UsedBabyomutuneed(need, setDays, youji) != 0) {
                 str = ItemName + "が足りていません";
             } else {
+                str = "";
+            }
+        }
+
+        if( ItemName ==  "マッチ・ライター" || ItemName ==  "笛（防犯ブザー）" || ItemName ==  "軍手"
+                || ItemName == "ラジオ　※単三電池推奨" || ItemName == "缶切り" || ItemName == "マスク"
+                || ItemName == "携帯電話充電器　※単三電池推奨"){
+            if( RateStock()>=50){
                 str = "";
             }
         }
