@@ -136,6 +136,16 @@ public class DialogOnClickListenerClass implements View.OnClickListener {
         //
         //EditTextを取得する
         final EditText et = (EditText) viw.findViewById(R.id.Number);
+
+        //クリアボタンの処理
+        ImageView textclear = (ImageView) viw.findViewById(R.id.textclear);
+        textclear.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                et.setText("");
+            }
+        });
+
         if (tani == "ℓ") {
 
             et.setInputType(InputType.TYPE_CLASS_NUMBER);
@@ -876,13 +886,14 @@ public class DialogOnClickListenerClass implements View.OnClickListener {
                             }
                         }
 
-                        /***************************************************************************
+                        /*******************************************************************************************
                          * 　ソートプログラム
-                         **************************************************************************/
-                        for (int i = 0; i < MAX_HIJOUSYOKU + MAX_BICHIKUHIN; i++) {
+                         ******************************************************************************************/
+
+                        for (int i = 0; i < MAX_HIJOUSYOKU; i++) {
                             //特に警告のないものは飛ばす
                             if (YouCheck_tv[i].getText().length() > 0) {
-                                for (int k = MAX_HIJOUSYOKU + MAX_BICHIKUHIN - 1; k > i; k--) {
+                                for (int k = MAX_HIJOUSYOKU - 1; k > i; k--) {
                                     //同じく特に警告のないものは飛ばす
                                     if (YouCheck_tv[k].getText().length() > 0) {
                                         if (getDate(item[k].getPrefName()) < getDate(item[k - 1].getPrefName())) {
@@ -938,6 +949,42 @@ public class DialogOnClickListenerClass implements View.OnClickListener {
                                 }
                                 //画面に表示する
                                 tl.addView(YouCheck_tv[i]);
+                            }
+                        }
+                        for (int i = 0; i < MAX_BICHIKUHIN; i++) {
+                            //特に警告のないものは飛ばす
+                            if (YouCheck_tv[MAX_HIJOUSYOKU + i].getText().length() > 0) {
+                                for (int k = MAX_BICHIKUHIN - MAX_HIJOUSYOKU - 1; k > i; k--) {
+                                    //同じく特に警告のないものは飛ばす
+                                    if (YouCheck_tv[k].getText().length() > 0) {
+                                        if (getDate(item[k].getPrefName()) < getDate(item[k - 1].getPrefName())) {
+                                            //場所を交換する
+                                            TextView tv = YouCheck_tv[k - 1];
+                                            YouCheck_tv[k - 1] = YouCheck_tv[k];
+                                            YouCheck_tv[k] = tv;
+
+                                            //アイテム
+                                            ItemClass ic = item[k - 1];
+                                            item[k - 1] = item[k];
+                                            item[k] = ic;
+                                        }
+
+
+                                        if (item[k].getIcon() == R.drawable.batsu) { //×ボタンである
+                                            //場所を交換する
+                                            TextView tv = YouCheck_tv[k - 1];
+                                            YouCheck_tv[k - 1] = YouCheck_tv[k];
+                                            YouCheck_tv[k] = tv;
+
+                                            //アイテム
+                                            ItemClass ic = item[k - 1];
+                                            item[k - 1] = item[k];
+                                            item[k] = ic;
+                                        }
+                                    }
+                                }
+                                //画面に表示する
+                                tl.addView(YouCheck_tv[MAX_HIJOUSYOKU + i]);
                             }
                         }
 
@@ -1202,7 +1249,7 @@ public class DialogOnClickListenerClass implements View.OnClickListener {
         if (youji >= 1 && otona >= 1 || kobito >= 1) { // 幼児が1人以上
             if (FoodOverKids() < 25) { // もし非常食が25％未満なら
                 str = ItemName + "が足りていません";
-            } else if (FoodOverKids() >= 25 && pref.getInt(prefName, 0 ) <= 0) {
+            } else if (FoodOverKids() >= 25 && pref.getInt(prefName, 0) <= 0) {
                 str = "";
             } else if (isCal == true && otona >= 1 || kobito >= 1) { // カレンダーが存在するもの
                 if (nokori == 0) { // 備蓄数が1以上の消費期限表示
@@ -1219,7 +1266,7 @@ public class DialogOnClickListenerClass implements View.OnClickListener {
         } else if (youji <= 0 && otona >= 1 || kobito >= 1) { // 幼児がいない
             if (FoodOverKids() < 50) { // もし足りていなかったら
                 str = ItemName + "が足りていません";
-            } else if(FoodOverKids() >= 50 && pref.getInt(prefName,0) <= 0) {
+            } else if (FoodOverKids() >= 50 && pref.getInt(prefName, 0) <= 0) {
                 str = "";
             } else if (isCal == true && otona >= 1 || kobito >= 1) { // カレンダーが存在するもの
                 if (nokori == 0) { // 備蓄数が1以上の消費期限表示
@@ -1263,7 +1310,7 @@ public class DialogOnClickListenerClass implements View.OnClickListener {
         if (youji >= 1 && otona >= 1 || kobito >= 1) { // 大人または小人が1人以上
             if (FoodBaby() < 25) { // もし足りていなかったら
                 str = ItemName + "が足りていません";
-            } else if (FoodBaby() >= 25 && pref.getInt(prefName, 0) <= 0 ) {
+            } else if (FoodBaby() >= 25 && pref.getInt(prefName, 0) <= 0) {
                 str = "";
             } else if (isCal == true && youji >= 1) { // カレンダーが存在するもの
                 if (nokori == 0) { // 備蓄数が1以上の消費期限表示
@@ -1317,8 +1364,7 @@ public class DialogOnClickListenerClass implements View.OnClickListener {
 
         if (RateWater() < 50) { // もし足りていなかったら
             str = ItemName + "が足りていません";
-        }
-        else if (isCal == true) { // カレンダーが存在するもの
+        } else if (isCal == true) { // カレンダーが存在するもの
             if (nokori == 0) { // 備蓄数が1以上の消費期限表示
                 //消費期限が当日になったら表示
                 str = ItemName + "の消費期限が当日です";

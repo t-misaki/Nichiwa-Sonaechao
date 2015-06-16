@@ -8,12 +8,11 @@
 
 
     <EditText
-        android:layout_width="50dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:inputType="number"
-        android:ems="10"
+        android:ems="3"
         android:maxLength="2"
-        android:selectAllOnFocus="true"
         android:id="@+id/Number"
         android:layout_alignBottom="@+id/textView26"
         android:layout_toStartOf="@+id/textView26" />
@@ -114,5 +113,15 @@
         android:layout_below="@+id/popup_day"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp" />
+
+    <ImageView
+        android:id="@+id/textclear"
+        android:layout_width="15dp"
+        android:layout_height="15dp"
+        android:paddingRight="15px"
+        android:background="@null"
+        android:src="@drawable/textclear"
+        android:layout_alignTop="@+id/textView26"
+        android:layout_toStartOf="@+id/textView26" />
 
 </RelativeLayout>
