@@ -166,19 +166,19 @@ public class MainActivity extends Activity {
             @Override
             public void onClick(View v) {
                 AlertDialog.Builder fast = new AlertDialog.Builder(MainActivity.this);
-                fast.setTitle("非常食画面の説明");
-                fast.setMessage("ここでは非常食の備蓄が設定できます。\n" +
-                        "備蓄したいものを選択し数量と消費期限を設定してみましょう。\n");
-                fast.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                fast.setTitle("ホーム画面の説明");
+                fast.setMessage("ここでは非常食と備蓄品がどれだけあるか％表示で確認できます。。\n" +
+                        "要チェック欄の商品を選択することで備蓄数を確認、編集できます。\n");
+                fast.setPositiveButton("次へ", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
                         AlertDialog.Builder fast = new AlertDialog.Builder(MainActivity.this);
-                        fast.setTitle("非常食画面の説明");
-                        fast.setMessage("備蓄している個数を入力できます\n\n" +
-                                "カレンダーのボタンを押すと消費期限が入力できます\n\n" +
-                                "okボタンまたはカレンダーボタンを押さなければ備蓄個数は保存されないので注意してください。\n\n"+
-                                "※このメッセージは画面下の非常食ボタンを押すと再び表示されます。");
+                        fast.setTitle("ホーム画面の説明");
+                        fast.setMessage("メーター上の非常食、備蓄品の文字色により備蓄不足か判断できます\n\n" +
+                                "赤・・・備蓄不足\n" +"青・・・備蓄完了\n\n"+
+                                "要チェック欄の項目がなくなると、備蓄はより完璧なものになります。\n\n"+
+                                "※このメッセージは画面下のホームボタンを押すと再び表示されます。");
                         fast.setPositiveButton("閉じる", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
