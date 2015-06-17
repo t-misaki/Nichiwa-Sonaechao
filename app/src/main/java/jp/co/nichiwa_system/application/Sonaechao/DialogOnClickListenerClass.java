@@ -199,7 +199,7 @@ public class DialogOnClickListenerClass implements View.OnClickListener {
                 //  水の必要値の算出。備えちゃお日数も追加。
                 int total_w = (adult_w + child_w + baby_w) * setDays;
                 if (total_w - mizu <= 0) {
-                    s_tv.setText("十分備蓄されています");
+                    s_tv.setText("水は十分備蓄されています");
                 } else {
                     s_tv.setText("あと" + (toString().valueOf(total_w - mizu)) + tani + "備蓄してください");
                 }
@@ -219,7 +219,7 @@ public class DialogOnClickListenerClass implements View.OnClickListener {
                 int total_b = (3 * baby_n) * setDays;
                 double need_sum = total_b - bAll;
                 if (need_sum <= 0) {
-                    s_tv.setText("十分備蓄されています");
+                    s_tv.setText("非常食は十分備蓄されています");
                 } else if (TitleName == "粉ミルク") {
                     s_tv.setText("あと" + toString().valueOf(((int) Math.ceil(need_sum / 3)) + tani + "備蓄してください"));
                 } else {
@@ -255,7 +255,7 @@ public class DialogOnClickListenerClass implements View.OnClickListener {
                 int rateOK = (((adult_n * 3) + (child_n * 2)) * setDays);
                 double need_sum = rateOK - okAll;
                 if (need_sum <= 0) {
-                    s_tv.setText("十分備蓄されています");
+                    s_tv.setText("非常食は十分備蓄されています");
                 } else if (TitleName == "カロリーメイト" || TitleName == "乾パン") {
                     s_tv.setText("あと" + toString().valueOf(((int) Math.ceil(need_sum / 3)) + tani + "備蓄してください"));
                 } else {
@@ -312,7 +312,8 @@ public class DialogOnClickListenerClass implements View.OnClickListener {
                 TextView s_tv = (TextView) viw.findViewById(R.id.suisyouti);
                 if (UsedFamilyStockneed(kaichu, setDays, 1.0f, 1.0f, 1.0f) <= 0) {
                     s_tv.setText("十分備蓄されています");
-                } else {
+                }
+               else {
                     s_tv.setText("あと" + (int) UsedFamilyStockneed(kaichu, setDays, 1.0f, 1.0f, 1.0f) + tani + "備蓄してください");
                 }
             }
@@ -665,6 +666,7 @@ public class DialogOnClickListenerClass implements View.OnClickListener {
 
                     //アクティビティがメイン画面の場合、以下の処理を行う
                     if (act.getClass() == MainActivity.class) {
+
                         //非常食の項目を取得する
                         ItemClass[] item = {
                                 // 食べ物
@@ -798,6 +800,51 @@ public class DialogOnClickListenerClass implements View.OnClickListener {
                             R_button.setImageResource(R.drawable.r_graph10);
                         }
 
+                        //備蓄品の割合が60%未満且つ、非常食が0ではない且つ、設定人数が0の場合、警告を出す。
+                        if (goukei[0] < 60/* && !(volume[0] <= 0) && gou > 0*/) {
+                            TextView h_tv = (TextView)act.findViewById(R.id.textView17);
+                            h_tv.setTextColor(Color.RED);
+           /* keikoku = new DialogClass("警告", "非常食が60%未満です\n" + "※要チェック欄か非常食ボタンから備蓄してください" , this);
+            keikoku.setPositiveButton("確認する", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    Intent intent = new Intent();
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+                    intent.setClassName("jp.co.nichiwa_system.application.Sonaechao", "jp.co.nichiwa_system.application.Sonaechao.Hijousyoku");
+                    startActivity(intent);
+                }
+            });
+            keikoku.setNegativeButton("後で", null);
+            keikoku.Diarog_show();*/
+                        }
+                        else{
+                            TextView h_tv = (TextView)act.findViewById(R.id.textView17);
+                            h_tv.setTextColor(Color.BLUE);
+                        }
+
+                        //非常食の割合が60%未満且つ、備蓄品が0ではない且つ、設定人数が0の場合、警告を出す
+                        if (goukei[1] < 60 /*&& !(volume[1] <= 0) && gou > 0*/) {
+                            TextView b_tv = (TextView)act.findViewById(R.id.textView18);
+                            b_tv.setTextColor(Color.RED);
+           /* keikoku = new DialogClass("警告", "　備蓄品が60%未満です", this);
+            keikoku.setPositiveButton("確認する", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    Intent intent = new Intent();
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+                    intent.setClassName("jp.co.nichiwa_system.application.Sonaechao", "jp.co.nichiwa_system.application.Sonaechao.Stock");
+                    startActivity(intent);
+
+                }
+            });
+            keikoku.setNegativeButton("後で", null);
+            keikoku.Diarog_show();*/
+                        }
+                        else{
+                            TextView b_tv = (TextView)act.findViewById(R.id.textView18);
+                            b_tv.setTextColor(Color.BLUE);
+                        }
+
                         //グラフのパーセント値を表示する(10%ずつ)
                         ((TextView) act.findViewById(R.id.bichiku_percent)).setText("備蓄品：" + String.valueOf(goukei[1]) + "%");
 
@@ -810,7 +857,7 @@ public class DialogOnClickListenerClass implements View.OnClickListener {
                         for (int i = 0; i < MAX_HIJOUSYOKU + MAX_BICHIKUHIN; i++) {
                             YouCheck_tv[i] = new TextView(act);
                             //警告文を取得する
-                            YouCheck_tv[i].setTextSize(30.0f);
+                            YouCheck_tv[i].setTextSize(25.0f);
                             //if (pref.getInt(item[i].getPrefName(), 0) > 0) { // 要チェック欄とアイコン画像の喧嘩が起こるif文
                             YouCheck_tv[i].setText(get_Number_of_days_Warning(item[i].getPrefName(), item[i].getName(), item[i].getCalender_flag()));
 
@@ -890,10 +937,10 @@ public class DialogOnClickListenerClass implements View.OnClickListener {
                          * 　ソートプログラム
                          ******************************************************************************************/
 
-                        for (int i = 0; i < MAX_HIJOUSYOKU; i++) {
+                        for (int i = 0; i < MAX_HIJOUSYOKU + MAX_BICHIKUHIN; i++) {
                             //特に警告のないものは飛ばす
                             if (YouCheck_tv[i].getText().length() > 0) {
-                                for (int k = MAX_HIJOUSYOKU - 1; k > i; k--) {
+                                for (int k = MAX_HIJOUSYOKU + MAX_BICHIKUHIN - 1; k > i; k--) {
                                     //同じく特に警告のないものは飛ばす
                                     if (YouCheck_tv[k].getText().length() > 0) {
                                         if (getDate(item[k].getPrefName()) < getDate(item[k - 1].getPrefName())) {
@@ -951,7 +998,7 @@ public class DialogOnClickListenerClass implements View.OnClickListener {
                                 tl.addView(YouCheck_tv[i]);
                             }
                         }
-                        for (int i = 0; i < MAX_BICHIKUHIN; i++) {
+                      /*  for (int i = 0; i < MAX_BICHIKUHIN; i++) {
                             //特に警告のないものは飛ばす
                             if (YouCheck_tv[MAX_HIJOUSYOKU + i].getText().length() > 0) {
                                 for (int k = MAX_BICHIKUHIN - MAX_HIJOUSYOKU - 1; k > i; k--) {
@@ -986,7 +1033,7 @@ public class DialogOnClickListenerClass implements View.OnClickListener {
                                 //画面に表示する
                                 tl.addView(YouCheck_tv[MAX_HIJOUSYOKU + i]);
                             }
-                        }
+                        }*/
 
                         //最終入力日
                         TextView b_tv = (TextView) act.findViewById(R.id.bichiku_nyuuryoku);
@@ -1505,6 +1552,14 @@ public class DialogOnClickListenerClass implements View.OnClickListener {
             if (UsedBabyomutuneed(need, setDays, youji) != 0) {
                 str = ItemName + "が足りていません";
             } else {
+                str = "";
+            }
+        }
+
+        if( ItemName ==  "マッチ・ライター" || ItemName ==  "笛（防犯ブザー）" || ItemName ==  "軍手"
+                || ItemName == "ラジオ　※単三電池推奨" || ItemName == "缶切り" || ItemName == "マスク"
+                || ItemName == "携帯電話充電器　※単三電池推奨"){
+            if( RateStock()>=50){
                 str = "";
             }
         }
