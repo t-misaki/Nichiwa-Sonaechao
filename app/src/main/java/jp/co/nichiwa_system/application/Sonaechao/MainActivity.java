@@ -116,6 +116,40 @@ public class MainActivity extends Activity {
             e.commit();
         }
 
+        if (firstpref.getInt("first_key", 0) == 1) {
+            AlertDialog.Builder fast = new AlertDialog.Builder(this);
+            fast.setTitle("ホーム画面の説明");
+            fast.setMessage("ここでは非常食と備蓄品がどれだけあるか％表示で確認できます。。\n" +
+                    "要チェック欄の商品を選択することで備蓄数を確認、編集できます。\n");
+            fast.setPositiveButton("次へ", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                    AlertDialog.Builder fast = new AlertDialog.Builder(MainActivity.this);
+                    fast.setTitle("ホーム画面の説明");
+                    fast.setMessage("メーター上の非常食、備蓄品の文字色により備蓄不足か判断できます\n\n" +
+                            "赤・・・備蓄不足\n" +"青・・・備蓄完了\n\n"+
+                            "要チェック欄の項目がなくなると、備蓄はより完璧なものになります。\n\n"+
+                            "※このメッセージは画面下のホームボタンを押すと再び表示されます。");
+                    fast.setPositiveButton("閉じる", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+
+                        }
+                    });
+                    fast.show();
+                }
+            });
+
+
+            fast.show();
+
+            SharedPreferences.Editor e = firstpref.edit();
+            e.putInt("first_key", 2);
+            e.commit();
+        }
+
         //activity_main.xmlを使う場合これを宣言する
         setContentView(R.layout.activity_main);
 
@@ -128,6 +162,37 @@ public class MainActivity extends Activity {
         ImageButton bichiku_ib = (ImageButton) findViewById(R.id.R_graph);
 
         Home.setBackgroundResource(R.drawable.style2);
+        Home.setOnClickListener(new View.OnClickListener() { // 非常食ボタンを押した時の処理（説明ダイアログ）
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder fast = new AlertDialog.Builder(MainActivity.this);
+                fast.setTitle("非常食画面の説明");
+                fast.setMessage("ここでは非常食の備蓄が設定できます。\n" +
+                        "備蓄したいものを選択し数量と消費期限を設定してみましょう。\n");
+                fast.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        AlertDialog.Builder fast = new AlertDialog.Builder(MainActivity.this);
+                        fast.setTitle("非常食画面の説明");
+                        fast.setMessage("備蓄している個数を入力できます\n\n" +
+                                "カレンダーのボタンを押すと消費期限が入力できます\n\n" +
+                                "okボタンまたはカレンダーボタンを押さなければ備蓄個数は保存されないので注意してください。\n\n"+
+                                "※このメッセージは画面下の非常食ボタンを押すと再び表示されます。");
+                        fast.setPositiveButton("閉じる", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+
+                            }
+                        });
+                        fast.show();
+                    }
+                });
+                fast.show();
+            }
+        });
+
 
 
         //非常食へ
@@ -240,8 +305,10 @@ public class MainActivity extends Activity {
         DialogClass keikoku;
 
         //備蓄品の割合が60%未満且つ、非常食が0ではない且つ、設定人数が0の場合、警告を出す。
-        if (goukei[0] < 60 && !(volume[0] <= 0) && gou > 0) {
-            keikoku = new DialogClass("警告", "　非常食が60%未満です", this);
+        if (goukei[0] < 60/* && !(volume[0] <= 0) && gou > 0*/) {
+            TextView h_tv = (TextView)findViewById(R.id.textView17);
+            h_tv.setTextColor(Color.RED);
+           /* keikoku = new DialogClass("警告", "非常食が60%未満です\n" + "※要チェック欄か非常食ボタンから備蓄してください" , this);
             keikoku.setPositiveButton("確認する", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
@@ -252,12 +319,18 @@ public class MainActivity extends Activity {
                 }
             });
             keikoku.setNegativeButton("後で", null);
-            keikoku.Diarog_show();
+            keikoku.Diarog_show();*/
+        }
+        else{
+            TextView h_tv = (TextView)findViewById(R.id.textView17);
+            h_tv.setTextColor(Color.BLUE);
         }
 
         //非常食の割合が60%未満且つ、備蓄品が0ではない且つ、設定人数が0の場合、警告を出す
-        if (goukei[1] < 60 && !(volume[1] <= 0) && gou > 0) {
-            keikoku = new DialogClass("警告", "　備蓄品が60%未満です", this);
+        if (goukei[1] < 60 /*&& !(volume[1] <= 0) && gou > 0*/) {
+            TextView b_tv = (TextView)findViewById(R.id.textView18);
+            b_tv.setTextColor(Color.RED);
+           /* keikoku = new DialogClass("警告", "　備蓄品が60%未満です", this);
             keikoku.setPositiveButton("確認する", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
@@ -269,7 +342,11 @@ public class MainActivity extends Activity {
                 }
             });
             keikoku.setNegativeButton("後で", null);
-            keikoku.Diarog_show();
+            keikoku.Diarog_show();*/
+        }
+        else{
+            TextView b_tv = (TextView)findViewById(R.id.textView18);
+            b_tv.setTextColor(Color.BLUE);
         }
 
         //設定画面の合計値(gou)が0ならば警告ダイアログをだす
@@ -292,7 +369,7 @@ public class MainActivity extends Activity {
         for (int i = 0; i < MAX_HIJOUSYOKU + MAX_BICHIKUHIN; i++) {
             YouCheck_tv[i] = new TextView(this);
             //警告文を取得する
-            YouCheck_tv[i].setTextSize(30.0f);
+            YouCheck_tv[i].setTextSize(25.0f);
             //if (pref.getInt(item[i].getPrefName(), 0) > 0) { // 要チェック欄とアイコン画像の喧嘩が起こるif文
             YouCheck_tv[i].setText(get_Number_of_days_Warning(item[i].getPrefName(), item[i].getName(), item[i].getCalender_flag()));
 
@@ -380,10 +457,10 @@ public class MainActivity extends Activity {
          * 　ソートプログラム
          ******************************************************************************************/
 
-        for (int i = 0; i < MAX_HIJOUSYOKU; i++) {
+        for (int i = 0; i < MAX_HIJOUSYOKU + MAX_BICHIKUHIN; i++) {
             //特に警告のないものは飛ばす
             if (YouCheck_tv[i].getText().length() > 0) {
-                for (int k = MAX_HIJOUSYOKU - 1; k > i; k--) {
+                for (int k = MAX_HIJOUSYOKU + MAX_BICHIKUHIN - 1; k > i; k--) {
                     //同じく特に警告のないものは飛ばす
                     if (YouCheck_tv[k].getText().length() > 0) {
                         if (getDate(item[k].getPrefName()) < getDate(item[k - 1].getPrefName())) {
@@ -441,7 +518,7 @@ public class MainActivity extends Activity {
                 tl.addView(YouCheck_tv[i]);
             }
         }
-        for (int i = 0; i < MAX_BICHIKUHIN; i++) {
+ /*       for (int i = 0; i < MAX_BICHIKUHIN; i++) {
             //特に警告のないものは飛ばす
             if (YouCheck_tv[MAX_HIJOUSYOKU+i].getText().length() > 0) {
                 for (int k = MAX_BICHIKUHIN - MAX_HIJOUSYOKU - 1; k > i; k--) {
@@ -477,7 +554,7 @@ public class MainActivity extends Activity {
                 //画面に表示する
                 tl.addView(YouCheck_tv[MAX_HIJOUSYOKU+i]);
             }
-        }
+        }*/
         //最終入力日
         TextView b_tv = (TextView) findViewById(R.id.bichiku_nyuuryoku);
         TextView h_tv = (TextView) findViewById(R.id.hijousyoku_nyuuryoku);

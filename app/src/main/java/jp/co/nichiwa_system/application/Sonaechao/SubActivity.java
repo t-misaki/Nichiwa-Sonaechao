@@ -81,6 +81,11 @@ public class SubActivity extends Activity {
             SharedPreferences.Editor e = pre.edit();
             e.putInt("fast_start_sub", 1);
             e.commit();
+
+            SharedPreferences firstpref = getSharedPreferences("Preference", MODE_PRIVATE);
+            SharedPreferences.Editor et = firstpref.edit();
+            et.putInt("first_key", 1);
+            et.commit();
         }
 
         //バージョン情報出力
