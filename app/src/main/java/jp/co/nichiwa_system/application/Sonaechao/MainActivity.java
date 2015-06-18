@@ -165,31 +165,30 @@ public class MainActivity extends Activity {
         Home.setOnClickListener(new View.OnClickListener() { // 非常食ボタンを押した時の処理（説明ダイアログ）
             @Override
             public void onClick(View v) {
+                final AlertDialog m_dlg;
                 AlertDialog.Builder fast = new AlertDialog.Builder(MainActivity.this);
+                LayoutInflater inflater = LayoutInflater.from(MainActivity.this);
+                View viw = inflater.inflate(R.layout.activity_popup, null);
                 fast.setTitle("ホーム画面の説明");
                 fast.setMessage("ここでは非常食と備蓄品がどれだけあるか％表示で確認できます。。\n" +
                         "要チェック欄の商品を選択することで備蓄数を確認、編集できます。\n");
-                fast.setPositiveButton("次へ", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                        AlertDialog.Builder fast = new AlertDialog.Builder(MainActivity.this);
-                        fast.setTitle("ホーム画面の説明");
-                        fast.setMessage("メーター上の非常食、備蓄品の文字色により備蓄不足か判断できます\n\n" +
-                                "赤・・・備蓄不足\n" +"青・・・備蓄完了\n\n"+
-                                "要チェック欄の項目がなくなると、備蓄はより完璧なものになります。\n\n"+
-                                "※このメッセージは画面下のホームボタンを押すと再び表示されます。");
-                        fast.setPositiveButton("閉じる", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                dialog.dismiss();
+                fast.setPositiveButton("次へ", null);
+                m_dlg = fast.setView(viw).show();
 
-                            }
-                        });
-                        fast.show();
+                Button buttonOk = m_dlg.getButton( DialogInterface.BUTTON_POSITIVE );
+                buttonOk.setOnClickListener( new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if(RateWater() >= 50){
+                            Toast.makeText(MainActivity.this, "備蓄数を入力してください", Toast.LENGTH_SHORT).show();
+                        }
+                        else{
+                           m_dlg.dismiss();
+                            Toast.makeText(MainActivity.this, "備蓄数を入力してください", Toast.LENGTH_SHORT).show();
+                        }
+
                     }
                 });
-                fast.show();
             }
         });
 
