@@ -156,6 +156,28 @@ public class Hijousyoku extends Activity {
             if( !Check_Day(item[i].getPrefName()) && r!=0  ) {
                 Hijousyoku_iv[i].setBackgroundResource(R.drawable.style2);
             }
+
+            //非常食、幼児用非常食の備蓄％が50％未満なら水以外のボタンに赤枠を敷く
+            if( FoodOverKids() + FoodBaby() < 50 && item[i].getName() != "水"){
+                Hijousyoku_iv[i].setBackgroundResource(R.drawable.style2);
+            }
+            //水の備蓄％が50％未満なら、水ボタンに赤枠を敷く
+            if( RateWater() < 50 && item[i].getName() == "水"){
+                Hijousyoku_iv[i].setBackgroundResource(R.drawable.style2);
+            }
+            //非常食、幼児用非常食の備蓄％が50％以上なら水以外のボタンから赤枠をぬく
+            if( FoodOverKids() + FoodBaby()  >= 50 && item[i].getName() != "水" ){
+                Hijousyoku_iv[i].setBackgroundResource(R.drawable.style);
+            }
+            //水の備蓄％が５０％以上なら水の赤枠を抜く
+            if( RateWater()  >= 50 && item[i].getName() == "水" ){
+                Hijousyoku_iv[i].setBackgroundResource(R.drawable.style);
+            }
+            //期限の切れているものは赤線を敷く
+            if (!Check_Day(item[i].getPrefName()) && r != 0) {
+                Hijousyoku_iv[i].setBackgroundResource(R.drawable.style2);
+            }
+
         }
 
         //広告の設定
@@ -199,5 +221,141 @@ public class Hijousyoku extends Activity {
         long nokori = (item_time - current_time) / ( 1000 * 60 * 60 * 24 );
 
         return nokori;
+    }
+
+    public int FoodOverKids() {
+        SharedPreferences pref = getSharedPreferences("Preferences", MODE_PRIVATE);
+
+        int reto_g = pref.getInt("retorutogohan_number", 0);
+        int kan = pref.getInt("kandume_number", 0);
+        int kanmen = pref.getInt("kanmen_number", 0);
+        int kanpan = pref.getInt("kanpan_number", 0);
+        int kan2 = pref.getInt("kandume2_number", 0);
+        int reto = pref.getInt("retoruto_number", 0);
+        int furizu = pref.getInt("furizu_dorai_number", 0);
+        int karori = pref.getInt("karori_meito_number", 0);
+        int okasi = pref.getInt("okasi_number", 0);
+
+        //人数
+        int adult_n = pref.getInt("otona_people", 0);
+        int child_n = pref.getInt("kobito_people", 0);
+        int baby_n = pref.getInt("youji_people", 0);
+
+        //  設定人数。訂正者：岡田
+        int setDays = pref.getInt("sitei_day", 3);
+
+        //各合計（大小のみ）
+        int Hijousyoku_sum = reto_g + kan + kanmen + kanpan + kan2 + reto + furizu + karori + okasi;
+
+        double okAll;
+        double div = 2.0;
+
+        //栄養価の計算。乾パンとカロリーメイトを抜いたものは栄養価１．乾パン、カロリーメイトは３。
+        //  大小限定の栄養価総計。over kids All
+        okAll = ((Hijousyoku_sum - kanpan - karori) * 1) + (kanpan + karori) * 3;
+
+        //  大小の割合。
+        double rateOK = okAll / (((adult_n * 3) + (child_n * 2)) * setDays);
+
+        if (rateOK >= 1.0) {
+            rateOK = 1.0;
+        }
+
+        //  幼児がいなかった場合
+        if (!(baby_n > 0)) {
+            div -= 1.0;
+        }
+
+        if (!(adult_n > 0 || child_n > 0)) {
+            rateOK = 0.0;
+        }
+
+        if (adult_n > 0 || child_n > 0) {
+            rateOK = (rateOK / div) * 50.0;
+        }
+
+        return (int) rateOK;
+    }
+
+    public int FoodBaby() {
+        SharedPreferences pref = getSharedPreferences("Preferences", MODE_PRIVATE);
+
+        int rinyu = pref.getInt("rinyu_number", 0);
+        int konamilk = pref.getInt("konamilk_number", 0);
+
+        //人数
+        int adult_n = pref.getInt("otona_people", 0);
+        int child_n = pref.getInt("kobito_people", 0);
+        int baby_n = pref.getInt("youji_people", 0);
+
+
+        int setDays = pref.getInt("sitei_day", 3);
+
+        double bAll;
+
+        //  幼児限定の栄養価総計。baby All
+        bAll = (konamilk * 3) + rinyu;
+
+        double rate = bAll / ((baby_n * 3) * setDays);
+        double div = 2.0;
+
+        if (rate >= 1.0) {
+            rate = 1.0;
+        }
+
+        //  大人・小人がいなかった場合
+        if (!(adult_n > 0 || child_n > 0)) {
+            div -= 1.0;
+        }
+
+        //  幼児がいなかった場合
+        if (!(baby_n > 0)) {
+            rate = 0.0;
+        }
+
+        //  幼児がいる場合計算を行う(念のため）
+        if (baby_n > 0) {
+            rate = (rate / div) * 50.0;
+        }
+
+        return (int) rate;
+    }
+
+    public int RateWater() {
+        double rate;
+
+        //水の必要数の計算
+        //　水の部分が計算が異なっていたので修正。修正者：岡田
+        SharedPreferences pref = getSharedPreferences("Preferences", MODE_PRIVATE);
+
+        double mizu = pref.getInt("mizu_number", 0);
+
+        //人数
+        int adult_n = pref.getInt("otona_people", 0);
+        int child_n = pref.getInt("kobito_people", 0);
+        int baby_n = pref.getInt("youji_people", 0);
+
+        int setDays = pref.getInt("sitei_day", 3);
+
+        double adult_w = adult_n * 3;
+        double child_w = child_n * 2;
+        double baby_w = baby_n * 2;
+
+        //  水の必要値の算出。備えちゃお日数も追加。
+        double total_w = (adult_w + child_w + baby_w) * setDays;
+
+        //備蓄は何％あるか計算。最大50％
+        rate = (mizu / total_w) * 50;
+
+        //  水の最大値は50％までの設定
+        if (rate >= 50) {
+            rate = 50;
+        }
+
+        if ((adult_n + child_n + baby_n) == 0) {
+            rate = 0.0;
+        }
+
+        return (int) rate;
     }
 }
