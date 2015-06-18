@@ -713,6 +713,7 @@ public class DialogOnClickListenerClass implements View.OnClickListener {
                         et.setText("0");
                         saveInt(et, DateName);
                         Toast.makeText(act, "保存しました", Toast.LENGTH_SHORT).show();//【保存しました】とトースト表示
+                        m_dlg.dismiss();
                     } else {
                         //正常なのでデータを保存する
                         saveInt(et, DateName);
@@ -1033,6 +1034,7 @@ public class DialogOnClickListenerClass implements View.OnClickListener {
                         et.setText("0");
                         saveInt(et, DateName);
                         Toast.makeText(act, "保存しました", Toast.LENGTH_SHORT).show();//【保存しました】とトースト表示
+                        m_dlg.dismiss();
                     } else {
                         //正常なのでデータを保存する
                         saveInt(et, DateName);
@@ -1181,6 +1183,7 @@ public class DialogOnClickListenerClass implements View.OnClickListener {
                         et.setText("0");
                         saveInt(et, DateName);
                         Toast.makeText(act, "保存しました", Toast.LENGTH_SHORT).show();//【保存しました】とトースト表示
+                        m_dlg.dismiss();
                     } else {
                         //正常なのでデータを保存する
                         saveInt(et, DateName);
@@ -1295,7 +1298,7 @@ public class DialogOnClickListenerClass implements View.OnClickListener {
         SharedPreferences pref =
                 act.getSharedPreferences(prefName + "_pref", act.MODE_PRIVATE);
         Calendar cl = Calendar.getInstance();
-        cl.set(pref.getInt("year", cl.get(Calendar.YEAR)), pref.getInt("month", cl.get(Calendar.MONTH)), pref.getInt("day", cl.get(Calendar.DAY_OF_MONTH)));
+        cl.set(pref.getInt("year", cl.get(Calendar.YEAR) + 1), pref.getInt("month", cl.get(Calendar.MONTH)), pref.getInt("day", cl.get(Calendar.DAY_OF_MONTH)));
 
         return cl;
     }
