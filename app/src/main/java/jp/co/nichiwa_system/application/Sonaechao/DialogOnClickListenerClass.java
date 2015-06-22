@@ -1354,12 +1354,12 @@ public class DialogOnClickListenerClass implements View.OnClickListener {
         int youji = Preferences.getInt("youji_people", 0); // 幼児の人数を取得
 
 
-        if (youji >= 1 && otona >= 1 || kobito >= 1) { // 幼児が1人以上
+        if (youji >= 1 && (otona >= 1 || kobito >= 1)) { // 幼児が1人以上
             if (FoodOverKids() < 25) { // もし非常食が25％未満なら
                 str = ItemName + "が足りていません";
             } else if (FoodOverKids() >= 25 && pref.getInt(prefName, 0) <= 0) {
                 str = "";
-            } else if (isCal == true && otona >= 1 || kobito >= 1) { // カレンダーが存在するもの
+            } else if (isCal == true && (otona >= 1 || kobito >= 1)) { // カレンダーが存在するもの
                 if (nokori == 0) { // 備蓄数が1以上の消費期限表示
                     //消費期限が当日になったら表示
                     str = ItemName + "の消費期限が当日です";
@@ -1371,12 +1371,12 @@ public class DialogOnClickListenerClass implements View.OnClickListener {
                     str = ItemName + "の消費期限が" + nokori + "日前です";
                 }
             }
-        } else if (youji <= 0 && otona >= 1 || kobito >= 1) { // 幼児がいない
+        } else if (youji <= 0 && (otona >= 1 || kobito >= 1)) { // 幼児がいない
             if (FoodOverKids() < 50) { // もし足りていなかったら
                 str = ItemName + "が足りていません";
             } else if (FoodOverKids() >= 50 && pref.getInt(prefName, 0) <= 0) {
                 str = "";
-            } else if (isCal == true && otona >= 1 || kobito >= 1) { // カレンダーが存在するもの
+            } else if (isCal == true && (otona >= 1 || kobito >= 1)) { // カレンダーが存在するもの
                 if (nokori == 0) { // 備蓄数が1以上の消費期限表示
                     //消費期限が当日になったら表示
                     str = ItemName + "の消費期限が当日です";
@@ -1415,7 +1415,7 @@ public class DialogOnClickListenerClass implements View.OnClickListener {
         int youji = Preferences.getInt("youji_people", 0); // 幼児の人数を取得
 
 
-        if (youji >= 1 && otona >= 1 || kobito >= 1) { // 大人または小人が1人以上
+        if (youji >= 1 && (otona >= 1 || kobito >= 1)) { // 大人または小人が1人以上
             if (FoodBaby() < 25) { // もし足りていなかったら
                 str = ItemName + "が足りていません";
             } else if (FoodBaby() >= 25 && pref.getInt(prefName, 0) <= 0) {
@@ -1432,7 +1432,7 @@ public class DialogOnClickListenerClass implements View.OnClickListener {
                     str = ItemName + "の消費期限が" + nokori + "日前です";
                 }
             }
-        } else if (youji >= 1 && otona <= 0 && kobito <= 0) { // 大人または小人がいない
+        } else if (youji >= 1 && (otona <= 0 && kobito <= 0)) { // 大人または小人がいない
             if (FoodBaby() < 50) { // もし足りていなかったら
                 str = ItemName + "が足りていません";
             } else if (FoodBaby() > 50 && pref.getInt(prefName, 0) <= 0) {
