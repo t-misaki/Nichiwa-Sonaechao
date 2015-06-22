@@ -1643,7 +1643,7 @@ public class DialogOnClickListenerClass implements View.OnClickListener {
         int nokori = (int) getDate(prefName);
         //期日を取得する
         int nissu = (act.getSharedPreferences("Preferences", act.MODE_PRIVATE)).getInt("kiniti_day", 0);
-
+        item.setIcon(R.drawable.batsu);
         if (BichikuSu < 1) { // もし備蓄されていなかったら
             item.setIcon(R.drawable.batsu);
         }
