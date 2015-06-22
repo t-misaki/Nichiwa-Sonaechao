@@ -368,7 +368,7 @@ public class MainActivity extends Activity {
         for (int i = 0; i < MAX_HIJOUSYOKU + MAX_BICHIKUHIN; i++) {
             YouCheck_tv[i] = new TextView(this);
             //警告文を取得する
-            YouCheck_tv[i].setTextSize(25.0f);
+            YouCheck_tv[i].setTextSize(30.0f);
             //if (pref.getInt(item[i].getPrefName(), 0) > 0) { // 要チェック欄とアイコン画像の喧嘩が起こるif文
             YouCheck_tv[i].setText(get_Number_of_days_Warning(item[i].getPrefName(), item[i].getName(), item[i].getCalender_flag()));
 
@@ -445,7 +445,7 @@ public class MainActivity extends Activity {
                 YouCheck_tv[11].setOnClickListener(new DialogOnClickListenerClass(item[11])); //警告文を押すとダイアログが表示されるようにする
             }
             if (i >= 12) {
-                YouCheck_tv[i].setText(get_Number_of_days_Warning_bichiku(item[i].getPrefName(), item[i].getName(), item[i].getCalender_flag())); // 非常食品名 + が足りていません
+                YouCheck_tv[i].setText(get_Number_of_days_Warning_bichiku(item[i].getPrefName(), item[i].getName(), item[i].getCalender_flag())); // 備蓄品名 + が足りていません
                 YouCheck_tv[i].setCompoundDrawablesWithIntrinsicBounds(item[i].getIcon(), 0, 0, 0);
                 YouCheck_tv[i].setOnClickListener(new DialogOnClickListenerClass(item[i])); //警告文を押すとダイアログが表示されるようにする
             }
@@ -598,12 +598,12 @@ public class MainActivity extends Activity {
         int youji = Preferences.getInt("youji_people", 0); // 幼児の人数を取得
 
 
-        if (youji >= 1 && otona >= 1 || kobito >= 1) { // 幼児が1人以上
+        if (youji >= 1 && (otona >= 1 || kobito >= 1)) { // 幼児が1人以上
             if (FoodOverKids() < 25) { // もし非常食が25％未満なら
                 str = ItemName + "が足りていません";
             } else if (FoodOverKids() >= 25 && pref.getInt(prefName, 0 ) <= 0) {
                 str = "";
-            } else if (isCal == true && otona >= 1 || kobito >= 1) { // カレンダーが存在するもの
+            } else if (isCal == true && (otona >= 1 || kobito >= 1)) { // カレンダーが存在するもの
                 if (nokori == 0) { // 備蓄数が1以上の消費期限表示
                     //消費期限が当日になったら表示
                     str = ItemName + "の消費期限が当日です";
@@ -615,12 +615,12 @@ public class MainActivity extends Activity {
                     str = ItemName + "の消費期限が" + nokori + "日前です";
                 }
             }
-        } else if (youji <= 0 && otona >= 1 || kobito >= 1) { // 幼児がいない
+        } else if (youji <= 0 && (otona >= 1 || kobito >= 1)) { // 幼児がいない
             if (FoodOverKids() < 50) { // もし足りていなかったら
                 str = ItemName + "が足りていません";
             } else if(FoodOverKids() >= 50 && pref.getInt(prefName,0) <= 0) {
                 str = "";
-            } else if (isCal == true && otona >= 1 || kobito >= 1) { // カレンダーが存在するもの
+            } else if (isCal == true && (otona >= 1 || kobito >= 1)) { // カレンダーが存在するもの
                 if (nokori == 0) { // 備蓄数が1以上の消費期限表示
                     //消費期限が当日になったら表示
                     str = ItemName + "の消費期限が当日です";
@@ -659,7 +659,7 @@ public class MainActivity extends Activity {
         int youji = Preferences.getInt("youji_people", 0); // 幼児の人数を取得
 
 
-        if (youji >= 1 && otona >= 1 || kobito >= 1) { // 大人または小人が1人以上
+        if (youji >= 1 && (otona >= 1 || kobito >= 1)) { // 大人または小人が1人以上
             if (FoodBaby() < 25) { // もし足りていなかったら
                 str = ItemName + "が足りていません";
             } else if (FoodBaby() >= 25 && pref.getInt(prefName, 0) <= 0 ) {
@@ -676,7 +676,7 @@ public class MainActivity extends Activity {
                     str = ItemName + "の消費期限が" + nokori + "日前です";
                 }
             }
-        } else if (youji >= 1 && otona <= 0 && kobito <= 0) { // 大人または小人がいない
+        } else if (youji >= 1 && (otona <= 0 && kobito <= 0)) { // 大人または小人がいない
             if (FoodBaby() < 50) { // もし足りていなかったら
                 str = ItemName + "が足りていません";
             } else if (FoodBaby() > 50 && pref.getInt(prefName, 0) <= 0) {
