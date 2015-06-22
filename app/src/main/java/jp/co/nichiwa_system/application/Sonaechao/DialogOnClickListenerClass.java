@@ -729,7 +729,7 @@ public class DialogOnClickListenerClass implements View.OnClickListener {
                                 saveCalendar(cl, DateName);
                                 if (calendarshow &&!Check_Day(item[i].getPrefName()) && loadInt2(DateName) != 0) {
                                     Toast.makeText(act, "消費期限が本日か過去の日付になっています", Toast.LENGTH_SHORT).show();//【保存しました】とトースト表示
-                                } else if (day.getText() == "備蓄数入力後消費期限を入力できます→"){
+                                } else if (calendarshow && day.getText() == "備蓄数入力後消費期限を入力できます→" && loadInt2(DateName) != 0){
                                     Toast.makeText(act, "消費期限の入力をして下さい", Toast.LENGTH_SHORT).show(); // 【消費期限の入力をして下さい】とトースト表示
                                 } else {
                                     if (calendarshow && loadInt2(DateName) != 0) {
@@ -1052,7 +1052,7 @@ public class DialogOnClickListenerClass implements View.OnClickListener {
                                 saveCalendar(cl, DateName);
                                 if (calendarshow &&!Check_Day(item2[i].getPrefName()) && loadInt2(DateName) != 0) {
                                     Toast.makeText(act, "消費期限が本日か過去の日付になっています", Toast.LENGTH_SHORT).show();//【保存しました】とトースト表示
-                                } else if (day.getText() == "備蓄数入力後消費期限を入力できます→"){
+                                } else if (calendarshow && day.getText() == "備蓄数入力後消費期限を入力できます→" && loadInt2(DateName) != 0){
                                     Toast.makeText(act, "消費期限の入力をして下さい", Toast.LENGTH_SHORT).show(); // 【消費期限の入力をして下さい】とトースト表示
                                 } else {
                                     if (calendarshow && loadInt2(DateName) != 0) {
@@ -1197,13 +1197,14 @@ public class DialogOnClickListenerClass implements View.OnClickListener {
 
 
 
+
                         for (int i = 0; i < item.length; i++) {
                             if (TitleName == item[i].getName()) {
                                 //賞味期限の保存
                                 saveCalendar(cl, DateName);
                                 if (calendarshow &&!Check_Day(item[i].getPrefName()) && loadInt2(DateName) != 0) {
                                     Toast.makeText(act, "消費期限が本日か過去の日付になっています", Toast.LENGTH_SHORT).show();//【保存しました】とトースト表示
-                                } else if (day.getText() == "備蓄数入力後消費期限を入力できます→"){
+                                } else if (calendarshow && day.getText() == "備蓄数入力後消費期限を入力できます→" && loadInt2(DateName) != 0){
                                     Toast.makeText(act, "消費期限の入力をして下さい", Toast.LENGTH_SHORT).show(); // 【消費期限の入力をして下さい】とトースト表示
                                 } else {
                                     if (calendarshow && loadInt2(DateName) != 0) {
@@ -1221,6 +1222,7 @@ public class DialogOnClickListenerClass implements View.OnClickListener {
                                         Toast.makeText(act, "保存しました", Toast.LENGTH_SHORT).show();//【保存しました】とトースト表示
                                         m_dlg.dismiss();
                                     }
+
                                 }
                             }
                         }
